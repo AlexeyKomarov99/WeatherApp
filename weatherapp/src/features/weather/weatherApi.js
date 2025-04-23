@@ -4,19 +4,37 @@ const API_KEY = '00c30a45b6ced933e030cb31cee97371';
 
 export const weatherApi = createApi({
     reducerPath: 'weatherApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'https://api.openweathermap.org/data/3.0/'}),
+    baseQuery: fetchBaseQuery({baseUrl: 'https://api.openweathermap.org/data/2.5/'}),
     endpoints: (builder) => ({
-        getWeatherByCity: builder.query({
+        getCurrentWeather: builder.query({
             query: (city) => ({
                 url: 'weather',
                 params: {
                     q: city,
                     appid: API_KEY,
                     units: 'metric',
+                    lang: 'ru'
+                }
+            }),
+        }),
+        getWeatherByCoords: builder.query({
+            query: (coords) => ({
+                url: 'weather',
+                params: {
+                    lat: coords.latitude,
+                    lon: coords.longitude,
+                    appid: API_KEY,
+                    units: 'metric',
+                    lang: 'ru'
                 }
             }),
         }),
     }),
 });
 
-export const { useGetWeatherByCityQuery } = weatherApi;
+export const { 
+    useGetCurrentWeatherQuery, 
+    useLazyGetCurrentWeatherQuery,
+    useGetWeatherByCoordsQuery,
+    useLazyGetWeatherByCoordsQuery
+} = weatherApi;

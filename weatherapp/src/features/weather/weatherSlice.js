@@ -1,18 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    city: 'Moscow',
+    favoriteCities: [],
+    currentLocation: null,
+    isLoading: false,
+    error: null
 }
 
 export const weatherSlice = createSlice({
     name: 'weather',
     initialState,
     reducers: {
-        setCity: (state, action) => {
-            state.city = action.payload
+        addCityFavorites: {
+            reducer(state, action) {
+                const existCity = state.favoriteCities.some(city =>
+                    city.cityId === action.payload.cityId
+                )
+                if(!existCity) {
+                    state.favoriteCities.push(action.payload);
+                }
+            },
+            prepare(cityId, cityName, temperature) {
+                return {
+                    payload: {
+                        cityId,
+                        cityName,
+                        temperature
+                    }
+                }
+            }
         },
+        setCurrentLocation: {
+            reducer(state, action) {
+                state.currentLocation = action.payload;
+            }
+        }
     }
 });
 
-export const {setCity} = weatherSlice.actions;
+export const {
+    addCityFavorites,
+    setCurrentLocation,
+} = weatherSlice.actions;
 export default weatherSlice.reducer;

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 //===== assets =====//
 import './index.css';
 //===== components =====//
@@ -12,7 +13,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Router>
+        <Routes>
+          <Route path='/*' element={<App />} />
+        </Routes>
+      </Router>
     </Provider>
   </React.StrictMode>
 );
