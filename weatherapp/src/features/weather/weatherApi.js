@@ -16,19 +16,7 @@ export const weatherApi = createApi({
                     lang: 'ru'
                 }
             }),
-        }),
-        getWeatherByCoords: builder.query({
-            query: (coords) => ({
-                url: 'weather',
-                params: {
-                    lat: coords.latitude,
-                    lon: coords.longitude,
-                    appid: API_KEY,
-                    units: 'metric',
-                    lang: 'ru'
-                }
-            }),
-        }),
+        })
     }),
 });
 

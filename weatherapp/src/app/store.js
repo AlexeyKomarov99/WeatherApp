@@ -4,7 +4,7 @@ import weatherReducer from '../features/weather/weatherSlice';
 
 export const store = configureStore({
     reducer: {
-        [weatherApi.reducerPath]: weatherApi.reducer, // данные для работы с API
+        [weatherApi.reducerPath]: weatherApi.reducer, // автоматически управляет асинхронными запросами (загрузка, ошибки, кеширование данных с API).
         weather: weatherReducer, // данные локального состояния
     },
     middleware: (getDefaultMiddleware) =>
