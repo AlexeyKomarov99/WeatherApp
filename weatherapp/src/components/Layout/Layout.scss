@@ -1,4 +1,19 @@
 .Layout {
+    position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+
+    height: 100dvh;
+    overflow-x: hidden;
+
+    .Navbar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 10000;
+    }
 }
+
+
+
