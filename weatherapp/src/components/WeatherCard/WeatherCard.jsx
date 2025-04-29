@@ -1,34 +1,22 @@
-import React from 'react';
-//===== redux =====//
-import { 
-  useGetCurrentWeatherQuery,
-  useGetAirPollutionQuery
-} from '../../features/weather/weatherApi';
-
-
+import React, {useState, useEffect} from 'react';
+//===== assets =====//
+import './WeatherCard.scss';
+//===== components =====//
+import CityInfo from '../CityInfo/CityInfo';
+import HourlyForecast from '../HourlyForecast/HourlyForecast';
+import DailyForecast from '../DailyForecast/DailyForecast';
 
 const WeatherCard = () => {
-  
-  const {
-    data: dataCurrentWeather, 
-    isLoading: loadingCurrentWeather, 
-    error: errorCurrentWeather,
-  } = useGetCurrentWeatherQuery('Moscow');
 
-  console.log(dataCurrentWeather);
-
-  const {
-    data: dataAirPollution,
-    isLoading: loadingAirPollution,
-    error: errorAirPollution
-  } = useGetAirPollutionQuery();
-
-  console.log(dataAirPollution);
+  const [activeSection, setActiveSection] = useState('');
+  const [isActiveMW, setIsActiveMW] = useState(false);
 
   return (
-    <section>
-      
-    </section>
+    <div className='WeatherCard'>
+      <CityInfo />
+      <HourlyForecast />
+      <DailyForecast />
+    </div>
   )
 }
 

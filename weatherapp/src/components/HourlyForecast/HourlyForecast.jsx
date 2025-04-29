@@ -1,0 +1,61 @@
+import React from 'react';
+//===== redux =====//
+import {
+    useGetHourlyForecastQuery
+} from '../../features/weather/weatherApi';
+//===== assets =====//
+import './HourlyForecast.scss';
+//===== components =====//
+import HourlyForecastCard from '../HourlyForecastCard/HourlyForecastCard';
+
+const HourlyForecast = () => {
+    
+    const {
+        data: forecastData, 
+        isLoading: isForecastLoading, 
+        error: forecastError
+    } = useGetHourlyForecastQuery('Moscow');
+  
+    const hourlyWeatherForecast = forecastData?.forecast?.forecastday[0]?.hour.map((hour) => {
+        return {
+            id: hour.time_epoch,
+            time: hour.time.split(' ')[1],
+            weatherIcon: hour.condition.icon,
+            weatherDescr: hour.condition.text,
+            temperature: hour.temp_c
+        }
+    })
+    // console.log('list hours arrived from server:\n', forecastData);
+    // console.log('list hours:\n', hourlyWeatherForecast);
+
+    
+    // console.log('Почасовой прогноз погоды:/n', forecastData);
+
+    // const sunrise = new Date(forecastData?.city?.sunrise * 1000);
+    // const sunriseHours = sunrise.getHours().toString().padStart(2, '0');
+    // const sunriseMinutes = sunrise.getMinutes().toString().padStart(2, '0');
+    // const sunriseTimeFormatted = `${sunriseHours}:${sunriseMinutes}`;
+    // console.log('Восход:', sunriseTimeFormatted);
+
+    // const sunset = new Date(forecastData?.city?.sunset * 1000);
+    // const sunsetHours = sunset.getHours().toString().padStart(2, '0');
+    // const sunsetMinutes = sunset.getMinutes().toString().padStart(2, '0');
+    // const sunsetTimeFormatted = `${sunsetHours}:${sunsetMinutes}`;
+    // console.log('Закат:', sunsetTimeFormatted);
+
+    return (
+    <section className="HourlyForecast">
+        <div className="HourlyForecast__header">Почасовой прогноз погоды</div>        
+        <div className="HourlyForecast__content">
+        {hourlyWeatherForecast?.map(hourlyForecast => (
+            <HourlyForecastCard 
+                key={hourlyForecast.id} 
+                hourlyForecast={hourlyForecast} 
+            />
+        ))}
+        </div>
+    </section>
+  )
+}
+
+export default HourlyForecast

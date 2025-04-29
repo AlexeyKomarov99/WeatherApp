@@ -1,0 +1,24 @@
+@import '../../App.scss';
+.CityInfo {
+    margin-bottom: 10px;
+    .CityInfo__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .CityInfo__city {
+
+        }
+        .CityInfo__weather {
+
+        }
+        .CityInfo__description {
+
+        }
+        .CityInfo__temp-group {
+            .CityInfo__temp-item {
+
+            }
+        }
+    }
+}

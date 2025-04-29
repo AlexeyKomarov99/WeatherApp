@@ -8,8 +8,8 @@ import Navbar from '../Navbar/Navbar';
 const Layout = () => {
   return (
     <div className='Layout'>
-        <Outlet />
-        <Navbar />
+        <Outlet className='Outlet' />
+        <Navbar className='Navbar'/>
     </div>
   )
 }

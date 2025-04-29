@@ -1,47 +1,60 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
-const API_KEY = '00c30a45b6ced933e030cb31cee97371';
+// http://www.openweathermap.com
+// const API_KEY = '00c30a45b6ced933e030cb31cee97371';
+
+// https://www.weatherapi.com
+const API_KEY = '4ecbf6c1542849e1873184553252804';
 
 export const weatherApi = createApi({
     reducerPath: 'weatherApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'https://api.openweathermap.org/data/2.5/'}),
+    baseQuery: fetchBaseQuery({baseUrl: 'http://api.weatherapi.com/v1'}),
     endpoints: (builder) => ({
+        
+        // Call current weather data for name city
         getCurrentWeather: builder.query({
             query: (city) => ({
-                url: 'weather',
+                url: 'current.json',
                 params: {
                     q: city,
-                    appid: API_KEY,
-                    units: 'metric',
-                    lang: 'ru'
+                    key: API_KEY,
                 }
             }),
         }),
 
-        getAirPollution: builder.query({
-            query: ({lat, lon}) => ({
-                url: 'air_pollution',
+        // Call hourly forecast data for name city (for 4 days)
+        getHourlyForecast: builder.query({
+            query: (city) => ({
+                url: 'forecast.json',
                 params: {
-                    lat,
-                    lon,
-                    appid: API_KEY,
-                    units: 'metric',
-                    lang: 'ru'
+                    q: city,
+                    key: API_KEY,
+                    days: 1
                 }
+            })
+        }),
 
+        getDailyForecst: builder.query({
+            query: (city) => ({
+                url: 'forecast.json',
+                params: {
+                    q: city,
+                    key: API_KEY,
+                    days: 10,
+                }
             })
         })
-        
-    })
+
+
+
+    }),
 });
 
-export const { 
+export const {
     useGetCurrentWeatherQuery, 
     useLazyGetCurrentWeatherQuery,
-
-    // air pollusion
-    useGetAirPollutionQuery,
-    useLazyGetAirPollutionQuery,
-
-
+    useGetHourlyForecastQuery,
+    useLazyGetHourlyForecastQuery,
+    useGetDailyForecstQuery,
+    useLazyGetDailyForecstQuery
 } = weatherApi;
