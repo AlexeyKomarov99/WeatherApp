@@ -16,12 +16,15 @@ const DailyForecastCard = ({dailyForecast}) => {
   return (
     <div className='DailyForecastCard'>
         <span className="DailyForecastCard__day-week">{dateFormatted}</span>
-        <img
-          className='DailyForecastCard__icon'
-          src={weatherIcon} 
-          alt={weatherDescr} 
-        />
-        <span className="DailyForecastCard__temp-min">{tempMin}° </span>
+        <div className="DailyForecastCard__icon icon-weather-wrapper">
+          <img
+            className='icon-weather'
+            src={weatherIcon} 
+            alt={weatherDescr} 
+          />
+        </div>
+        <span className="DailyForecastCard__temp-min">{tempMin}°</span>
+        <span className="DailyForecastCard__diagramma">test-test</span>
         <span className="DailyForecastCard__temp-max">{tempMax}°</span>
     </div>
   )

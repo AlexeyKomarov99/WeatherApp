@@ -20,10 +20,10 @@ const CityInfo = () => {
     const weatherTempMax = Math.ceil(currentWeatherData?.main?.temp_max ?? 0);
     const weatherTempMin = Math.floor(currentWeatherData?.main?.temp_min ?? 0);
 
-    // console.log('Прогноз погоды по названию города:\n', currentWeatherData);
+    console.log('Прогноз погоды по названию города:\n', currentWeatherData);
 
     return (
-        <section className="CityInfo">
+        <div className="CityInfo">
             <div className="CityInfo__content">
 
                 <span className="CityInfo__city">{nameCity}</span>
@@ -35,7 +35,7 @@ const CityInfo = () => {
                 </div> */}
 
             </div>
-        </section>
+        </div>
     )
 }
 

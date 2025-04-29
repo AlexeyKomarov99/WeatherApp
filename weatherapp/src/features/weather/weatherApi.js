@@ -22,7 +22,7 @@ export const weatherApi = createApi({
             }),
         }),
 
-        // Call hourly forecast data for name city (for 4 days)
+        // Call hourly forecast data for name city (for 1 day)
         getHourlyForecast: builder.query({
             query: (city) => ({
                 url: 'forecast.json',
@@ -34,6 +34,7 @@ export const weatherApi = createApi({
             })
         }),
 
+        // Call daily forecast data for name city (for 10 day)
         getDailyForecst: builder.query({
             query: (city) => ({
                 url: 'forecast.json',
@@ -44,8 +45,6 @@ export const weatherApi = createApi({
                 }
             })
         })
-
-
 
     }),
 });

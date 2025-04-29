@@ -27,10 +27,10 @@ const DailyForecast = () => {
         }
     })
 
-    console.log(dailyWeatherForecast);
+    // console.log(dailyWeatherForecast);
     
     return (
-        <div className='DailyForecast'>
+        <section className='DailyForecast'>
             <div className="DailyForecast__header">Ежедневный прогноз</div>
             <div className="DailyForecast__content">
             {dailyWeatherForecast?.map(day => (
@@ -40,7 +40,7 @@ const DailyForecast = () => {
                 />
             ))}
             </div>
-        </div>
+        </section>
     )
 }
 

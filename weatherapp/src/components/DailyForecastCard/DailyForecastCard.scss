@@ -1,11 +1,13 @@
 .DailyForecastCard {
+    width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     .DailyForecastCard__day-week {
 
     }
-    .DailyForecastCard__icon {
+    .DailyForecastCard__icon-wrapper {
 
     }
     .DailyForecastCard__temp-min {
