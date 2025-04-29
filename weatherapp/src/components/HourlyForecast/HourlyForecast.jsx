@@ -1,8 +1,4 @@
 import React from 'react';
-//===== redux =====//
-import {
-    useGetHourlyForecastQuery
-} from '../../features/weather/weatherApi';
 //===== assets =====//
 import './HourlyForecast.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -11,14 +7,8 @@ import { LiaClockSolid as WatchIcon } from "react-icons/lia";
 //===== components =====//
 import HourlyForecastCard from '../HourlyForecastCard/HourlyForecastCard';
 
-const HourlyForecast = () => {
+const HourlyForecast = ({forecastData}) => {
     
-    const {
-        data: forecastData, 
-        isLoading: isForecastLoading, 
-        error: forecastError
-    } = useGetHourlyForecastQuery('Moscow');
-  
     const hourlyWeatherForecast = forecastData?.forecast?.forecastday[0]?.hour.map((hour) => {
         return {
             id: hour.time_epoch,
@@ -33,7 +23,6 @@ const HourlyForecast = () => {
     <section className="HourlyForecast">
         <div className="HourlyForecast__header">Почасовой прогноз погоды</div>        
         <Swiper
-            // spaceBetween={10}
             slidesPerView={6}
         >
             {hourlyWeatherForecast?.map(hourlyForecast => (

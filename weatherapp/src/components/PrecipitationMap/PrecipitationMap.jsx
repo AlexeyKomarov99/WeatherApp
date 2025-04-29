@@ -29,7 +29,7 @@ const PrecipitationMap = () => {
         }
     }, [isCurrentWeatherLoading, longitude, latitude]);
 
-    console.log('Data for map:', currentWeatherData);
+    // console.log('Data for map:', currentWeatherData);
 
     return (
         <section className="PrecipitationMap">

@@ -1,4 +1,10 @@
 import React, {useState} from 'react';
+//===== redux =====//
+import {
+  useGetCurrentWeatherQuery,
+  useGetHourlyForecastQuery,
+  useGetDailyForecstQuery
+} from '../../features/weather/weatherApi';
 //===== assets =====//
 import './WeatherCard.scss';
 //===== components =====//
@@ -21,16 +27,43 @@ const WeatherCard = () => {
 
   const [activeSection, setActiveSection] = useState('');
   const [isActiveMW, setIsActiveMW] = useState(false);
+  const {
+    data: currentWeatherData, 
+    isLoading: isCurrentLoading, 
+    error: currentError
+  } = useGetCurrentWeatherQuery('Moscow');
+  const {
+    data: forecastData, 
+    isLoading: isForecastLoading, 
+    error: forecastError
+  } = useGetHourlyForecastQuery('Moscow');
+  const {
+    data: dailyForecastData,
+    isLoading: isDailyForecastLoading,
+    error: dailyForecastLoading
+  } = useGetDailyForecstQuery('Moscow');
+
+  // console.log('Прогноз погоды по названию города:\n', currentWeatherData);
+  // console.log('Прогноз погоды по часам за 1 день:', forecastData);
+  // console.log('Прогноз погоды на 10 дней', dailyForecastData);
 
   return (
     <div className='WeatherCard'>
-      <CityInfo />
-      <HourlyForecast />
-      <DailyForecast />
+      <CityInfo 
+        currentWeatherData={currentWeatherData} 
+      />
+      <HourlyForecast 
+        forecastData={forecastData}
+      />
+      <DailyForecast 
+        dailyForecastData={dailyForecastData} 
+      />
       <PrecipitationMap />
 
       <div className="test">
-        <UVIndex />
+        <UVIndex 
+          currentWeatherData={currentWeatherData}
+        />
         <Sunset />
         <Wind />
         <Precipitation />
