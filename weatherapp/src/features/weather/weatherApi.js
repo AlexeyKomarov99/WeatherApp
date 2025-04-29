@@ -16,13 +16,32 @@ export const weatherApi = createApi({
                     lang: 'ru'
                 }
             }),
+        }),
+
+        getAirPollution: builder.query({
+            query: ({lat, lon}) => ({
+                url: 'air_pollution',
+                params: {
+                    lat,
+                    lon,
+                    appid: API_KEY,
+                    units: 'metric',
+                    lang: 'ru'
+                }
+
+            })
         })
-    }),
+        
+    })
 });
 
 export const { 
     useGetCurrentWeatherQuery, 
     useLazyGetCurrentWeatherQuery,
-    useGetWeatherByCoordsQuery,
-    useLazyGetWeatherByCoordsQuery
+
+    // air pollusion
+    useGetAirPollutionQuery,
+    useLazyGetAirPollutionQuery,
+
+
 } = weatherApi;

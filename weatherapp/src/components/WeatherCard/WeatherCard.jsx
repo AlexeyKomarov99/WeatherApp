@@ -1,11 +1,30 @@
 import React from 'react';
 //===== redux =====//
-import { useGetCurrentWeatherQuery } from '../../features/weather/weatherApi';
+import { 
+  useGetCurrentWeatherQuery,
+  useGetAirPollutionQuery
+} from '../../features/weather/weatherApi';
+
+
 
 const WeatherCard = () => {
   
-  const {data, isLoading, error } = useGetCurrentWeatherQuery('Moscow');
-  
+  const {
+    data: dataCurrentWeather, 
+    isLoading: loadingCurrentWeather, 
+    error: errorCurrentWeather,
+  } = useGetCurrentWeatherQuery('Moscow');
+
+  console.log(dataCurrentWeather);
+
+  const {
+    data: dataAirPollution,
+    isLoading: loadingAirPollution,
+    error: errorAirPollution
+  } = useGetAirPollutionQuery();
+
+  console.log(dataAirPollution);
+
   return (
     <section>
       
