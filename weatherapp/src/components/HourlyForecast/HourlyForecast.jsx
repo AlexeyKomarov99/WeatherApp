@@ -19,6 +19,8 @@ const HourlyForecast = ({forecastData}) => {
         }
     })
 
+    // console.log('hourlyWeatherForecast', hourlyWeatherForecast)
+
     return (
     <section className="HourlyForecast">
         <div className="HourlyForecast__header">Почасовой прогноз погоды</div>        

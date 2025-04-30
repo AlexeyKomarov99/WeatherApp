@@ -10,6 +10,15 @@
 }
 
 :root {
+
+    /* colors */
+    --color-green: #30CF43;
+    --color-yellow: #FFD900;
+    --color-orange: #FF9300;
+    --color-red: #F54337;
+    --color-purple: #9B4FE0;
+
+
     /* background gradient */
 
     /* === sunny === */

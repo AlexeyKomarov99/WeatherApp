@@ -27,22 +27,29 @@ const WeatherCard = () => {
 
   const [activeSection, setActiveSection] = useState('');
   const [isActiveMW, setIsActiveMW] = useState(false);
+  
+  // Current weather data for name city
   const {
     data: currentWeatherData, 
     isLoading: isCurrentLoading, 
     error: currentError
   } = useGetCurrentWeatherQuery('Moscow');
+  
+  // Hourly forecast data for name city (for 1 day)
   const {
     data: forecastData, 
     isLoading: isForecastLoading, 
     error: forecastError
   } = useGetHourlyForecastQuery('Moscow');
+  
+  // Daily forecast data for name city (for 10 day)
   const {
     data: dailyForecastData,
     isLoading: isDailyForecastLoading,
     error: dailyForecastLoading
   } = useGetDailyForecstQuery('Moscow');
 
+  // Dubai
   // console.log('Прогноз погоды по названию города:\n', currentWeatherData);
   // console.log('Прогноз погоды по часам за 1 день:', forecastData);
   // console.log('Прогноз погоды на 10 дней', dailyForecastData);
@@ -66,7 +73,9 @@ const WeatherCard = () => {
         />
         <Sunset />
         <Wind />
-        <Precipitation />
+        <Precipitation 
+          forecastData={forecastData}
+        />
         <FeelsLike />
         <Humidity />
         <Visibility />
