@@ -1,19 +1,9 @@
 import React from 'react';
-//===== redux =====//
-import { 
-    useGetCurrentWeatherQuery,
-} from '../../features/weather/weatherApi';
 //===== assets =====//
 import './CityInfo.scss';
 
-const CityInfo = () => {
-
-    const {
-        data: currentWeatherData, 
-        isLoading: isCurrentLoading, 
-        error: currentError 
-    } = useGetCurrentWeatherQuery('Moscow');
-
+const CityInfo = ({currentWeatherData}) => {
+    
     const nameCity = currentWeatherData?.location?.name ?? "Город не найден";
     const weatherTemp = Math.round(currentWeatherData?.current?.temp_c ?? 0);
     const weatherDescr = currentWeatherData?.current?.condition?.text ?? "—";
@@ -23,7 +13,7 @@ const CityInfo = () => {
     // console.log('Прогноз погоды по названию города:\n', currentWeatherData);
 
     return (
-        <section className="CityInfo">
+        <div className="CityInfo">
             <div className="CityInfo__content">
 
                 <span className="CityInfo__city">{nameCity}</span>
@@ -35,7 +25,7 @@ const CityInfo = () => {
                 </div> */}
 
             </div>
-        </section>
+        </div>
     )
 }
 

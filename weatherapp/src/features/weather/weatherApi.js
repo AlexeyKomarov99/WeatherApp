@@ -31,7 +31,7 @@ export const weatherApi = createApi({
             })
         }),
 
-        // Call daily forecast data for name city (for 10 days)
+        // Call daily forecast data for name city (for 10 day)
         getDailyForecst: builder.query({
             query: (city) => ({
                 url: 'forecast.json',
@@ -41,7 +41,7 @@ export const weatherApi = createApi({
                     days: 10,
                 }
             })
-        }),
+        })
 
     }),
 });

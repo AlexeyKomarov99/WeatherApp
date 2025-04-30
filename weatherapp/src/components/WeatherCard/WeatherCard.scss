@@ -1,35 +1,8 @@
 .WeatherCard {
-  .WeatherCard__article {
-    display: flex;
-    flex-direction: column;
-    .WeatherCard__current-location {
-      display: flex;
-      flex-direction: column;
-      .WeatherCard__location {
 
-      }
-      .WeatherCard__city-name {
-
-      }
-    }
-
-    .WeatherCard__current-temperature {
-      display: flex;
-      flex-direction: column;
-      .WeatherCard__temp {
-
-      }
-      .WeatherCard__description {
-
-      }
-      .WeatherCard__temperature-group {
-        .WeatherCard__temperature-max {
-
-        }
-        .WeatherCard__temperature-min {
-
-        }
-      }
-    }
+  .test {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
   }
 }

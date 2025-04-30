@@ -1,21 +1,14 @@
 import React from 'react';
-//===== redux =====//
-import {
-    useGetHourlyForecastQuery
-} from '../../features/weather/weatherApi';
 //===== assets =====//
 import './HourlyForecast.scss';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { LiaClockSolid as WatchIcon } from "react-icons/lia";
 //===== components =====//
 import HourlyForecastCard from '../HourlyForecastCard/HourlyForecastCard';
 
-const HourlyForecast = () => {
+const HourlyForecast = ({forecastData}) => {
     
-    const {
-        data: forecastData, 
-        isLoading: isForecastLoading, 
-        error: forecastError
-    } = useGetHourlyForecastQuery('Moscow');
-  
     const hourlyWeatherForecast = forecastData?.forecast?.forecastday[0]?.hour.map((hour) => {
         return {
             id: hour.time_epoch,
@@ -25,6 +18,52 @@ const HourlyForecast = () => {
             temperature: hour.temp_c
         }
     })
+
+    // console.log('hourlyWeatherForecast', hourlyWeatherForecast)
+
+    return (
+    <section className="HourlyForecast">
+        <div className="HourlyForecast__header">Почасовой прогноз погоды</div>        
+        <Swiper
+            slidesPerView={6}
+        >
+            {hourlyWeatherForecast?.map(hourlyForecast => (
+                <SwiperSlide
+                    key={hourlyForecast.id}
+                >
+                    <HourlyForecastCard 
+                        hourlyForecast={hourlyForecast} 
+                    />
+                </SwiperSlide>
+            ))}
+        </Swiper>
+
+    </section>
+  )
+}
+
+export default HourlyForecast;
+
+
+
+
+
+
+
+
+
+
+
+        {/* <div className="HourlyForecast__content">
+            {hourlyWeatherForecast?.map(hourlyForecast => (
+                <HourlyForecastCard 
+                    key={hourlyForecast.id}
+                    hourlyForecast={hourlyForecast} 
+                />
+            ))}
+        </div> */}
+
+
     // console.log('list hours arrived from server:\n', forecastData);
     // console.log('list hours:\n', hourlyWeatherForecast);
 
@@ -42,20 +81,3 @@ const HourlyForecast = () => {
     // const sunsetMinutes = sunset.getMinutes().toString().padStart(2, '0');
     // const sunsetTimeFormatted = `${sunsetHours}:${sunsetMinutes}`;
     // console.log('Закат:', sunsetTimeFormatted);
-
-    return (
-    <section className="HourlyForecast">
-        <div className="HourlyForecast__header">Почасовой прогноз погоды</div>        
-        <div className="HourlyForecast__content">
-        {hourlyWeatherForecast?.map(hourlyForecast => (
-            <HourlyForecastCard 
-                key={hourlyForecast.id} 
-                hourlyForecast={hourlyForecast} 
-            />
-        ))}
-        </div>
-    </section>
-  )
-}
-
-export default HourlyForecast

@@ -1,0 +1,13 @@
+.Visibility {
+    .Visibility__header {
+        .Visibility__name {
+            text-transform: uppercase;
+        }
+    }
+    .Visibility__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start;
+    }
+}

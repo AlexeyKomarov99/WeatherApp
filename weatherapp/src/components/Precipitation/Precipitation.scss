@@ -1,0 +1,32 @@
+.Precipitation {
+    .Precipitation__header {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        .Precipitation__name {
+            text-transform: uppercase;
+        }
+    }
+
+    .Precipitation__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .Precipitation__content-top {
+            .Precipitation__indicator {
+
+            }
+            .Precipitation__descr {
+
+            }
+        }
+
+        .Precipitation__content-bottom {
+            .Precipitation__descr-current {
+
+            }
+        }
+    }
+
+}

@@ -1,16 +1,16 @@
 @import '../../App.scss';
 .CityInfo {
-    margin-bottom: 10px;
+    margin-bottom: 50px;
     .CityInfo__content {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         .CityInfo__city {
-
+            font-size: 24px;
         }
         .CityInfo__weather {
-
+            font-size: 48px;
         }
         .CityInfo__description {
 

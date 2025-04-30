@@ -10,6 +10,15 @@
 }
 
 :root {
+
+    /* colors */
+    --color-green: #30CF43;
+    --color-yellow: #FFD900;
+    --color-orange: #FF9300;
+    --color-red: #F54337;
+    --color-purple: #9B4FE0;
+
+
     /* background gradient */
 
     /* === sunny === */
@@ -49,12 +58,20 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    color: black;
-    color: var(--text-primary);
-    background: var(--background-clear-day);
     height: 100dvh;
     overflow: hidden;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-primary);
+    background: var(--background-clear-day);
+}
+
+section {
+    padding: 12px;
+    border-radius: var(--border-radius-medium);
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    margin-bottom: 10px;
 }
 
 ::-webkit-scrollbar {
@@ -62,20 +79,28 @@ body {
 }
 
 /* cards with blur */
-.weather-card {
+/* .weather-card {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(20px);
     border-radius: var(--border-radius-medium);
     border: 1px solid var(--border);
-}
+} */
 
 .icon-wrapper {
+    display: block;
     width: 20px;
     height: 20px;
     object-fit: cover;
 }
+.icon-weather-wrapper {
+    display: block;
+    width: 34px;
+    height: 34px;
+    object-fit: cover;
+}
 
-.icon {
+.icon,
+.icon-weather {
     width: 100%;
     height: 100%;
     display: flex;

@@ -6,17 +6,9 @@ import './DailyForecast.scss';
 //===== components =====//
 import DailyForecastCard from '../DailyForecastCard/DailyForecastCard';
 
-const DailyForecast = () => {
+const DailyForecast = ({dailyForecastData}) => {
 
-    const {
-        data: forecastData,
-        isLoading: isForecastLoading,
-        error: forecastLoading
-    } = useGetDailyForecstQuery('Moscow');
-
-    // console.log('forecast weather on 10 days /n:', forecastData);
-
-    const dailyWeatherForecast = forecastData?.forecast?.forecastday.map(day => {
+    const dailyWeatherForecast = dailyForecastData?.forecast?.forecastday.map(day => {
         return {
             id: day.date_epoch,
             date: day.date,
@@ -27,10 +19,10 @@ const DailyForecast = () => {
         }
     })
 
-    console.log(dailyWeatherForecast);
+    // console.log(dailyWeatherForecast);
     
     return (
-        <div className='DailyForecast'>
+        <section className='DailyForecast'>
             <div className="DailyForecast__header">Ежедневный прогноз</div>
             <div className="DailyForecast__content">
             {dailyWeatherForecast?.map(day => (
@@ -40,7 +32,7 @@ const DailyForecast = () => {
                 />
             ))}
             </div>
-        </div>
+        </section>
     )
 }
 
