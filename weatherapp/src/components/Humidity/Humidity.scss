@@ -1,0 +1,14 @@
+.Humidity {
+    .Humidity__header {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        .Humidity__name {
+            text-transform: uppercase;
+        }
+    }
+
+    .Humidity__content {
+
+    }
+}

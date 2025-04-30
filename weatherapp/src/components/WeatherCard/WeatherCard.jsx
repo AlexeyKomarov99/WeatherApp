@@ -77,8 +77,12 @@ const WeatherCard = () => {
           forecastData={forecastData}
         />
         <FeelsLike />
-        <Humidity />
-        <Visibility />
+        <Humidity 
+          currentWeatherData={currentWeatherData}
+        />
+        <Visibility 
+          currentWeatherData={currentWeatherData}
+        />
         <Pressure />
       </div>
       
