@@ -1,8 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
-// http://www.openweathermap.com
-// const API_KEY = '00c30a45b6ced933e030cb31cee97371';
-
 // https://www.weatherapi.com
 const API_KEY = '4ecbf6c1542849e1873184553252804';
 
@@ -22,7 +19,7 @@ export const weatherApi = createApi({
             }),
         }),
 
-        // Call hourly forecast data for name city (for 4 days)
+        // Call hourly forecast data for name city (for 1 day)
         getHourlyForecast: builder.query({
             query: (city) => ({
                 url: 'forecast.json',
@@ -34,6 +31,7 @@ export const weatherApi = createApi({
             })
         }),
 
+        // Call daily forecast data for name city (for 10 days)
         getDailyForecst: builder.query({
             query: (city) => ({
                 url: 'forecast.json',
@@ -43,9 +41,7 @@ export const weatherApi = createApi({
                     days: 10,
                 }
             })
-        })
-
-
+        }),
 
     }),
 });
