@@ -12,7 +12,6 @@ import CityInfo from '../CityInfo/CityInfo';
 import HourlyForecast from '../HourlyForecast/HourlyForecast';
 import DailyForecast from '../DailyForecast/DailyForecast';
 import PrecipitationMap from '../PrecipitationMap/PrecipitationMap';
-
 import UVIndex from '../UVIndex/UVIndex';
 import Sunset from '../Sunset/Sunset';
 import Wind from '../Wind/Wind';
@@ -22,12 +21,19 @@ import Humidity from '../Humidity/Humidity';
 import Visibility from '../Visibility/Visibility';
 import Pressure from '../Pressure/Pressure';
 import ReportProblem from '../ReportProblem/ReportProblem';
+import ModalWindow from '../ModalWindow/ModalWindow';
 
 const WeatherCard = () => {
 
   const [activeSection, setActiveSection] = useState('');
   const [isActiveMW, setIsActiveMW] = useState(false);
-  
+
+  const toggleActiveSection = (current) => {
+    setActiveSection(current);
+    console.log(`Active section: ${current}`);
+    setIsActiveMW(true);
+  }
+
   // Current weather data for name city
   const {
     data: currentWeatherData, 
@@ -49,11 +55,6 @@ const WeatherCard = () => {
     error: dailyForecastLoading
   } = useGetDailyForecstQuery('Moscow');
 
-  // Dubai
-  // console.log('Прогноз погоды по названию города:\n', currentWeatherData);
-  // console.log('Прогноз погоды по часам за 1 день:', forecastData);
-  // console.log('Прогноз погоды на 10 дней', dailyForecastData);
-
   return (
     <div className='WeatherCard'>
       <CityInfo 
@@ -61,32 +62,56 @@ const WeatherCard = () => {
       />
       <HourlyForecast 
         forecastData={forecastData}
+        onClick={() => toggleActiveSection('Hourly Forecast')}
       />
       <DailyForecast 
-        dailyForecastData={dailyForecastData} 
+        dailyForecastData={dailyForecastData}
+        onClick={() => toggleActiveSection('Daily Forecast')} 
       />
       <PrecipitationMap />
 
       <div className="test">
         <UVIndex 
           currentWeatherData={currentWeatherData}
+          onClick={() => toggleActiveSection('UV Index')}
         />
-        <Sunset />
-        <Wind />
+        <Sunset
+          onClick={() => toggleActiveSection('Sunset')}
+        />
+        <Wind
+          onClick={() => toggleActiveSection('Wind')}
+        />
         <Precipitation 
           forecastData={forecastData}
+          onClick={() => toggleActiveSection('Precipitation')}
         />
-        <FeelsLike />
+        <FeelsLike 
+          onClick={() => toggleActiveSection('Feels Like')}
+        />
         <Humidity 
           currentWeatherData={currentWeatherData}
+          onClick={() => toggleActiveSection('Humidity')}
         />
         <Visibility 
           currentWeatherData={currentWeatherData}
+          onClick={() => toggleActiveSection('Visibility')}
         />
-        <Pressure />
+        <Pressure 
+          onClick={() => toggleActiveSection('Pressure')}
+        />
       </div>
       
-      <ReportProblem />
+      <ReportProblem 
+        onClick={() => toggleActiveSection('Report Problem')}
+      />
+
+      {/* Modal Window */}
+      <ModalWindow 
+        isActiveMW={isActiveMW}
+        activeSection={activeSection}
+        onClose={() => setIsActiveMW(false)}
+      />
+
     </div>
   )
 }

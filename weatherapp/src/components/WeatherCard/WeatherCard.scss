@@ -1,8 +1,9 @@
 .WeatherCard {
-
+  position: relative;
   .test {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: 10px;
   }
+  padding-bottom: 40px;
 }

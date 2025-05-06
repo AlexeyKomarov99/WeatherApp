@@ -1,8 +1,11 @@
 import React from 'react';
 
-const Sunset = () => {
+const Sunset = ({onClick}) => {
   return (
-    <section className='Sunset'>
+    <section 
+      className='Sunset'
+      onClick={onClick}
+    >
       Sunset
     </section>
   )

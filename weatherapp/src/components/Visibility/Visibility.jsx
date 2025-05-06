@@ -3,13 +3,16 @@ import React from 'react';
 import './Visibility.scss';
 import { IoEye as EyeIcon } from "react-icons/io5";
 
-const Visibility = ({currentWeatherData}) => {
+const Visibility = ({currentWeatherData, onClick}) => {
 
   const vis_km = currentWeatherData?.current?.vis_km;
   const vis_miles = currentWeatherData?.current?.vis_miles;
 
   return (
-    <section className='Visibility'>
+    <section
+      className='Visibility'
+      onClick={onClick}
+    >
       <div className="Visibility__header">
         <div className="Visibility__icon-wrapper icon-wrapper"><EyeIcon className='' /></div>
         <div className="Visibility__name">Видимость</div>

@@ -6,7 +6,7 @@ import './DailyForecast.scss';
 //===== components =====//
 import DailyForecastCard from '../DailyForecastCard/DailyForecastCard';
 
-const DailyForecast = ({dailyForecastData}) => {
+const DailyForecast = ({dailyForecastData, onClick}) => {
 
     const dailyWeatherForecast = dailyForecastData?.forecast?.forecastday.map(day => {
         return {
@@ -22,7 +22,10 @@ const DailyForecast = ({dailyForecastData}) => {
     // console.log(dailyWeatherForecast);
     
     return (
-        <section className='DailyForecast'>
+        <section 
+            className='DailyForecast'
+            onClick={onClick}
+        >
             <div className="DailyForecast__header">Ежедневный прогноз</div>
             <div className="DailyForecast__content">
             {dailyWeatherForecast?.map(day => (

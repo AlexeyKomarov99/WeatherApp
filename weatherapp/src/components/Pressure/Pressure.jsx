@@ -1,8 +1,11 @@
 import React from 'react';
 
-const Pressure = () => {
+const Pressure = ({onClick}) => {
   return (
-    <section className='Pressure'>
+    <section 
+      className='Pressure'
+      onClick={onClick}
+    >
       Pressure
     </section>
   )

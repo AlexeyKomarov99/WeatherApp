@@ -3,13 +3,16 @@ import React from 'react';
 import './Humidity.scss';
 import { FaCloudRain as CloudRainIcon } from "react-icons/fa";
 
-const Humidity = ({currentWeatherData}) => {
+const Humidity = ({currentWeatherData, onClick}) => {
 
   const humidityPercent = currentWeatherData?.current?.humidity;
   const dewPoint = currentWeatherData?.current?.dewpoint_c;
 
   return (
-    <section className='Humidity'>
+    <section 
+      className='Humidity'
+      onClick={onClick}
+    >
       <div className="Humidity__header">
         <div className="Humidity__icon-wrapper icon-wrapper"><CloudRainIcon className='' /></div>
         <div className="Humidity__name">Влажность</div>

@@ -7,7 +7,7 @@ import { LiaClockSolid as WatchIcon } from "react-icons/lia";
 //===== components =====//
 import HourlyForecastCard from '../HourlyForecastCard/HourlyForecastCard';
 
-const HourlyForecast = ({forecastData}) => {
+const HourlyForecast = ({forecastData, onClick}) => {
     
     const hourlyWeatherForecast = forecastData?.forecast?.forecastday[0]?.hour.map((hour) => {
         return {
@@ -22,7 +22,10 @@ const HourlyForecast = ({forecastData}) => {
     // console.log('hourlyWeatherForecast', hourlyWeatherForecast)
 
     return (
-    <section className="HourlyForecast">
+    <section 
+        className="HourlyForecast"
+        onClick={onClick}
+    >
         <div className="HourlyForecast__header">Почасовой прогноз погоды</div>        
         <Swiper
             slidesPerView={6}

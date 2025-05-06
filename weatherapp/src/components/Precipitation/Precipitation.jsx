@@ -3,7 +3,7 @@ import React from 'react';
 import './Precipitation.scss';
 import { GiWaterDrop as WaterDropIcon } from "react-icons/gi";
 
-const Precipitation = ({forecastData}) => {
+const Precipitation = ({forecastData, onClick}) => {
 
   const precip_mm = forecastData?.current?.precip_mm;
   let precipPerDay = 0;
@@ -19,8 +19,10 @@ const Precipitation = ({forecastData}) => {
   // console.log(precipPerDayFormatted);
 
   return (
-    <section className='Precipitation'>
-      
+    <section 
+      className='Precipitation'
+      onClick={onClick}
+    >
       <div className="Precipitation__header">
         <span className="Precipitation__wrapper icon-wrapper"><WaterDropIcon className=''/></span>
         <span className="Precipitation__name">Осадки</span>

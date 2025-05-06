@@ -9,7 +9,7 @@ const Layout = () => {
   return (
     <div className='Layout'>
         <Outlet className='Outlet' />
-        <Navbar className='Navbar'/>
+        {/* <Navbar className='Navbar'/> */}
     </div>
   )
 }

@@ -1,8 +1,11 @@
 import React from 'react';
 
-const FeelsLike = () => {
+const FeelsLike = ({onClick}) => {
   return (
-    <section className='FeelsLike'>
+    <section
+      className='FeelsLike'
+      onClick={onClick}
+    >
       FeelsLike
     </section>
   )

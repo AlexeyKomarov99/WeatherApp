@@ -1,8 +1,11 @@
 import React from 'react';
 
-const Wind = () => {
+const Wind = ({onClick}) => {
   return (
-    <section className='Wind'>
+    <section
+      className='Wind'
+      onClick={onClick}
+    >
       Wind
     </section>
   )

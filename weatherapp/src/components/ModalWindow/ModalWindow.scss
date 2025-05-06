@@ -1,0 +1,60 @@
+@import '../../index.css';
+
+@keyframes slideIn {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(10%);
+      opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateY(10%);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+.ModalWindow {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(100%);
+    opacity: 0;
+    
+    padding: 12px;
+    border-top-left-radius: var(--border-radius-small);
+    border-top-left-radius: var(--border-radius-small);
+
+    background-color: #141414;
+    color: white;
+    
+    .ModalWindow__content {
+        
+    }
+
+    &.openWindow {
+        animation: slideIn 0.3s ease-out forwards;
+    }
+      
+    &:not(.openWindow) {
+        animation: slideOut 0.3s ease-out forwards;
+    }
+
+
+}
+.OverlayModalWindow {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0);
+    z-index: 10000;
+}
