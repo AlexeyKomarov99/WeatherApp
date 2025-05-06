@@ -1,8 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
-// http://www.openweathermap.com
-// const API_KEY = '00c30a45b6ced933e030cb31cee97371';
-
 // https://www.weatherapi.com
 const API_KEY = '4ecbf6c1542849e1873184553252804';
 
