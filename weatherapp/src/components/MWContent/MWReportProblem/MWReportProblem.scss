@@ -1,0 +1,61 @@
+@import '../../../index.css';
+.MWReportProblem {
+
+    .MWReportProblem__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        .MWReportProblem__cancel {
+
+        }
+        .MWReportProblem__report-problem {
+            font-weight: 600;
+        }
+        .MWReportProblem__send {
+            color: var(--color-translucent);
+        }
+    }
+
+    .MWReportProblem__header-description {
+        margin-bottom: 30px;
+        .MWReportProblem__descr-body {
+            margin-bottom: 5px;
+        }
+        .MWReportProblem__descr-footer {
+            font-size: 12px;
+            color: var(--color-translucent);
+        }
+    }
+
+    .MWReportProblem__section {
+        .MWReportProblem__section-title {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .MWReportProblem__content {
+            padding: 12px;
+            border-radius: var(--border-radius-medium);
+            background-color: darkgray; // change !!!
+            .MWReportProblem__content-item {
+                display: flex;
+                .MWReportProblem__content-left {
+
+                }
+                .MWReportProblem__content-right {
+                    .MWReportProblem__content-name {
+
+                    }
+                    .MWReportProblem__togglebar-wrapper {
+                        .MWReportProblem__circle {
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+}

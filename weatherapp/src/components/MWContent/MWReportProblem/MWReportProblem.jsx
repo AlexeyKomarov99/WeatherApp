@@ -13,6 +13,11 @@ import {
 
 const MWReportProblem = () => {
 
+  const [formData, setFormData] = useState([]);
+  const toggleShowDetail = (id) => {
+    console.log('detail weather data', id);
+  }
+
   return (
     <div className='MWReportProblem'>
       
@@ -31,10 +36,27 @@ const MWReportProblem = () => {
         </div>
       </div>
 
-      <div className="MWReportProblem__current-weather">
-        <h3 className="MWReportProblem__section-title"></h3>
-        <div className="MWReportProblem__current-weather-content">
-          {}
+      <div className="MWReportProblem__section">
+        <div className="MWReportProblem__section-title">Текущие погодные условия</div>
+        <div className="MWReportProblem__content section">
+          {CURRENT_WEATHER_DATA.map((current_weather) => (
+            <div
+              key={current_weather.id}
+              className="MWReportProblem__content-item"
+              onClick={() => toggleShowDetail(current_weather.id)}
+            >
+              <div className="MWReportProblem__content-left">
+                <div className="MWReportProblem__icon-wrapper icon-weather-wrapper">{current_weather.icon}</div>
+              </div>
+              <div className="MWReportProblem__content-right">
+                <div className="MWReportProblem__content-name">{current_weather.name}</div>
+
+                <div className="MWReportProblem__togglebar-wrapper">
+                  <div className="MWReportProblem__circle"></div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

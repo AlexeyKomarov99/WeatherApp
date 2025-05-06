@@ -21,11 +21,11 @@ import { BsCloudFogFill as FogIcon } from "react-icons/bs";
 import { RiHazeFill as HazeIcon } from "react-icons/ri";
 
 export const CURRENT_WEATHER_DATA = [
-    { id: 1, icon: <SunnyIcon />, name: "Солнечно" },
-    { id: 2, icon: <CloudyIcon />, name: "Облачно" },
-    { id: 3, icon: <RainIcon />, name: "Дождь" },
-    { id: 4, icon: <FreezingRainIcon />, name: "Ледяной дождь" },
-    { id: 5, icon: <SnowIcon />, name: "Снег" },
+    { id: 1, icon: <SunnyIcon />, name: "Солнечно", status: false},
+    { id: 2, icon: <CloudyIcon />, name: "Облачно", status: false, detail: ['Переменная облачность', 'Преимущественная облачность', 'Сильная облачность'] },
+    { id: 3, icon: <RainIcon />, name: "Дождь", status: false, detail: ['Небольшой', 'Умеренный', 'Сильный']},
+    { id: 4, icon: <FreezingRainIcon />, name: 'Ледяной дождь', status: false, detail: ['Небольшой', 'Умеренный', 'Сильный']},
+    { id: 5, icon: <SnowIcon />, name: "Снег", status: false, detail: ['Небольшой', 'Умеренный', 'Сильный']},
 ];
 
 export const TEMPERATURE_DATA = [
