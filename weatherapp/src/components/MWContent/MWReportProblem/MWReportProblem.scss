@@ -7,7 +7,7 @@
         align-items: center;
         margin-bottom: 30px;
         .MWReportProblem__cancel {
-
+            cursor: pointer;
         }
         .MWReportProblem__report-problem {
             font-weight: 600;
@@ -29,6 +29,7 @@
     }
 
     .MWReportProblem__section {
+        margin-bottom: 30px;
         .MWReportProblem__section-title {
             font-weight: 600;
             font-size: 18px;
@@ -37,19 +38,167 @@
         .MWReportProblem__content {
             padding: 12px;
             border-radius: var(--border-radius-medium);
-            background-color: darkgray; // change !!!
+            background-color: #1c1c1c;
+            
             .MWReportProblem__content-item {
+                width: 100%;
                 display: flex;
-                .MWReportProblem__content-left {
+                justify-content: start;
+                align-items: center;
+                &:nth-child(n):not(:last-child) {
+                    padding-bottom: 10px;
+                    margin-bottom: 10px;
+                    border-bottom: 1px solid rgba(255,255,255, 0.05);
+                }
 
+                .MWReportProblem__content-left {
+                    margin-right: 15px;
                 }
                 .MWReportProblem__content-right {
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    
+                    .MWReportProblem__content-name {
+                    }
+
+                    .MWReportProblem__togglebar-wrapper {
+                        display: flex;
+                        justify-content: start;
+                        align-items: center;
+                        width: 35px;
+                        height: 25px;
+                        border-radius: var(--border-radius-medium);
+                        background-color: #303030;
+                        transition: var(--transition);
+                        padding: 2px;
+                        overflow: hidden;
+                        cursor: pointer;
+
+                        .MWReportProblem__circle {
+                            width: 20px;
+                            height: 20px;
+                            background-color: var(--color-white);
+                            border-radius: 10000%;
+                            box-shadow: 1px 2px 5px rgba(0,0,0,0.5);
+                            transition: var(--transition);
+                            
+                        }
+                    }
+                    .togglebar-wrapper-active {
+                        justify-content: end;
+                        background-color: var(--color-green);
+                    }
+                    .icon-wrapper {
+                        .icon {
+                            color: var(--color-indigo);
+                        }
+                    }
+                }
+            }
+
+            .temperature-item {
+                cursor: pointer;
+            }
+        }
+    }
+
+
+    .MWReportProblem__weather-section {
+        margin-bottom: 30px;
+        .MWReportProblem__weather-title {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .MWReportProblem__weather-content {
+            padding: 12px;
+            border-radius: var(--border-radius-medium);
+            background-color: #1c1c1c;
+
+            .MWReportProblem__content-item {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: start;
+                &:nth-child(n):not(:last-child) {
+                    .MWReportProblem__content-right {
+                        padding-bottom: 10px;
+                        margin-bottom: 10px;
+                        border-bottom: 1px solid rgba(255,255,255, 0.05);
+                    }
+                }
+                .MWReportProblem__content-left {
+                    margin-right: 15px;
+                }
+                .MWReportProblem__content-right {
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
                     .MWReportProblem__content-name {
 
                     }
                     .MWReportProblem__togglebar-wrapper {
-                        .MWReportProblem__circle {
+                        display: flex;
+                        justify-content: start;
+                        align-items: center;
+                        width: 35px;
+                        height: 25px;
+                        border-radius: var(--border-radius-medium);
+                        background-color: #303030;
+                        transition: var(--transition);
+                        padding: 2px;
+                        overflow: hidden;
+                        cursor: pointer;
 
+                        .MWReportProblem__circle {
+                            width: 20px;
+                            height: 20px;
+                            background-color: var(--color-white);
+                            border-radius: 10000%;
+                            box-shadow: 1px 2px 5px rgba(0,0,0,0.5);
+                            transition: var(--transition);
+                        }
+                    }
+                    .togglebar-wrapper-active {
+                        justify-content: end;
+                        background-color: var(--color-green);
+                    }
+                    .icon-wrapper {
+                        .icon {
+                            color: var(--color-indigo);
+                        }
+                    }
+                }
+            }
+
+            .MWReportProblem__content-detail {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+                margin-top: 5px;
+                padding-left: 35px;
+                .MWReportProblem__detail-item {
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    cursor: pointer;
+                    &:nth-child(n) {
+                        padding-bottom: 10px;
+                        margin-bottom: 10px;
+                        border-bottom: 1px solid rgba(255,255,255, 0.05);
+                    }
+                    .MWReportProblem__detail-name {
+
+                    }
+                    .MWReportProblem__icon-wrapper {
+                        .icon {
+                            color: var(--color-indigo);
                         }
                     }
                 }
@@ -57,5 +206,43 @@
         }
     }
 
+    .MWReportProblem__description {
+        margin-bottom: 15px;
+        .MWReportProblem__section-title {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .MWReportProblem__content {
+            .MWReportProblem__feeling-container,
+            .MWReportProblem__temp-container,
+            .MWReportProblem__atmosphere-container,
+            .MWReportProblem__wind-container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-gap: 10px;
+                margin-bottom: 10px;
+                .MWReportProblem__item {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 15px 25px;
+                    background-color: #1c1c1c;
+                    border-radius: var(--border-radius-small);
+                    transition: var(--transition);
+                    cursor: pointer;
+                }
+                .active-item {
+                    background-color: var(--color-indigo);
+                }
+            }
+        }
+    }
 
+    .MWReportProblem__footer {
+        .MWReportProblem__link {
+            color: var(--color-indigo);
+        }
+    }
 }

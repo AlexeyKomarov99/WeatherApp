@@ -31,13 +31,16 @@
     transform: translateY(100%);
     opacity: 0;
     
-    padding: 12px;
+    padding: 18px 12px;
     border-top-left-radius: var(--border-radius-small);
     border-top-left-radius: var(--border-radius-small);
 
     background-color: #141414;
     color: white;
-    
+
+    overflow-y: auto;
+    padding-bottom: 100px;
+
     .ModalWindow__content {
         
     }

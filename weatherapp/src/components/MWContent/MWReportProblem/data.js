@@ -21,30 +21,90 @@ import { BsCloudFogFill as FogIcon } from "react-icons/bs";
 import { RiHazeFill as HazeIcon } from "react-icons/ri";
 
 export const CURRENT_WEATHER_DATA = [
-    { id: 1, icon: <SunnyIcon />, name: "Солнечно", status: false},
-    { id: 2, icon: <CloudyIcon />, name: "Облачно", status: false, detail: ['Переменная облачность', 'Преимущественная облачность', 'Сильная облачность'] },
-    { id: 3, icon: <RainIcon />, name: "Дождь", status: false, detail: ['Небольшой', 'Умеренный', 'Сильный']},
-    { id: 4, icon: <FreezingRainIcon />, name: 'Ледяной дождь', status: false, detail: ['Небольшой', 'Умеренный', 'Сильный']},
-    { id: 5, icon: <SnowIcon />, name: "Снег", status: false, detail: ['Небольшой', 'Умеренный', 'Сильный']},
+    { id: 1, icon: <SunnyIcon className="icon" />, name: "Солнечно", status: false },
+    { 
+        id: 2, 
+        icon: <CloudyIcon className="icon" />, 
+        name: "Облачно", 
+        status: false, 
+        detail: [
+            { id: 1, name: 'Переменная облачность', status: false }, 
+            { id: 2, name: 'Преимущественная облачность', status: false }, 
+            { id: 3, name: 'Сильная облачность', status: false }
+        ] 
+    },
+    { 
+        id: 3, 
+        icon: <RainIcon className="icon" />, 
+        name: "Дождь", 
+        status: false, 
+        detail: [
+            { id: 1, name: 'Небольшой', status: false }, 
+            { id: 2, name: 'Умеренный', status: false }, 
+            { id: 3, name: 'Сильный', status: false }
+        ]
+    },
+    { 
+        id: 4, 
+        icon: <FreezingRainIcon className="icon" />, 
+        name: 'Ледяной дождь', 
+        status: false, 
+        detail: [
+            { id: 1, name: 'Небольшой', status: false }, 
+            { id: 2, name: 'Умеренный', status: false }, 
+            { id: 3, name: 'Сильный', status: false }
+        ]
+    },
+    { 
+        id: 5, 
+        icon: <SnowIcon className="icon" />, 
+        name: "Снег", 
+        status: false, 
+        detail: [
+            { id: 1, name: 'Небольшой', status: false }, 
+            { id: 2, name: 'Умеренный', status: false }, 
+            { id: 3, name: 'Сильный', status: false }
+        ]
+    },
 ];
 
 export const TEMPERATURE_DATA = [
-    { id: 1, icon: <TempSunIcon />, name: "По ощущениям теплее" },
-    { id: 2, icon: <TempNorm />, name: "Прогноз был точным" },
-    { id: 3, icon: <TempSnowIcon />, name: "По ощущениям холоднее" },
+    { id: 1, icon: <TempSunIcon className="icon" />, name: "По ощущениям теплее", status: false },
+    { id: 2, icon: <TempNorm className="icon" />, name: "Прогноз был точным", status: true },
+    { id: 3, icon: <TempSnowIcon className="icon" />, name: "По ощущениям холоднее", status: false },
 ];
 
 export const WIND_DATA = [
-    { id: 1, icon: <MoreIcon />, name: "Сейчас более ветренно" },
-    { id: 2, icon: <EqualIcon />, name: "Прогноз был точным" },
-    { id: 3, icon: <LessIcon />, name: "Сейчас не так ветренно" },
+    { id: 1, icon: <MoreIcon className="icon" />, name: "Сейчас более ветренно", status: false },
+    { id: 2, icon: <EqualIcon className="icon" />, name: "Прогноз был точным", status: false },
+    { id: 3, icon: <LessIcon className="icon" />, name: "Сейчас не так ветренно", status: false },
 ];
 
 export const OTHER_WEATHER_CONDITIONS_DATA = [
-    { id: 1, icon: <RainbowIcon />, name: "Радуга" },
-    { id: 2, icon: <LightningIcon />, name: "Молния" },
-    { id: 3, icon: <HailIcon />, name: "Град" },
-    { id: 4, icon: <CloudyTwoIcon />, name: "Смог" },
-    { id: 5, icon: <FogIcon />, name: "Туман" },
-    { id: 6, icon: <HazeIcon />, name: "Дымка" },
+    { id: 1, icon: <RainbowIcon className="icon" />, name: "Радуга", status: false },
+    { id: 2, icon: <LightningIcon className="icon" />, name: "Молния", status: false },
+    { id: 3, icon: <HailIcon className="icon" />, name: "Град", status: false },
+    { id: 4, icon: <CloudyTwoIcon className="icon" />, name: "Смог", status: false },
+    { id: 5, icon: <FogIcon className="icon" />, name: "Туман", status: false },
+    { id: 6, icon: <HazeIcon className="icon" />, name: "Дымка", status: false },
 ];
+
+export const FEELING_DESCR = [
+    {id: 1, name: 'Приятно', status: false},
+    {id: 2, name: 'Неприятно', status: false},
+]
+
+export const TEMPERATURE_DESCR = [
+    {id: 1, name: 'Жарко', status: false},
+    {id: 2, name: 'Прохладно', status: false},
+]
+
+export const ATMOSPHERE_DESCR = [
+    {id: 1, name: 'Зной', status: false},
+    {id: 2, name: 'Сухо', status: false},
+]
+
+export const WIND__DESCR = [
+    {id: 1, name: 'Ветрено', status: false},
+    {id: 2, name: 'Штиль', status: false},
+]
