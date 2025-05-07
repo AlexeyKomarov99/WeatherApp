@@ -1,0 +1,29 @@
+@import '../../../index.css';
+.MWUVIndex {
+    
+    .MWUVIndex__header {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .MWUVIndex__icon-wrapper {
+            margin-right: 4px;
+            .icon {
+
+            }
+        }
+        .MWUVIndex__title {
+
+        }
+    }
+
+    .MWUVIndex__date-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .MWUVIndex__date {
+
+        }
+    }
+}

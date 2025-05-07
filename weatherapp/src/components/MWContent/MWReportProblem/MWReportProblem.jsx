@@ -182,10 +182,6 @@ const MWReportProblem = () => {
                 </div>
               )}
             </>
-
-            
-
-
           ))}
         </div>
       </div>
