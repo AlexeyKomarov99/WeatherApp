@@ -18,6 +18,7 @@
     --color-red: #F54337;
     --color-purple: #9B4FE0;
     --color-white: #fff;
+    --color-black: #000;
     --color-indigo: #2250f5;
     --color-translucent: rgba(255,255,255,0.5);
 
@@ -109,4 +110,8 @@ section {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+
+.dark-theme {
+    background: var(--color-black);
 }
