@@ -1,43 +1,132 @@
-import React from 'react';
-//===== redux =====//
-import {useGetDailyForecstQuery} from '../../../features/weather/weatherApi';
+import React, {useState, useRef} from 'react';
 //===== assets =====//
 import './MWUVIndex.scss';
 import { IoSunny as SunIcon } from "react-icons/io5";
 //===== utils =====//
 import { Month } from '../../../utils/getMonth';
 import { DayWeek } from '../../../utils/getDayWeek';
+//===== components =====//
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+//===== utils =====//
 
-const MWUVIndex = () => {
+const MWUVIndex = ({dailyWeatherData}) => {
+  const [selectedDateIndex, setSelectedDateIndex] = useState(0);
+  const chartSwiperRef = useRef(null);
+  const dailyUVIndexData = dailyWeatherData?.map((day) => {
+    return {
+      id: day.date_epoch,
+      date: day.date,
+      dayWeek: day.date_epoch,
+      uv: day.day.uv,
+      hours: day.hour.map((currentHour) => {
+        return {
+          time_epoch: currentHour.time_epoch,
+          hour: currentHour.time.split(' ')[1],
+          hourUV: currentHour.uv
+        }
+      })
+    }
+  });
+  const selectedDayData = dailyUVIndexData[selectedDateIndex];
+  // console.log('Список дней для МО UV', dailyUVIndexData);
 
-  const {
-    data: dataUVIndex,
-    isLoading: isUVIndexLoading,
-    error: errorUVIndex
-  } = useGetDailyForecstQuery('Moscow');
+  const handleDateClick = (index) => {
+    setSelectedDateIndex(index);
+    if(chartSwiperRef.current) {
+      chartSwiperRef.current.slideTo(index);
+    }
+  };
 
-  const date = new Date();
-  const day = date.getDay();
-  const month = date.getMonth();
-  const year = date.getFullYear();
-  const dateFormatted = `${DayWeek(day)}, ${day} ${Month(month)} ${year}г.`
+  const handleChartSwipe = (swiper) => {
+    setSelectedDateIndex(swiper.activeIndex);
+  };
 
-  console.log(dataUVIndex.forecast.forecastday);
-  const currentHour = date.getHours();
-
-  
-
+  const fullData = `
+    ${DayWeek(selectedDayData.dayWeek).charAt(0).toUpperCase() + 
+      DayWeek(selectedDayData.dayWeek).slice(1)}, 
+    ${selectedDayData.date.split('-')[2]}
+    ${Month(selectedDayData.dayWeek)}
+    ${selectedDayData.date.split('-')[0]}
+  `;
 
   return (
     <div className='MWUVIndex'>
       
+      {/* Title */}
       <div className="MWUVIndex__header">
         <div className="MWUVIndex__icon-wrapper icon-wrapper"><SunIcon className='icon'/></div>
         <div className="MWUVIndex__title">УФ-индекс</div>
       </div>
 
-      <div className="MWUVIndex__date-container">
-        <div className="MWUVIndex__date">{dateFormatted}</div>
+      {/* Swiper dates */}
+      <Swiper
+        initialSlide={selectedDateIndex}
+        slidesPerView={7}
+        className='Swiper__days'
+      >
+        {dailyUVIndexData.map((day, index) => (
+          <SwiperSlide
+            key={day.id}
+            className={`Swiper__day-container`}
+            onClick={() => handleDateClick(index)}
+          >
+            <div className="Swiper__day-week">{DayWeek(day.dayWeek).charAt(0)}</div>
+
+            <div className={`Swiper__day-number ${index === selectedDateIndex ? 'active' : ''}`}>{day.date.split('-')[2]}</div>
+
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      {/* Full data */}
+      <div className="MWUVIndex__full-data">
+        {fullData}
+      </div>
+      
+      {/* Chart */}
+      <div className="MWUVIndex__schedule">
+
+        {/* 
+          Тут нужно сделать шапку со значениями:
+            1. UV
+            2. Словесное определение значения UV
+            3. Кнопка переключения между разделами в МО
+        */}
+
+        <Swiper
+          onSwiper={(swiper) => chartSwiperRef.current = swiper}
+          onSlideChange={handleChartSwipe}
+          initialSlide={selectedDateIndex}
+        >
+          {dailyUVIndexData.map((day, index) => (
+            <SwiperSlide key={day.id}>
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={day.hours}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="hour" />
+                  <YAxis domain={[0, 'dataMax + 1']} />
+                  <Tooltip />
+                  <Legend />
+                  <Line 
+                    type="monotone" 
+                    dataKey="hourUV" 
+                    stroke="#ff7300" 
+                    strokeWidth={2} 
+                    name="UV-индекс" 
+                    dot={false}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+      
+      {/* Descr UV */}
+      <div className="MWUVIndex__descr">
+        <div className="MWUVIndex__descr-title">Об УФ-индексе</div>
+        <div className="MWUVIndex__descr-text">УФ-индекс (УФИ), разработанный Всемирной организацией здравоохранения, измеряет ультрафиолетовое излучение. Чем выше УФ-индекс, тем больше вероятность вреда здоровью и тем быстрее он может решить, когда следует защищаться от солнца, а когда лучше не выходить на улицу. ВОЗ рекомендует находиться в тени, пользоваться солнцезащитными кремами, головными уборами и защищающей одеждой при уровне 3 (умеренный) и выше.</div>
       </div>
 
     </div>

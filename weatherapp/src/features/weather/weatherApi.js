@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
 // https://www.weatherapi.com
-const API_KEY = '4ecbf6c1542849e1873184553252804';
+const API_KEY = '82895bb112014ec6a1984800251205';
 
 export const weatherApi = createApi({
     reducerPath: 'weatherApi',

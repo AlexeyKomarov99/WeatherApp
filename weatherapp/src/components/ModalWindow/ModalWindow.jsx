@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import Modal from 'react-modal';
+//===== redux =====//
+import {
+    useGetDailyForecstQuery
+  } from '../../features/weather/weatherApi';
 //===== assets =====//
 import './ModalWindow.scss';
-
 //===== components =====//
+import Modal from 'react-modal';
 import MWHourlyForecast from '../MWContent/MWHourlyForecast/MWHourlyForecast';
 import MWDailyForecast from '../MWContent/MWDailyForecast/MWDailyForecast';
 import MWUVIndex from '../MWContent/MWUVIndex/MWUVIndex';
@@ -33,6 +36,14 @@ const ModalWindow = ({isActiveMW, activeSection, onClose}) => {
         setTimeout(onClose, 300);
     }
 
+    const {
+        data: dailyForecastData,
+        isLoading: isDailyForecastLoading,
+        error: dailyForecastLoading
+    } = useGetDailyForecstQuery('Moscow');
+
+    const dailyWeatherData = dailyForecastData?.forecast?.forecastday;
+
     return (
         <Modal 
             className={`ModalWindow ${isVisible ? 'openWindow' : ''}`}
@@ -44,7 +55,7 @@ const ModalWindow = ({isActiveMW, activeSection, onClose}) => {
             <div className="ModalWindow__content">
                 {activeSection === 'Hourly Forecast' && <MWHourlyForecast />}
                 {activeSection === 'Daily Forecast' && <MWDailyForecast />}
-                {activeSection === 'UV Index' && <MWUVIndex />}
+                {activeSection === 'UV Index' && <MWUVIndex dailyWeatherData={dailyWeatherData} />}
                 {activeSection === 'Sunset' && <MWSunset />}
                 {activeSection === 'Wind' && <MWWind />}
                 {activeSection === 'Precipitation' && <MWPrecipitation />}

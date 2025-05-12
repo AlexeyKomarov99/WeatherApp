@@ -3,9 +3,7 @@ const months = [
     'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
 ];
 
-export function Month(index) {
-    if (index < 0 || index >= months.length) {
-        return '';
-    }
-    return months[index];
+export function Month(day) {
+    const monthIndex = new Date(day * 1000).getMonth();
+    return months[monthIndex];
 }

@@ -1,7 +1,4 @@
 import React, {useState, useEffect} from 'react';
-//===== redux =====//
-import {useGetCurrentWeatherQuery} from '../../../features/weather/weatherApi';
-
 //===== assets =====//
 import './MWReportProblem.scss';
 import { MdDone as DoneIcon } from "react-icons/md";
@@ -135,7 +132,6 @@ const MWReportProblem = () => {
       </div>
 
       {/* weather data */}
-
       <div className="MWReportProblem__weather-section">
         <div className="MWReportProblem__weather-title">Текущие погодные условия</div>
         <div className="MWReportProblem__weather-content section">
