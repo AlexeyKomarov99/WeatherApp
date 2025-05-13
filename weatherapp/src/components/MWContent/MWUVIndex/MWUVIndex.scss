@@ -58,6 +58,21 @@
         border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
+    .MWUVIndex__chart {
+        width: 100%;
+        margin-bottom: 10px;
+        .MWUVIndex__swiper-chart {
+            .MWUVIndex__swiper-slide-chart {
+                .MWUVIndex__responsive-container {
+                    width: 100%;
+                    border: 1px solid rgba(255,255,255,0.1);
+                    border-radius: var(--border-radius-small);
+                    padding: 5px 0 5px 0;
+                }
+            }
+        }
+    }
+
     .MWUVIndex__descr {
         display: flex;
         flex-direction: column;
@@ -74,6 +89,5 @@
             border-radius: var(--border-radius-small);
         }
     }
-
 
 }

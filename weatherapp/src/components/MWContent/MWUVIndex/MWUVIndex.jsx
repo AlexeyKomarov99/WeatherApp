@@ -8,7 +8,6 @@ import { DayWeek } from '../../../utils/getDayWeek';
 //===== components =====//
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
-//===== utils =====//
 
 const MWUVIndex = ({dailyWeatherData}) => {
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
@@ -22,7 +21,7 @@ const MWUVIndex = ({dailyWeatherData}) => {
       hours: day.hour.map((currentHour) => {
         return {
           time_epoch: currentHour.time_epoch,
-          hour: currentHour.time.split(' ')[1],
+          hour: currentHour.time.split(' ')[1].split(':')[0],
           hourUV: currentHour.uv
         }
       })
@@ -72,9 +71,7 @@ const MWUVIndex = ({dailyWeatherData}) => {
             onClick={() => handleDateClick(index)}
           >
             <div className="Swiper__day-week">{DayWeek(day.dayWeek).charAt(0)}</div>
-
             <div className={`Swiper__day-number ${index === selectedDateIndex ? 'active' : ''}`}>{day.date.split('-')[2]}</div>
-
           </SwiperSlide>
         ))}
       </Swiper>
@@ -85,7 +82,7 @@ const MWUVIndex = ({dailyWeatherData}) => {
       </div>
       
       {/* Chart */}
-      <div className="MWUVIndex__schedule">
+      <div className="MWUVIndex__chart">
 
         {/* 
           Тут нужно сделать шапку со значениями:
@@ -98,16 +95,26 @@ const MWUVIndex = ({dailyWeatherData}) => {
           onSwiper={(swiper) => chartSwiperRef.current = swiper}
           onSlideChange={handleChartSwipe}
           initialSlide={selectedDateIndex}
+          className='MWUVIndex__swiper-chart'
         >
           {dailyUVIndexData.map((day, index) => (
-            <SwiperSlide key={day.id}>
-              <ResponsiveContainer width="100%" height={300}>
+            <SwiperSlide key={day.id} className='MWUVIndex__swiper-slide-chart'>
+              <ResponsiveContainer width="100%" height={300} className={'MWUVIndex__responsive-container'}>
                 <LineChart data={day.hours}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="hour" />
-                  <YAxis domain={[0, 'dataMax + 1']} />
-                  <Tooltip />
-                  <Legend />
+                  <CartesianGrid strokeDasharray="2 2" stroke="#242323" />
+                  <XAxis 
+                    dataKey="hour" 
+                    orientation="bottom"
+                    tick={{dx: 10}}
+                    ticks={['00', '06', '12', '18']}
+                    interval={0}
+                  />
+                  <YAxis
+                    orientation='right'
+                    domain={[0, 11]}
+                    ticks={[1,2,3,4,5,6,7,8,9,10,11]}
+                    interval={0}
+                  />
                   <Line 
                     type="monotone" 
                     dataKey="hourUV" 

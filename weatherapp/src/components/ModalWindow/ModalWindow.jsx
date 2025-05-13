@@ -58,9 +58,9 @@ const ModalWindow = ({isActiveMW, activeSection, onClose}) => {
                 {activeSection === 'UV Index' && <MWUVIndex dailyWeatherData={dailyWeatherData} />}
                 {activeSection === 'Sunset' && <MWSunset />}
                 {activeSection === 'Wind' && <MWWind />}
-                {activeSection === 'Precipitation' && <MWPrecipitation />}
-                {activeSection === 'Feels Like' && <MWFeelsLike />}
-                {activeSection === 'Humidity' && <MWHumidity />}
+                {activeSection === 'Precipitation' && <MWPrecipitation dailyWeatherData={dailyWeatherData} />}
+                {activeSection === 'Feels Like' && <MWFeelsLike dailyWeatherData={dailyWeatherData} />}
+                {activeSection === 'Humidity' && <MWHumidity dailyWeatherData={dailyWeatherData} />}
                 {activeSection === 'Visibility' && <MWVisibility />}
                 {activeSection === 'Pressure' && <MWPressure />}
                 {activeSection === 'Report Problem' && <MWReportProblem onClose={onClose} />}

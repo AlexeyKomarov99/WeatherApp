@@ -1,0 +1,97 @@
+@import '../../../index.css';
+.MWFeelsLike {
+    
+    .MWFeelsLike__header {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        .MWFeelsLike__icon-wrapper {
+            margin-right: 4px;
+            .icon {
+
+            }
+        }
+        .MWFeelsLike__title {
+            font-size: 16px;
+        }
+    }
+
+    .Swiper__days {
+        width: 100%;
+        margin-bottom: 4px;
+        .Swiper__day-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .Swiper__day-week {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 2px;
+            }
+            .Swiper__day-number {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 3px;
+            }
+            .active {
+                background-color: var(--color-light-indigo);
+                color: var(--color-black);
+                border-radius: 10000%;
+            }
+        }
+    }
+
+    .MWFeelsLike__full-data {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        padding-bottom: 4px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .MWFeelsLike__daily-summary {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        margin-bottom: 20px;
+        .MWFeelsLike__daily-summary-title {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .MWFeelsLike__daily-summary-descr {
+            color: var(--color-white);
+            background-color: var(--color-dark-gray);
+            padding: 10px;
+            border-radius: var(--border-radius-small);
+        }
+    }
+
+    .MWFeelsLike__precipitation-descr {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        margin-bottom: 20px;
+        .MWFeelsLike__descr-title {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .MWFeelsLike__descr-text {
+            color: var(--color-white);
+            background-color: var(--color-dark-gray);
+            padding: 10px;
+            border-radius: var(--border-radius-small);
+        }
+    }
+
+}

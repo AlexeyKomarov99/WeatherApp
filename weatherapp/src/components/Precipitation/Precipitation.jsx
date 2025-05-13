@@ -12,12 +12,7 @@ const Precipitation = ({forecastData, onClick}) => {
       precipPerDay += hour.precip_mm
   })
   const precipPerDayFormatted = Math.round(precipPerDay);
-
-  // console.log(forecastData);
-  // console.log(precipPerHour);
-  // console.log(precip_mm);
-  // console.log(precipPerDayFormatted);
-
+  
   return (
     <section 
       className='Precipitation'

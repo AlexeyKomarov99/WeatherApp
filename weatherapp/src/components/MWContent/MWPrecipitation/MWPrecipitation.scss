@@ -1,0 +1,114 @@
+@import '../../../index.css';
+.MWPrecipitation {
+
+    .MWPrecipitation__header {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        .MWPrecipitation__icon-wrapper {
+            margin-right: 4px;
+            .icon {
+
+            }
+        }
+        .MWPrecipitation__title {
+            font-size: 16px;
+        }
+    }
+
+    .Swiper__days {
+        width: 100%;
+        margin-bottom: 4px;
+        .Swiper__day-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .Swiper__day-week {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 2px;
+            }
+            .Swiper__day-number {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 3px;
+            }
+            .active {
+                background-color: var(--color-light-indigo);
+                color: var(--color-black);
+                border-radius: 10000%;
+            }
+        }
+    }
+
+    .MWPrecipitation__full-data {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        padding-bottom: 4px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .MWPrecipitation__chart {
+        margin-bottom: 10px;
+        .MWPrecipitation__swiper-chart {
+            .MWPrecipitation__swiper-slide-chart {
+                .MWPrecipitation__responsive-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 1px solid rgba(255,255,255,0.1);
+                    border-radius: var(--border-radius-small);
+                    padding: 5px 0 5px 0;
+                }
+            }
+        }
+    }
+
+    .MWPrecipitation__chart-descr {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        .MWPrecipitation__chart-descr-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .MWPrecipitation__chart-descr-color {
+
+            }
+            .MWPrecipitation__chart-descr-name {
+
+            }
+        }
+    }
+
+    .MWPrecipitation__daily-summary {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        margin-bottom: 20px;
+        .MWPrecipitation__daily-summary-title {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .MWPrecipitation__daily-summary-descr {
+            color: var(--color-white);
+            background-color: var(--color-dark-gray);
+            padding: 10px;
+            border-radius: var(--border-radius-small);
+        }
+    }
+
+}
