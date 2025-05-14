@@ -4,6 +4,7 @@ import './MWFeelsLike.scss';
 import { PiThermometerHotDuotone as FeelsLikeIcon } from "react-icons/pi";
 //===== components =====//
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { LineChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 //===== utils =====//
 import { Month } from '../../../utils/getMonth';
 import { DayWeek } from '../../../utils/getDayWeek';
@@ -20,7 +21,7 @@ const MWFeelsLike = ({dailyWeatherData}) => {
       hours: day.hour.map((currentHour) => {
         return {
           time_epoch: currentHour.time_epoch,
-          hour: currentHour.time.split(' ')[1].split(':')[0],
+          hourFeelsLike: currentHour.time.split(' ')[1].split(':')[0],
           feelslike_c: currentHour.feelslike_c,
           feelslike_f: currentHour.feelslike_f,
         }
@@ -88,6 +89,46 @@ const MWFeelsLike = ({dailyWeatherData}) => {
       </div>
 
       {/* Chart */}
+      <div className="MWFeelsLike__chart">
+        <Swiper
+          onSwiper={(swiper) => chartSwiperRef.current = swiper}
+          onSlideChange={handleChartSwipe}
+          initialSlide={selectedDateIndex}
+          className='MWFeelsLike__swiper-chart'
+        >
+          {dailyFeelsLikeData.map((day) => (
+            <SwiperSlide key={day.id} className='MWFeelsLike__swiper-slide-chart'>
+              <ResponsiveContainer width="100%" height={300} className={'MWFeelsLike__responsive-container'}>
+                <LineChart data={day.hours}>
+                  <CartesianGrid strokeDasharray="2 2" stroke="#242323" />
+                  <XAxis 
+                    dataKey="hourFeelsLike"
+                    orientation="bottom"
+                    tick={{dx: 10}}
+                    ticks={['00', '06', '12', '18']}
+                    interval={0}
+                  />
+                  <YAxis 
+                    dataKey="feelslike_c" 
+                    orientation="right"
+                    // domain={[0, 100]}
+                    // ticks={[0, 20, 40, 60, 80, 100]}
+                    tickFormatter={(value) => `${value}°`}
+                  />
+                  <Line 
+                    type="monotone"
+                    dataKey="feelslike_c"
+                    stroke="#8884d8"
+                    strokeWidth={2}
+                    dot={false}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
 
       {/* Daily summary */}
       <div className="MWFeelsLike__daily-summary">
