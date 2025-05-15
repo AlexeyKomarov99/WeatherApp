@@ -117,6 +117,12 @@
             border-radius: var(--border-radius-medium);
             background-color: #1c1c1c;
 
+            > div { /* Стиль для нового корневого div, который заменил Fragment */
+                &:not(:last-child) {
+                    margin-bottom: 10px;
+                }
+            }
+
             .MWReportProblem__content-item {
                 width: 100%;
                 display: flex;
@@ -124,8 +130,8 @@
                 align-items: start;
                 &:nth-child(n):not(:last-child) {
                     .MWReportProblem__content-right {
-                        padding-bottom: 10px;
-                        margin-bottom: 10px;
+                        padding-bottom: 5px;
+                        margin-bottom: 5px;
                         border-bottom: 1px solid rgba(255,255,255, 0.05);
                     }
                 }

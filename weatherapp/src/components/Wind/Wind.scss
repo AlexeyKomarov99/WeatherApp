@@ -1,0 +1,15 @@
+@import '../../index.css';
+.Wind {
+    .Wind__header {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        .Wind__icon-wrapper {
+
+        }
+        .Wind__name {
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+    }
+}

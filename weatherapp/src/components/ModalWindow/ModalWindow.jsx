@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 //===== redux =====//
 import {
+    useGetHourlyForecastQuery,
     useGetDailyForecstQuery
   } from '../../features/weather/weatherApi';
 //===== assets =====//
@@ -37,12 +38,19 @@ const ModalWindow = ({isActiveMW, activeSection, onClose}) => {
     }
 
     const {
+        data: hourlyForecastData,
+        isLoading: isHourlyForecastLoading,
+        error: hourlyForecastLoading
+    } = useGetHourlyForecastQuery('Moscow');
+
+    const {
         data: dailyForecastData,
         isLoading: isDailyForecastLoading,
         error: dailyForecastLoading
     } = useGetDailyForecstQuery('Moscow');
 
     const dailyWeatherData = dailyForecastData?.forecast?.forecastday;
+    const hourlyWeatherData = hourlyForecastData?.forecast?.forecastday[0].astro;
 
     return (
         <Modal 
@@ -56,12 +64,12 @@ const ModalWindow = ({isActiveMW, activeSection, onClose}) => {
                 {activeSection === 'Hourly Forecast' && <MWHourlyForecast />}
                 {activeSection === 'Daily Forecast' && <MWDailyForecast />}
                 {activeSection === 'UV Index' && <MWUVIndex dailyWeatherData={dailyWeatherData} />}
-                {activeSection === 'Sunset' && <MWSunset />}
-                {activeSection === 'Wind' && <MWWind />}
+                {activeSection === 'Sunset' && <MWSunset hourlyWeatherData={hourlyWeatherData} />}
+                {activeSection === 'Wind' && <MWWind dailyWeatherData={dailyWeatherData} />}
                 {activeSection === 'Precipitation' && <MWPrecipitation dailyWeatherData={dailyWeatherData} />}
                 {activeSection === 'Feels Like' && <MWFeelsLike dailyWeatherData={dailyWeatherData} />}
                 {activeSection === 'Humidity' && <MWHumidity dailyWeatherData={dailyWeatherData} />}
-                {activeSection === 'Visibility' && <MWVisibility />}
+                {activeSection === 'Visibility' && <MWVisibility dailyWeatherData={dailyWeatherData} />}
                 {activeSection === 'Pressure' && <MWPressure dailyWeatherData={dailyWeatherData} />}
                 {activeSection === 'Report Problem' && <MWReportProblem onClose={onClose} />}
             </div>

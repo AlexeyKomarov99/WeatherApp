@@ -8,14 +8,16 @@
 
         }
         .UVIndex__name {
+            font-size: 14px;
             text-transform: uppercase;
         }
     }
     .UVIndex__index {
-
+        font-size: 28px;
     }
-    .UVIndex__descr {
-        margin-bottom: 2px;
+    .UVIndex__index-descr {
+        font-size: 20px;
+        margin-bottom: 10px;
     }
     .UVIndex__line {
         position: relative;
@@ -30,6 +32,7 @@
             var(--color-purple)
         );
         border-radius: var(--border-radius-small);
+        margin-bottom: 10px;
 
         .UVIndex__circle {
             position: absolute;

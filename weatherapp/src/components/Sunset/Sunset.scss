@@ -1,0 +1,28 @@
+@import '../../index.css';
+.Sunset {
+    .Sunset__header {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        .Sunset__icon-wrapper {
+
+        }
+        .Sunset__name {
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+    }
+
+    .Sunset__sunset-time {
+        font-size: 28px;
+    }
+
+    .Sunset__chart {
+        
+    }
+
+    .Sunset__descr {
+        font-size: 14px;
+    }
+
+}

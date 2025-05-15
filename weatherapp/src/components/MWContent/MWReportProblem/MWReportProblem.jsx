@@ -136,9 +136,8 @@ const MWReportProblem = () => {
         <div className="MWReportProblem__weather-title">Текущие погодные условия</div>
         <div className="MWReportProblem__weather-content section">
           {weatherData.map((current_weather) => (
-            <>
+            <div key={current_weather.id}>
               <div 
-                key={current_weather.id}
                 className="MWReportProblem__content-item"
               >
                 <div className="MWReportProblem__content-left">
@@ -177,7 +176,7 @@ const MWReportProblem = () => {
                   ))}
                 </div>
               )}
-            </>
+            </div>
           ))}
         </div>
       </div>

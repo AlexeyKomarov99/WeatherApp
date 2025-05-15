@@ -34,7 +34,7 @@ const UVIndex = ({currentWeatherData, onClick}) => {
         >
         </div>
       </div>
-      <div className="UVIndex__descr">temp temp</div>
+      {/* <div className="UVIndex__descr">temp temp</div> */}
     </section>
   )
 }

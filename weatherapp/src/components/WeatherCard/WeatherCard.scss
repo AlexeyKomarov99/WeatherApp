@@ -1,9 +1,14 @@
 .WeatherCard {
   position: relative;
-  .test {
+  .WeatherCard__sections {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: 10px;
+    
+    & > * {
+      height: 160px;
+      overflow: hidden;
+    }
   }
-  padding-bottom: 40px;
+  padding-bottom: 80px;
 }

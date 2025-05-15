@@ -30,7 +30,6 @@ const WeatherCard = () => {
 
   const toggleActiveSection = (current) => {
     setActiveSection(current);
-    console.log(`Active section: ${current}`);
     setIsActiveMW(true);
   }
 
@@ -55,6 +54,9 @@ const WeatherCard = () => {
     error: dailyForecastLoading
   } = useGetDailyForecstQuery('Moscow');
 
+  const dailyWeatherData = dailyForecastData?.forecast?.forecastday;
+  const hourlyWeatherData = forecastData?.forecast?.forecastday;
+
   return (
     <div className='WeatherCard'>
       <CityInfo 
@@ -70,15 +72,17 @@ const WeatherCard = () => {
       />
       <PrecipitationMap />
 
-      <div className="test">
+      <div className="WeatherCard__sections">
         <UVIndex 
           currentWeatherData={currentWeatherData}
           onClick={() => toggleActiveSection('UV Index')}
         />
         <Sunset
+          hourlyWeatherData={hourlyWeatherData}
           onClick={() => toggleActiveSection('Sunset')}
         />
         <Wind
+          dailyWeatherData={dailyWeatherData}
           onClick={() => toggleActiveSection('Wind')}
         />
         <Precipitation 
