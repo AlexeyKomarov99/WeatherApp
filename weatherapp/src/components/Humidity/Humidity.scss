@@ -1,14 +1,35 @@
 .Humidity {
-    .Humidity__header {
+    .Humidity__container {
+        height: 100%;
         display: flex;
+        flex-direction: column;
         justify-content: start;
-        align-items: center;
-        .Humidity__name {
-            text-transform: uppercase;
+        align-items: start;
+        .Humidity__header {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            .Humidity__name {
+                font-size: 14px;
+                text-transform: uppercase;
+            }
         }
-    }
-
-    .Humidity__content {
-
+    
+        .Humidity__content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .Humidity__content-top {
+                .Humidity__humidity-percent {
+                    font-size: 28px;
+                }
+            }
+            .Humidity__content-bottom {
+                .Humidity__dew-point {
+                    font-size: 14px;
+                }
+            }
+        }
     }
 }

@@ -1,30 +1,39 @@
-.Precipitation {
-    .Precipitation__header {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        .Precipitation__name {
-            text-transform: uppercase;
-        }
-    }
+@import '../../index.css';
 
-    .Precipitation__content {
+.Precipitation {
+    .Precipitation__container {
+        height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-
-        .Precipitation__content-top {
-            .Precipitation__indicator {
-
-            }
-            .Precipitation__descr {
-
+        justify-content: start;
+        align-items: start;
+        .Precipitation__header {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            .Precipitation__name {
+                font-size: 14px;
+                text-transform: uppercase;
             }
         }
-
-        .Precipitation__content-bottom {
-            .Precipitation__descr-current {
-
+        .Precipitation__content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .Precipitation__content-top {
+                .Precipitation__indicator {
+                    font-size: 28px;
+                }
+                .Precipitation__descr {
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+            }
+            .Precipitation__content-bottom {
+                .Precipitation__descr-current {
+                    font-size: 14px;
+                }
             }
         }
     }

@@ -1,13 +1,38 @@
 .Visibility {
-    .Visibility__header {
-        .Visibility__name {
-            text-transform: uppercase;
-        }
-    }
-    .Visibility__content {
+    .Visibility__container {
+        height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: start;
         align-items: start;
+        .Visibility__header {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            .Visibility__name {
+                font-size: 14px;
+                text-transform: uppercase;
+            }
+        }
+
+        .Visibility__content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: start;
+            .Visibility__content-top {
+                .Visibility__vis-km {
+                    font-size: 28px;
+                }
+            }
+            .Visibility__content-bottom {
+                .Visibility__descr {
+                    font-size: 14px;
+                }
+            }
+        }
+
     }
+
 }

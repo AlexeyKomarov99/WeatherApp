@@ -1,0 +1,34 @@
+@import '../../index.css';
+.FeelsLike {
+    .FeelsLike__container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        .FeelsLike__header {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            .FeelsLike__name {
+                font-size: 14px;
+                text-transform: uppercase;
+            }
+        }
+        .FeelsLike__content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .FeelsLike__content-top {
+                .FeelsLike__indicator {
+                    font-size: 28px;
+                }
+            }
+            .FeelsLike__content-bottom {
+                font-size: 14px;
+            }
+        }
+
+    }
+}

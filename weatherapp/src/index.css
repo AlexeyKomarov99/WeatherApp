@@ -69,6 +69,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     color: var(--text-primary);
     background: var(--background-clear-day);
+    letter-spacing: 0.01em;
 }
 
 section {
@@ -76,7 +77,10 @@ section {
     border-radius: var(--border-radius-medium);
     background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
-    margin-bottom: 10px;
+}
+
+.section-card {
+    height: 160px;
 }
 
 ::-webkit-scrollbar {

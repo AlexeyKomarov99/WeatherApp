@@ -1,127 +1,170 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
 
-const Compass = ({ windDegree, windSpeed, windDir, unit }) => {
-  // Преобразуем градусы в отрицательные для правильного отображения в CSS
-  const rotation = windDegree ? `rotate(${-windDegree}deg)` : 'rotate(0deg)';
+const CircleWithCompass = ({
+  radius = 100,
+  strokeWidth = 2,
+  markLength = 10,
+  fontSize = 16,
+  arrowAngle = 0,
+  windSpeed = "0 м/с",
+  innerCircleRadius = 15,
+  arrowHeadSize = 10,
+  arrowWidth = 4,
+  arrowEndCircleRadius = 8,
+  arrowEndCircleStrokeWidth = 2,
+  arrowEndCircleScale = 1,
+}) => {
+  // Рассчитываем размеры с учетом всех элементов
+  const center = radius + strokeWidth;
+  const size = center * 2;
+  const letterRadius = radius - markLength - fontSize * 1.5;
+  const arrowLength = radius * 2;
+
+  // Направления компаса
+  const directions = [
+    { letter: 'С', angle: -90 },  // Север (вверх)
+    { letter: 'В', angle: 0 },    // Восток (право)
+    { letter: 'Ю', angle: 90 },   // Юг (низ)
+    { letter: 'З', angle: 180 },  // Запад (лево)
+  ];
+
+  // Корректировка угла стрелки
+  const correctedAngle = (arrowAngle + 180 - 90) % 360;
+  const arrowAngleRad = (correctedAngle * Math.PI) / 180;
+
+  // Координаты стрелки
+  const arrowStartX = center - (arrowLength / 2) * Math.cos(arrowAngleRad);
+  const arrowStartY = center - (arrowLength / 2) * Math.sin(arrowAngleRad);
+  const arrowEndX = center + (arrowLength / 2) * Math.cos(arrowAngleRad);
+  const arrowEndY = center + (arrowLength / 2) * Math.sin(arrowAngleRad);
+  const scaledArrowEndCircleRadius = arrowEndCircleRadius * arrowEndCircleScale;
 
   return (
-    <CompassContainer>
-      <CompassBackground>
-        <CompassRose style={{ transform: rotation }}>
-          <CompassArrow />
-        </CompassRose>
-        <CompassDirections>
-          <Direction>N</Direction>
-          <Direction>E</Direction>
-          <Direction>S</Direction>
-          <Direction>W</Direction>
-        </CompassDirections>
-      </CompassBackground>
-      <WindInfo>
-        <WindSpeed>
-          {windSpeed} {unit === 'metric' ? 'm/s' : 'mph'}
-        </WindSpeed>
-        <WindDirection>{windDir}</WindDirection>
-      </WindInfo>
-    </CompassContainer>
+    <div style={{
+      width: '120px',
+      height: '120px',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      overflow: 'hidden'
+    }}>
+      <svg 
+        viewBox={`0 0 ${size} ${size}`}
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'block'
+        }}
+      >
+        {/* Основная окружность */}
+        <circle
+          cx={center}
+          cy={center}
+          r={radius}
+          fill="none"
+          stroke="black"
+          strokeWidth={strokeWidth}
+        />
+
+        {/* 360 черточек */}
+        {Array.from({ length: 360 }).map((_, index) => {
+          const angle = (index * Math.PI) / 180;
+          const x1 = center + radius * Math.cos(angle);
+          const y1 = center + radius * Math.sin(angle);
+          const x2 = center + (radius - markLength) * Math.cos(angle);
+          const y2 = center + (radius - markLength) * Math.sin(angle);
+
+          return (
+            <line
+              key={index}
+              x1={x1}
+              y1={y1}
+              x2={x2}
+              y2={y2}
+              stroke="black"
+              strokeWidth={strokeWidth}
+            />
+          );
+        })}
+
+        {/* Буквы направлений */}
+        {directions.map((dir, i) => {
+          const angleRad = (dir.angle * Math.PI) / 180;
+          const x = center + letterRadius * Math.cos(angleRad);
+          const y = center + letterRadius * Math.sin(angleRad);
+
+          return (
+            <text
+              key={i}
+              x={x}
+              y={y}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fontSize={fontSize}
+              fontWeight="bold"
+              fill="black"
+            >
+              {dir.letter}
+            </text>
+          );
+        })}
+
+        {/* Стрелка направления ветра */}
+        <line
+          x1={arrowStartX}
+          y1={arrowStartY}
+          x2={arrowEndX}
+          y2={arrowEndY}
+          stroke="red"
+          strokeWidth={arrowWidth}
+          strokeLinecap="round"
+        />
+
+        {/* Наконечник стрелки */}
+        <polygon
+          points={`
+            ${arrowEndX},${arrowEndY} 
+            ${arrowEndX - arrowHeadSize * Math.cos(arrowAngleRad - Math.PI / 6)},${arrowEndY - arrowHeadSize * Math.sin(arrowAngleRad - Math.PI / 6)} 
+            ${arrowEndX - arrowHeadSize * Math.cos(arrowAngleRad + Math.PI / 6)},${arrowEndY - arrowHeadSize * Math.sin(arrowAngleRad + Math.PI / 6)}
+          `}
+          fill="red"
+        />
+
+        {/* Окружность на противоположном конце */}
+        <circle
+          cx={arrowStartX}
+          cy={arrowStartY}
+          r={scaledArrowEndCircleRadius}
+          fill="white"
+          stroke="red"
+          strokeWidth={arrowEndCircleStrokeWidth}
+        />
+
+        {/* Внутренняя окружность */}
+        <circle
+          cx={center}
+          cy={center}
+          r={innerCircleRadius}
+          fill="white"
+          stroke="black"
+          strokeWidth={strokeWidth}
+        />
+
+        {/* Скорость ветра */}
+        <text
+          x={center}
+          y={center}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fontSize={fontSize}
+          fontWeight="bold"
+          fill="black"
+        >
+          {windSpeed}
+        </text>
+      </svg>
+    </div>
   );
 };
 
-// Анимация для плавного поворота компаса
-const rotateAnimation = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
-
-const CompassContainer = styled.div`
-  position: relative;
-  width: 200px;
-  height: 200px;
-  margin: 20px auto;
-`;
-
-const CompassBackground = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: #f5f5f5;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 2px solid #ddd;
-`;
-
-const CompassRose = styled.div`
-  position: absolute;
-  width: 90%;
-  height: 90%;
-  top: 5%;
-  left: 5%;
-  transition: transform 0.5s ease-out;
-  animation: ${rotateAnimation} 2s linear infinite;
-`;
-
-const CompassArrow = styled.div`
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  width: 4px;
-  height: 40%;
-  background: red;
-  transform: translateX(-50%);
-  border-radius: 4px;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-top: 12px solid red;
-    transform: translateX(-50%) translateY(-100%);
-  }
-`;
-
-const CompassDirections = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-`;
-
-const Direction = styled.span`
-  position: absolute;
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-  
-  &:nth-child(1) { top: 5%; left: 50%; transform: translateX(-50%); } /* N */
-  &:nth-child(2) { top: 50%; right: 5%; transform: translateY(-50%); } /* E */
-  &:nth-child(3) { bottom: 5%; left: 50%; transform: translateX(-50%); } /* S */
-  &:nth-child(4) { top: 50%; left: 5%; transform: translateY(-50%); } /* W */
-`;
-
-const WindInfo = styled.div`
-  text-align: center;
-  margin-top: 20px;
-`;
-
-const WindSpeed = styled.div`
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-`;
-
-const WindDirection = styled.div`
-  font-size: 18px;
-  color: #666;
-  margin-top: 5px;
-`;
-
-export default Compass;
+export default CircleWithCompass;

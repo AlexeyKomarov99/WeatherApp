@@ -53,9 +53,9 @@ const WeatherCard = () => {
     isLoading: isDailyForecastLoading,
     error: dailyForecastLoading
   } = useGetDailyForecstQuery('Moscow');
-
-  const dailyWeatherData = dailyForecastData?.forecast?.forecastday;
+  
   const hourlyWeatherData = forecastData?.forecast?.forecastday;
+  const dailyWeatherData = dailyForecastData?.forecast?.forecastday;
 
   return (
     <div className='WeatherCard'>
@@ -89,7 +89,8 @@ const WeatherCard = () => {
           forecastData={forecastData}
           onClick={() => toggleActiveSection('Precipitation')}
         />
-        <FeelsLike 
+        <FeelsLike
+          currentWeatherData={currentWeatherData}
           onClick={() => toggleActiveSection('Feels Like')}
         />
         <Humidity 
@@ -100,7 +101,8 @@ const WeatherCard = () => {
           currentWeatherData={currentWeatherData}
           onClick={() => toggleActiveSection('Visibility')}
         />
-        <Pressure 
+        <Pressure
+          currentWeatherData={currentWeatherData}
           onClick={() => toggleActiveSection('Pressure')}
         />
       </div>

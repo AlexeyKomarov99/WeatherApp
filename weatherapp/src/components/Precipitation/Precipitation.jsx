@@ -15,24 +15,29 @@ const Precipitation = ({forecastData, onClick}) => {
   
   return (
     <section 
-      className='Precipitation'
+      className='Precipitation section-card'
       onClick={onClick}
     >
-      <div className="Precipitation__header">
-        <span className="Precipitation__wrapper icon-wrapper"><WaterDropIcon className=''/></span>
-        <span className="Precipitation__name">Осадки</span>
-      </div>
+      <div className="Precipitation__container">
 
-      <div className="Precipitation__content">
-        <div className="Precipitation__content-top">
-          <div className="Precipitation__indicator">{precipPerDayFormatted}мм</div>
-          <div className="Precipitation__descr">За последние 24 часа</div>
+        <div className="Precipitation__header">
+          <span className="Precipitation__wrapper icon-wrapper"><WaterDropIcon className=''/></span>
+          <span className="Precipitation__name">Осадки</span>
         </div>
-        <div className="Precipitation__content-bottom">
-          <div className="Precipitation__descr-current">
-            {precip_mm}мм ожидается в течение суток
+
+        <div className="Precipitation__content">
+          <div className="Precipitation__content-top">
+            <div className="Precipitation__indicator">{precipPerDayFormatted} мм</div>
+            <div className="Precipitation__descr">За последние 24 часа</div>
+          </div>
+
+          <div className="Precipitation__content-bottom">
+            <div className="Precipitation__descr-current">
+              {precip_mm} мм ожидается в течение суток.
+            </div>
           </div>
         </div>
+
       </div>
       
     </section>

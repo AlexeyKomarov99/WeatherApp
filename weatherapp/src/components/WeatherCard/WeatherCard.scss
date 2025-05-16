@@ -3,12 +3,9 @@
   .WeatherCard__sections {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 10px;
-    
-    & > * {
-      height: 160px;
-      overflow: hidden;
-    }
+    grid-template-rows: repeat(4, 160px);
+    gap: 10px;
+    margin-bottom: 10px;
   }
   padding-bottom: 80px;
 }

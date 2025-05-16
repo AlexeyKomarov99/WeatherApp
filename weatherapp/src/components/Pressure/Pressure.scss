@@ -1,0 +1,25 @@
+@import '../../index.css';
+.Pressure {
+    .Pressure__container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        .Pressure__header {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            .Pressure__icon-wrapper {
+
+            }
+            .Pressure__name {
+                font-size: 14px;
+                text-transform: uppercase;
+            }
+        }
+
+        .Pressure__barometer {
+            
+        }
+    }
+}
