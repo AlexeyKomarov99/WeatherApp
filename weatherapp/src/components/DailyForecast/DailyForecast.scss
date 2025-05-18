@@ -3,12 +3,18 @@
     flex-direction: column;
     justify-content: start;
     align-items: start;
-
+    margin-bottom: 10px;
     .DailyForecast__header {
         width: 100%;
+        display: flex;
+        justify-content: start;
         border-bottom: 1px solid rgba(255, 255,255, 0.2);
         margin-bottom: 10px;
         padding-bottom: 4px;
+        .DailyForecast__name {
+            font-size: 14px;
+            text-transform: uppercase;
+        }
     }
     .DailyForecast__content {
         width: 100%;

@@ -52,5 +52,5 @@ export const {
     useGetHourlyForecastQuery,
     useLazyGetHourlyForecastQuery,
     useGetDailyForecstQuery,
-    useLazyGetDailyForecstQuery
+    useLazyGetDailyForecstQuery,
 } = weatherApi;

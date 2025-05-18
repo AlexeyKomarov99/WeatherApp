@@ -8,5 +8,6 @@ export const store = configureStore({
         weather: weatherReducer, // данные локального состояния
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(weatherApi.middleware),
+        getDefaultMiddleware()
+            .concat(weatherApi.middleware)
 })

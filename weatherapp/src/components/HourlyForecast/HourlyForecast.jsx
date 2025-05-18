@@ -1,86 +1,104 @@
-import React from 'react';
-//===== assets =====//
+import React, {useState, useEffect, useRef} from 'react';
 import './HourlyForecast.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { LiaClockSolid as WatchIcon } from "react-icons/lia";
-//===== components =====//
 import HourlyForecastCard from '../HourlyForecastCard/HourlyForecastCard';
 
-const HourlyForecast = ({forecastData, onClick}) => {
+const HourlyForecast = ({dailyWeatherData, onClick}) => {
+    const [currentIndexHour, setCurrentIndexHour] = useState(0);
+    const swiperRef = useRef(null);
     
-    const hourlyWeatherForecast = forecastData?.forecast?.forecastday[0]?.hour.map((hour) => {
-        return {
-            id: hour.time_epoch,
-            time: hour.time.split(' ')[1],
-            weatherIcon: hour.condition.icon,
-            weatherDescr: hour.condition.text,
-            temperature: hour.temp_c
-        }
-    })
+    const formatTime = (timeStr) => {
+        const [time, period] = timeStr.split(' ');
+        let [hours, minutes] = time.split(':');
+        
+        hours = parseInt(hours);
+        if (period === 'PM' && hours !== 12) hours += 12;
+        if (period === 'AM' && hours === 12) hours = 0;
+        
+        return `${hours.toString().padStart(2, '0')}:${minutes}`;
+    };
 
-    // console.log('hourlyWeatherForecast', hourlyWeatherForecast)
+    const dailyWeatherDataList = dailyWeatherData
+    ? dailyWeatherData.map((day) => {
+        const dayCopy = {
+            id: day.date_epoch,
+            date: day.date,
+            sunrise: day.astro.sunrise,
+            sunset: day.astro.sunset,
+            hours: day.hour.map((hour) => ({
+                time_epoch: hour.time_epoch,
+                time: hour.time.split(' ')[1],
+                temp_c: Math.round(hour.temp_c),
+                weatherIcon: hour.condition.icon,
+                weatherDescr: hour.condition.text,
+                weatherIconCode: hour.condition.code,
+            }))
+        };
+        
+        // Добавляем sunrise с иконкой
+        dayCopy.hours.push({
+            time_epoch: day.date_epoch * 1000,
+            time: formatTime(dayCopy.sunrise),
+            temp_c: 'Восход солнца',
+            isSunEvent: true,
+            weatherIcon: '//cdn.weatherapi.com/weather/64x64/day/176.png' // Иконка восхода
+        });
+        
+        dayCopy.hours.push({
+            time_epoch: day.date_epoch * 1000 + 1,
+            time: formatTime(dayCopy.sunset),
+            temp_c: 'Закат солнца',
+            isSunEvent: true,
+            weatherIcon: '//cdn.weatherapi.com/weather/64x64/night/176.png' // Иконка заката
+        });
+        
+        // Сортируем часы по времени
+        dayCopy.hours.sort((a, b) => {
+            const timeA = a.time.replace(':', '');
+            const timeB = b.time.replace(':', '');
+            return timeA - timeB;
+        });
+        
+        return dayCopy;
+    })
+    : [];
+
+    // Остальной код без изменений
+    const weatherData = dailyWeatherDataList.slice(0, 2);
+    
+    const hourlyWeatherData = weatherData
+        .map((day) => day.hours)
+        .flat(1)
+        .slice(0, 26);
+
+    useEffect(() => {
+        const now = new Date();
+        const currentHour = now.getHours();
+        setCurrentIndexHour(currentHour);
+    }, []);
+
+    useEffect(() => {
+        if (swiperRef.current) {
+            swiperRef.current.slideTo(currentIndexHour);
+        }
+    }, [currentIndexHour, swiperRef.current]);
 
     return (
-    <section 
-        className="HourlyForecast"
-        onClick={onClick}
-    >
-        <div className="HourlyForecast__header">Почасовой прогноз погоды</div>        
-        <Swiper
-            slidesPerView={6}
-        >
-            {hourlyWeatherForecast?.map(hourlyForecast => (
-                <SwiperSlide
-                    key={hourlyForecast.id}
-                >
-                    <HourlyForecastCard 
-                        hourlyForecast={hourlyForecast} 
-                    />
-                </SwiperSlide>
-            ))}
-        </Swiper>
-
-    </section>
-  )
+        <section className="HourlyForecast" onClick={onClick}>
+            <div className="HourlyForecast__header">Почасовой прогноз погоды</div>        
+            <Swiper
+                onSwiper={(swiper) => (swiperRef.current = swiper)}
+                slidesPerView={6}
+            >
+                {hourlyWeatherData?.map((hour) => (
+                    <SwiperSlide key={hour.time_epoch}>
+                        <HourlyForecastCard hour={hour} />
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+        </section>
+    );
 }
 
 export default HourlyForecast;
-
-
-
-
-
-
-
-
-
-
-
-        {/* <div className="HourlyForecast__content">
-            {hourlyWeatherForecast?.map(hourlyForecast => (
-                <HourlyForecastCard 
-                    key={hourlyForecast.id}
-                    hourlyForecast={hourlyForecast} 
-                />
-            ))}
-        </div> */}
-
-
-    // console.log('list hours arrived from server:\n', forecastData);
-    // console.log('list hours:\n', hourlyWeatherForecast);
-
-    
-    // console.log('Почасовой прогноз погоды:/n', forecastData);
-
-    // const sunrise = new Date(forecastData?.city?.sunrise * 1000);
-    // const sunriseHours = sunrise.getHours().toString().padStart(2, '0');
-    // const sunriseMinutes = sunrise.getMinutes().toString().padStart(2, '0');
-    // const sunriseTimeFormatted = `${sunriseHours}:${sunriseMinutes}`;
-    // console.log('Восход:', sunriseTimeFormatted);
-
-    // const sunset = new Date(forecastData?.city?.sunset * 1000);
-    // const sunsetHours = sunset.getHours().toString().padStart(2, '0');
-    // const sunsetMinutes = sunset.getMinutes().toString().padStart(2, '0');
-    // const sunsetTimeFormatted = `${sunsetHours}:${sunsetMinutes}`;
-    // console.log('Закат:', sunsetTimeFormatted);

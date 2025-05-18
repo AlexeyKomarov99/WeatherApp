@@ -42,7 +42,7 @@ const WeatherCard = () => {
   
   // Hourly forecast data for name city (for 1 day)
   const {
-    data: forecastData, 
+    data: hourlyForecastData, 
     isLoading: isForecastLoading, 
     error: forecastError
   } = useGetHourlyForecastQuery('Moscow');
@@ -51,23 +51,27 @@ const WeatherCard = () => {
   const {
     data: dailyForecastData,
     isLoading: isDailyForecastLoading,
-    error: dailyForecastLoading
+    error: dailyForecastError
   } = useGetDailyForecstQuery('Moscow');
-  
-  const hourlyWeatherData = forecastData?.forecast?.forecastday;
+
+  const locationData = currentWeatherData?.location;
+  const currentWeather = currentWeatherData?.current;
+  const hourlyWeatherData = hourlyForecastData?.forecast?.forecastday;
   const dailyWeatherData = dailyForecastData?.forecast?.forecastday;
 
   return (
     <div className='WeatherCard'>
-      <CityInfo 
-        currentWeatherData={currentWeatherData} 
+      <CityInfo
+        locationData={locationData}
+        currentWeather={currentWeather}
+        hourlyWeatherData={hourlyWeatherData}
       />
       <HourlyForecast 
-        forecastData={forecastData}
+        dailyWeatherData={dailyWeatherData}
         onClick={() => toggleActiveSection('Hourly Forecast')}
       />
       <DailyForecast 
-        dailyForecastData={dailyForecastData}
+        dailyWeatherData={dailyWeatherData}
         onClick={() => toggleActiveSection('Daily Forecast')} 
       />
       <PrecipitationMap />
@@ -75,6 +79,7 @@ const WeatherCard = () => {
       <div className="WeatherCard__sections">
         <UVIndex 
           currentWeatherData={currentWeatherData}
+          hourlyWeatherData={hourlyWeatherData}
           onClick={() => toggleActiveSection('UV Index')}
         />
         <Sunset
@@ -86,7 +91,7 @@ const WeatherCard = () => {
           onClick={() => toggleActiveSection('Wind')}
         />
         <Precipitation 
-          forecastData={forecastData}
+          hourlyWeatherData={hourlyWeatherData}
           onClick={() => toggleActiveSection('Precipitation')}
         />
         <FeelsLike

@@ -1,46 +1,66 @@
 @import '../../index.css';
 .UVIndex {
-    .UVIndex__header {
+    .UVIndex__container {
+        height: 100%;
         display: flex;
+        flex-direction: column;
         justify-content: start;
-        align-items: center;
-        .UVIndex__icon-wrapper {
-
+        align-items: start;
+        .UVIndex__header {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            .UVIndex__icon-wrapper {
+    
+            }
+            .UVIndex__name {
+                font-size: 14px;
+                text-transform: uppercase;
+            }
         }
-        .UVIndex__name {
-            font-size: 14px;
-            text-transform: uppercase;
-        }
-    }
-    .UVIndex__index {
-        font-size: 28px;
-    }
-    .UVIndex__index-descr {
-        font-size: 20px;
-        margin-bottom: 10px;
-    }
-    .UVIndex__line {
-        position: relative;
-        width: 100%;
-        height: 6px;
-        background: linear-gradient(
-            90deg, 
-            var(--color-green),
-            var(--color-yellow),
-            var(--color-orange),
-            var(--color-red),
-            var(--color-purple)
-        );
-        border-radius: var(--border-radius-small);
-        margin-bottom: 10px;
 
-        .UVIndex__circle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background-color: white;
-            border-radius: 1000%;
-            border: 1px solid black;
+        .UVIndex__content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .UVIndex__content-top {
+                .UVIndex__index {
+                    font-size: 28px;
+                }
+                .UVIndex__index-descr {
+                    font-size: 16px;
+                    margin-bottom: 4px;
+                }
+                .UVIndex__line {
+                    position: relative;
+                    width: 100%;
+                    height: 6px;
+                    background: linear-gradient(
+                        90deg, 
+                        var(--color-green),
+                        var(--color-yellow),
+                        var(--color-orange),
+                        var(--color-red),
+                        var(--color-purple)
+                    );
+                    border-radius: var(--border-radius-small);
+
+                    .UVIndex__circle {
+                        position: absolute;
+                        width: 6px;
+                        height: 6px;
+                        background-color: white;
+                        border-radius: 1000%;
+                        border: 1px solid black;
+                    }
+                }
+            }
+            .UVIndex__content-bottom {
+                .UVIndex__descr-current {
+                    font-size: 14px;
+                }
+            }
         }
     }
 }

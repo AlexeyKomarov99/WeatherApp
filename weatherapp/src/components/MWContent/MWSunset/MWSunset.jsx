@@ -15,7 +15,7 @@ const MWSunset = ({hourlyWeatherData}) => {
   const is_moon_up = hourlyWeatherData.is_moon_up;
   const is_sun_up = hourlyWeatherData.is_sun_up;
 
-  console.log(sunrise, sunset, moonrise, moonset);
+  // console.log(sunrise, sunset, moonrise, moonset);
 
   const sunDescr = [
     // {id: 1, title: 'Первые лучи', value: moonrise},

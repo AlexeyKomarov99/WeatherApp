@@ -1,55 +1,47 @@
-import React, {useState, useEffect} from 'react';
-//===== redux =====//
+import React, { useState, useEffect } from 'react';
 import { useGetHourlyForecastQuery } from '../../features/weather/weatherApi';
-//===== assets =====//
-import './PrecipitationMap.scss';
-import { MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup } from 'react-leaflet';
+import { MapContainer, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { FaUmbrella as UmbrellaIcon } from "react-icons/fa";
+import './PrecipitationMap.scss';
 
 const PrecipitationMap = () => {
-    const [position, setPosition] = useState([55.7558, 37.6173]);
-    const [precipitationLayer, setPrecipitationLayer] = useState(null);
-    const {
-        data: currentWeatherData,
-        isLoading: isCurrentWeatherLoading,
-        error: curentWeatherError
-    } = useGetHourlyForecastQuery('Moscow');
+  const [position, setPosition] = useState([55.7558, 37.6173]);
+  const { data: currentWeatherData, isLoading } = useGetHourlyForecastQuery('Moscow');
 
-    const cityName = currentWeatherData?.location?.name;
-    const longitude = currentWeatherData?.location?.lon;
-    const latitude = currentWeatherData?.location?.lat;
+  const longitude = currentWeatherData?.location?.lon;
+  const latitude = currentWeatherData?.location?.lat;
 
-    useEffect(() => {
-        if (!isCurrentWeatherLoading && longitude && latitude) {
-            setPosition([latitude, longitude]);
+  useEffect(() => {
+    if (!isLoading && longitude && latitude) {
+      setPosition([latitude, longitude]);
+    }
+  }, [isLoading, longitude, latitude]);
 
-            // Создаем слой с осадками, если есть данные о прогнозе
-            
-        }
-    }, [isCurrentWeatherLoading, longitude, latitude]);
-
-    // console.log('Data for map:', currentWeatherData);
-
-    return (
-        <section className="PrecipitationMap">
-            <div className="PrecipitationMap__header">Precipitation Map</div>
-            <MapContainer
-                cityName='PrecipitationMap__map'
-                center={position}
-                zoom={10}
-                style={{ height: "220px", width: "100%" }}
-            >
-                <TileLayer 
-                    url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                />
-                <Marker position={position}>
-                    <Popup>{cityName}</Popup>
-                </Marker>
-            </MapContainer>
-        </section>
-    )
-}
+  return (
+    <section className="PrecipitationMap">
+      <div className="PrecipitationMap__header">
+        <span className="Precipitation__wrapper icon-wrapper">
+          <UmbrellaIcon />
+        </span>
+        <span className="Precipitation__name">Осадки</span>
+      </div>
+      <div className="PrecipitationMap__map-wrapper">
+        <MapContainer
+          center={position}
+          zoom={10}
+          style={{ height: "220px", width: "100%" }}
+          zoomControl={false}
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution=""  // Оставляем пустым или удаляем строку полностью
+            />
+        </MapContainer>
+      </div>
+    </section>
+  );
+};
 
 export default PrecipitationMap;

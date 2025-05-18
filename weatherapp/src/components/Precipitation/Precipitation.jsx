@@ -3,12 +3,12 @@ import React from 'react';
 import './Precipitation.scss';
 import { GiWaterDrop as WaterDropIcon } from "react-icons/gi";
 
-const Precipitation = ({forecastData, onClick}) => {
+const Precipitation = ({hourlyWeatherData, onClick}) => {
 
-  const precip_mm = forecastData?.current?.precip_mm;
+  const precip_mm = hourlyWeatherData?.current?.precip_mm;
   let precipPerDay = 0;
   const precipPerHour = 
-    forecastData?.forecast?.forecastday[0]?.hour.forEach(hour => {
+    hourlyWeatherData?.forecast?.forecastday[0]?.hour.forEach(hour => {
       precipPerDay += hour.precip_mm
   })
   const precipPerDayFormatted = Math.round(precipPerDay);

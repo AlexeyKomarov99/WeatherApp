@@ -1,7 +1,10 @@
 .DailyForecastCard {
     width: 100%;
+    display: grid;
+    grid-template-columns: 45% 55%;
+    grid-gap: 10px;
+
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     .DailyForecastCard__day-week {
@@ -10,10 +13,64 @@
     .DailyForecastCard__icon-wrapper {
 
     }
-    .DailyForecastCard__temp-min {
+    
 
-    }
-    .DailyForecastCard__temp-max {
+    .DailyForecastCard__content-right {
+        width: 45%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        .DailyForecastCard__temp-min {
+            min-width: 24px;
+            text-align: center;
+            margin-right: 12px;
+        }
+        
+        .DailyForecastCard__temp-max {
+            min-width: 24px;
+            text-align: center;
+            margin-left: 12px;
+        }
 
+        .DailyForecastCard__gradient-container {
+            position: relative;
+            height: 4px;
+            .DailyForecastCard__gradient-line {
+                position: absolute;
+                height: 100%;
+                border-radius: 2px;
+            }
+        }
+
+        .DailyForecastCard__gradient-wrapper {
+            position: relative;
+            flex-grow: 1;
+            height: 4px;
+            margin: 0 4px;
+            width: 100%;
+
+            .DailyForecastCard__gradient-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 100%;
+                background-color: rgba(224, 224, 224, 0.5);
+                border-radius: 2px;
+            }
+
+            .DailyForecastCard__gradient-container {
+                position: relative;
+                height: 100%;
+
+                .DailyForecastCard__gradient-line {
+                    position: absolute;
+                    height: 100%;
+                    border-radius: 2px;
+                    top: 0;
+                }
+            }
+        }
     }
 }

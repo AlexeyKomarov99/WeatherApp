@@ -5,7 +5,7 @@ const Barometer = ({ pressure }) => {
   const notchesCount = 45;
   const radius = 50;
   const centerX = 60;
-  const centerY = 80;
+  const centerY = 65;
   const notchLength = 10;
   const arcDegrees = 240;
   const startAngle = -210;
@@ -61,7 +61,7 @@ const Barometer = ({ pressure }) => {
         </text>
         
         {/* Стрелки вверх и вниз */}
-        <foreignObject x={centerX - 20} y="100" width="40" height="30">
+        <foreignObject x={centerX - 20} y="90" width="40" height="30">
           <div style={{ 
             display: 'flex',
             justifyContent: 'center',

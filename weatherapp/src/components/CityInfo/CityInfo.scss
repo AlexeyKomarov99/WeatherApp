@@ -1,5 +1,6 @@
 @import '../../App.scss';
 .CityInfo {
+    margin-top: 50px;
     margin-bottom: 50px;
     .CityInfo__content {
         display: flex;
@@ -13,7 +14,7 @@
             font-size: 48px;
         }
         .CityInfo__description {
-
+            margin-bottom: 5px;
         }
         .CityInfo__temp-group {
             .CityInfo__temp-item {
