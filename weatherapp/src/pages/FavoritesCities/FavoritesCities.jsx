@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 //===== redux =====//
 
 //===== assets =====//
 import './FavoritesCities.scss';
 //===== components =====//
 import SearchCity from '../../components/SearchCity/SearchCity';
+import FavoritesCitiesCard from '../../components/FavoritesCitiesCard/FavoritesCitiesCard';
 
 const favoritesCitiesList = [
   {id: 1, city: 'Москва', currentTime: '17:56', weatherDescr: 'Облачно', currentTemp: '7', maxTemp: '15', minTemp: '2'},
@@ -19,20 +20,36 @@ const favoritesCitiesList = [
   {id: 10, city: 'Челябинск', currentTime: '17:56', weatherDescr: 'Снег', currentTemp: '-3', maxTemp: '2', minTemp: '-6'},
 ];
 
-
 const FavoritesCities = () => {
+  const [blackout, setBlackout] = useState(false);
+
+  useEffect(() => {
+    if (blackout) {
+      document.body.classList.add('page-blackout');
+
+    } else {
+      document.body.classList.remove('page-blackout');
+    }
+  }, [blackout]);
 
   return (
-    <div className='FavoritesCities'>
-        <div className="FavoritesCities__title">Погода</div>
-        <SearchCity />
-        <div className="FavoritesCities__group">
+    <>
+      {blackout && <div className="page-blackout" />}
+      <div className="FavoritesCities">
+        <div
+          className={`FavoritesCities__title ${blackout ? 'hide-title' : ''}`}
+        >
+          Погода
+        </div>
+        <SearchCity blackout={blackout} setBlackout={setBlackout} />
+        <div className={`FavoritesCities__content ${blackout ? 'content-up' : ''}`}>
           {favoritesCitiesList.map((city) => (
-            <></>
+            <FavoritesCitiesCard key={city.id} city={city} />
           ))}
         </div>
-    </div>
-  )
-}
+      </div>
+    </>
+  );
+};
 
 export default FavoritesCities;

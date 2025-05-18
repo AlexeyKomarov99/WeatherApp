@@ -72,6 +72,7 @@ const ModalWindow = ({isActiveMW, activeSection, onClose}) => {
                 {activeSection === 'Visibility' && <MWVisibility dailyWeatherData={dailyWeatherData} />}
                 {activeSection === 'Pressure' && <MWPressure dailyWeatherData={dailyWeatherData} />}
                 {activeSection === 'Report Problem' && <MWReportProblem onClose={onClose} />}
+                
             </div>
         </Modal>
     )

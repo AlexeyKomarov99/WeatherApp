@@ -1,26 +1,70 @@
 @import '../../index.css';
 .SearchCity {
+    position: relative;
+    z-index: 10001;
     width: 100%;
+    margin-bottom: 10px;
+    transition: var(--transition);
+    
     .SearchCity__content {
         width: 100%;
         display: flex;
         flex-direction: row;
         justify-content: start;
         align-items: center;
-        
-        padding: 7px 5px;
-        background: var(--color-dark-gray);
-        border-radius: var(--border-radius-small);
-
-        .SearchCity__icon-wrapper {
-            margin-right: 5px;
-            .icon {
-    
+        .SearchCity__input-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            align-items: center;
+            background: var(--color-dark-gray);
+            padding: 7px 5px;
+            border-radius: var(--border-radius-small);
+            transition: var(--transition);
+            .SearchCity__icon-wrapper {
+                margin-right: 5px;
+            }
+            .SearchCity__input {
+                width: 100%;
+                font-size: 15px;
+                color: var(--color-white);
+                background-color: transparent;
+            }
+            
+            &.input-wrapper-active {
+                width: calc(100% - 90px);
             }
         }
-        .SearchCity__input {
-            width: 100%;
+        .SearchCity__cancel {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--color-white);
             background-color: transparent;
+            margin-left: 10px;
+            font-size: 15px;
+
+            opacity: 0;
+            visibility: hidden;
+            
+            &.input-inactive {
+                opacity: 0;
+                width: 0;
+                margin-left: 0;
+                pointer-events: none;
+            }
+            
+            &.input-active {
+                opacity: 1;
+                visibility: visible;
+                width: 90px;
+            }
         }
     }
+}
+.content-up {
+    transform: translateY(-38px);
 }

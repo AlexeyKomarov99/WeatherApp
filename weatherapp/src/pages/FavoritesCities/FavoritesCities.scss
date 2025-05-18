@@ -1,8 +1,41 @@
 @import '../../index.css';
 .FavoritesCities {
+    position: relative;
+    padding-bottom: 50px;
+
     .FavoritesCities__title {
         font-size: 32px;
         font-weight: 600;
         margin-bottom: 8px;
+        opacity: 1;
+        visibility: visible;
+        transition: all 0.3s ease-out;
     }
+
+    .hide-title {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-38px);
+    }
+
+    .content-up {
+        transform: translateY(-38px);
+    }
+
+    .FavoritesCities__content {
+        transition: var(--transition);
+    }
+
+
+}
+
+.page-blackout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    background-color: rgba(0, 0, 0, 0.7);
+    // pointer-events: none; /* Чтобы клики проходили сквозь затемнение */
 }
