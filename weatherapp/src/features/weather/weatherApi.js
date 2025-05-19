@@ -1,56 +1,67 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-// https://www.weatherapi.com
 const API_KEY = 'ffb320b001f74cafbee141023251505';
+const BASE_URL = 'http://api.weatherapi.com/v1';
 
 export const weatherApi = createApi({
-    reducerPath: 'weatherApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://api.weatherapi.com/v1'}),
-    endpoints: (builder) => ({
-        
-        // Call current weather data for name city
-        getCurrentWeather: builder.query({
-            query: (city) => ({
-                url: 'current.json',
-                params: {
-                    q: city,
-                    key: API_KEY,
-                }
-            }),
-        }),
-
-        // Call hourly forecast data for name city (for 1 day)
-        getHourlyForecast: builder.query({
-            query: (city) => ({
-                url: 'forecast.json',
-                params: {
-                    q: city,
-                    key: API_KEY,
-                    days: 1
-                }
-            })
-        }),
-
-        // Call daily forecast data for name city (for 10 day)
-        getDailyForecst: builder.query({
-            query: (city) => ({
-                url: 'forecast.json',
-                params: {
-                    q: city,
-                    key: API_KEY,
-                    days: 10,
-                }
-            })
-        })
-
+  reducerPath: 'weatherApi',
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+  endpoints: (builder) => ({
+    // Autocomplete cities search
+    searchCities: builder.query({
+      query: (searchText) => ({
+        url: 'search.json',
+        params: {
+          q: searchText,
+          key: API_KEY,
+        }
+      }),
     }),
+
+    // Текущая погода по координатам
+    getCurrentWeather: builder.query({
+      query: (coords) => ({
+        url: 'current.json',
+        params: {
+          q: coords ? `${coords.lat},${coords.lon}` : 'London', // Fallback на Лондон
+          key: API_KEY,
+        }
+      }),
+    }),
+
+    // Почасовой прогноз на 1 день
+    getHourlyForecast: builder.query({
+      query: (coords) => ({
+        url: 'forecast.json',
+        params: {
+          q: coords ? `${coords.lat},${coords.lon}` : 'London',
+          key: API_KEY,
+          days: 1
+        }
+      })
+    }),
+
+    // Прогноз на 10 дней
+    getDailyForecast: builder.query({
+      query: (coords) => ({
+        url: 'forecast.json',
+        params: {
+          q: coords ? `${coords.lat},${coords.lon}` : 'London',
+          key: API_KEY,
+          days: 10
+        }
+      })
+    })
+  }),
 });
 
 export const {
-    useGetCurrentWeatherQuery, 
-    useLazyGetCurrentWeatherQuery,
-    useGetHourlyForecastQuery,
-    useLazyGetHourlyForecastQuery,
-    useGetDailyForecstQuery,
-    useLazyGetDailyForecstQuery,
+  useSearchCitiesQuery,
+  useLazySearchCitiesQuery,
+  useGetCurrentWeatherQuery, 
+  useLazyGetCurrentWeatherQuery,
+  useGetHourlyForecastQuery,
+  useLazyGetHourlyForecastQuery,
+  useGetDailyForecastQuery,
+  useLazyGetDailyForecastQuery,
 } = weatherApi;

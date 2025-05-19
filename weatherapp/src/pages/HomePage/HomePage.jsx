@@ -4,10 +4,15 @@ import './HomePage.scss';
 //===== components =====//
 import WeatherCard from '../../components/WeatherCard/WeatherCard';
 
-const HomePage = () => {
+const HomePage = ({coords, currentWeatherData, hourlyForecastData, dailyForecastData}) => {
+  console.log(coords);
   return (
     <div className='HomePage'>
-      <WeatherCard />
+      <WeatherCard
+        currentWeatherData={currentWeatherData}
+        hourlyForecastData={hourlyForecastData}
+        dailyForecastData={dailyForecastData}
+      />
     </div>
   )
 }

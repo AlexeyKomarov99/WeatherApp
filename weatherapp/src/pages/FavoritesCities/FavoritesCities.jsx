@@ -22,6 +22,7 @@ const favoritesCitiesList = [
 
 const FavoritesCities = () => {
   const [blackout, setBlackout] = useState(false);
+  const [isActiveMW, setIsActiveMW] = useState(false);
 
   useEffect(() => {
     if (blackout) {
@@ -41,7 +42,12 @@ const FavoritesCities = () => {
         >
           Погода
         </div>
-        <SearchCity blackout={blackout} setBlackout={setBlackout} />
+        <SearchCity 
+          blackout={blackout} 
+          setBlackout={setBlackout} 
+          isActiveMW={isActiveMW}
+          setIsActiveMW={setIsActiveMW}
+        />
         <div className={`FavoritesCities__content ${blackout ? 'content-up' : ''}`}>
           {favoritesCitiesList.map((city) => (
             <FavoritesCitiesCard key={city.id} city={city} />
