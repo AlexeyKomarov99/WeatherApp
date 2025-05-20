@@ -41,7 +41,17 @@
     padding-bottom: 100px;
 
     .ModalWindowFoundCity__content {
-        
+        .ModalWindowFoundCity__settings {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .ModalWindowFoundCity__cancle {
+                cursor: pointer;
+            }
+            .ModalWindowFoundCity__add {
+                cursor: pointer;
+            }
+        }
     }
 
     &.openWindow {

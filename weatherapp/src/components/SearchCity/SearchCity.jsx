@@ -13,6 +13,7 @@ import { IoSearch as SearchIcon } from "react-icons/io5";
 import ModalWindowFoundCity from '../../components/ModalWindowFoundCity/ModalWindowFoundCity';
 
 const SearchCity = ({blackout, setBlackout, isActiveMW, setIsActiveMW}) => {
+    const [selectedCity, setSelectedCity] = useState({});
     const [coords, setCoords] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [suggestions, setSuggestions] = useState([]);
@@ -37,9 +38,14 @@ const SearchCity = ({blackout, setBlackout, isActiveMW, setIsActiveMW}) => {
     // Обработчик выбора города из списка
     const handleSelectCity = (city) => {
         setShowSuggestions(false);
-
-        const lat = city.lat;
-        const lon = city.lon;
+        
+        let id = city.id;
+        let lat = city.lat;
+        let lon = city.lon;
+        let cityName = city.name;
+        let region = city.region;
+        let country = city.country;
+        setSelectedCity({id, lat, lon, cityName, region, country});
         setCoords({lat, lon});
 
         setIsActiveMW(true);
@@ -150,6 +156,11 @@ const SearchCity = ({blackout, setBlackout, isActiveMW, setIsActiveMW}) => {
             )}
             
             <ModalWindowFoundCity
+                selectedCity={selectedCity}
+                setSelectedCity={setSelectedCity}
+                setCoords={setCoords}
+                setSearchTerm={setSearchTerm}
+                setSuggestions={setSuggestions}
                 isActiveMW={isActiveMW}
                 setIsActiveMW={setIsActiveMW}
                 onClose={() => setIsActiveMW(false)}

@@ -1,4 +1,7 @@
 import React, {useState, useEffect} from 'react';
+//===== redux =====//
+import { useDispatch } from 'react-redux';
+import { addCityFavorites } from '../../features/weather/weatherSlice';
 //===== assets =====//
 import './ModalWindowFoundCity.scss';
 //===== components =====//
@@ -6,6 +9,11 @@ import Modal from 'react-modal';
 import WeatherCard from '../WeatherCard/WeatherCard';
 
 const ModalWindowFoundCity = ({
+  selectedCity,
+  setSelectedCity,
+  setCoords,
+  setSearchTerm,
+  setSuggestions,
   isActiveMW, 
   onClose, 
   currentWeatherData,
@@ -13,6 +21,14 @@ const ModalWindowFoundCity = ({
   dailyForecastData
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const dispatch = useDispatch();
+
+  console.log(hourlyForecastData);
+  const hourlyWeatherData = hourlyForecastData 
+    ? hourlyForecastData?.forecast?.forecastday[0]?.hour?.map(hour => hour.temp_c) 
+    : [];
+  let minTemp = Math.min(...hourlyWeatherData);
+  let maxTemp = Math.max(...hourlyWeatherData);
 
   useEffect(() => {
     if(isActiveMW) {
@@ -25,6 +41,31 @@ const ModalWindowFoundCity = ({
     setTimeout(onClose, 300);
   }
 
+  const handleAddCity = () => {
+    if(currentWeatherData) {
+      dispatch(addCityFavorites(
+        selectedCity.id,
+        currentWeatherData.location.lat,
+        currentWeatherData.location.lon,
+        selectedCity.cityName,
+        selectedCity.region,
+        selectedCity.country,
+        currentWeatherData.location.localtime.split(' ')[1],
+        currentWeatherData.current.condition.text,
+        currentWeatherData.current.temp_c,
+        minTemp,
+        maxTemp,
+      ));
+
+      // Сброс состояний
+      handleClose();
+      setSelectedCity({});
+      setCoords(null);
+      setSearchTerm('');
+      setSuggestions([]);
+    }
+  }
+
   return (
     <Modal
       className={`ModalWindowFoundCity ${isVisible ? 'openWindow' : ''}`}
@@ -34,6 +75,18 @@ const ModalWindowFoundCity = ({
       closeTimeoutMS={300}
     >
       <div className="ModalWindowFoundCity__content">
+        <div className="ModalWindowFoundCity__settings">
+          <div 
+            className="ModalWindowFoundCity__cancle"
+            onClick={handleClose}
+          >
+            Отмена
+          </div>
+          <div 
+            className="ModalWindowFoundCity__add"
+            onClick={handleAddCity}
+          >Добавить</div>
+        </div>
         <WeatherCard 
           currentWeatherData={currentWeatherData}
           hourlyForecastData={hourlyForecastData}

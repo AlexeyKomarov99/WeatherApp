@@ -2,10 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     favoriteCities: [],
-    currentLocation: null,
-    isLoading: false,
-    error: null
 }
+
+const featuredFavoritesCities = () => {
+    const stored = localStorage.getItem('featured-cities-list');
+    return stored ? JSON.parse(stored) : [];
+}
+initialState.favoriteCities = featuredFavoritesCities();
 
 export const weatherSlice = createSlice({
     name: 'weather',
@@ -20,12 +23,32 @@ export const weatherSlice = createSlice({
                     state.favoriteCities.push(action.payload);
                 }
             },
-            prepare(cityId, cityName, temperature) {
+            prepare(
+                cityId, 
+                lat, 
+                lon, 
+                cityName, 
+                region, 
+                country, 
+                currentTime,
+                weatherDescr,
+                currentTemp,
+                maxTemp,
+                minTemp
+            ) {
                 return {
                     payload: {
                         cityId,
+                        lat,
+                        lon,
                         cityName,
-                        temperature
+                        region,
+                        country,
+                        currentTime,
+                        weatherDescr,
+                        currentTemp,
+                        maxTemp,
+                        minTemp
                     }
                 }
             }

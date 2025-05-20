@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 //===== redux =====//
-
+import { useSelector, useDispatch } from 'react-redux';
 //===== assets =====//
 import './FavoritesCities.scss';
 //===== components =====//
@@ -27,7 +27,6 @@ const FavoritesCities = () => {
   useEffect(() => {
     if (blackout) {
       document.body.classList.add('page-blackout');
-
     } else {
       document.body.classList.remove('page-blackout');
     }
@@ -49,10 +48,17 @@ const FavoritesCities = () => {
           setIsActiveMW={setIsActiveMW}
         />
         <div className={`FavoritesCities__content ${blackout ? 'content-up' : ''}`}>
-          {favoritesCitiesList.map((city) => (
+          {favoritesCitiesList.length !== 0 ? (
+            favoritesCitiesList.map((city) => (
             <FavoritesCitiesCard key={city.id} city={city} />
-          ))}
+          ))
+          ) : (
+            <div className="FavoritesCities__content-footer">
+              Пусто
+            </div>
+          )}
         </div>
+
       </div>
     </>
   );
