@@ -74,7 +74,7 @@ const App = () => {
             <Routes>
               <Route path='/' element={<Layout />} >
                 <Route index element={<HomePage coords={coords} currentWeatherData={currentWeatherData} hourlyForecastData={hourlyForecastData} dailyForecastData={dailyForecastData} />} />
-                {/* <Route path='/city/:cityId' element={<CityPage />} /> */}
+                <Route path='/city/:cityId' element={<CityPage />} />
                 <Route path='/weather-map' element={<WeatherMap />} />
                 <Route path='/favorites-cities' element={<FavoritesCities />} />
               </Route>

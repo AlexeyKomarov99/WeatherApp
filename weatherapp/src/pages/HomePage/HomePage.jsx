@@ -1,11 +1,12 @@
 import React from 'react';
+//===== redux =====//
+import { useSelector } from 'react-redux';
 //===== assets =====//
 import './HomePage.scss';
 //===== components =====//
 import WeatherCard from '../../components/WeatherCard/WeatherCard';
 
 const HomePage = ({coords, currentWeatherData, hourlyForecastData, dailyForecastData}) => {
-  console.log(coords);
   return (
     <div className='HomePage'>
       <WeatherCard

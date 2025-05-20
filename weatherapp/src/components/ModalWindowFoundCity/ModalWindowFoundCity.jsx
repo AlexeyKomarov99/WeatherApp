@@ -23,12 +23,12 @@ const ModalWindowFoundCity = ({
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
 
-  console.log(hourlyForecastData);
   const hourlyWeatherData = hourlyForecastData 
     ? hourlyForecastData?.forecast?.forecastday[0]?.hour?.map(hour => hour.temp_c) 
-    : [];
-  let minTemp = Math.min(...hourlyWeatherData);
-  let maxTemp = Math.max(...hourlyWeatherData);
+    : [];  
+  let currentTemp = Math.round(currentWeatherData?.current?.temp_c);
+  let minTemp = Math.round(Math.min(...hourlyWeatherData));
+  let maxTemp = Math.round(Math.max(...hourlyWeatherData));
 
   useEffect(() => {
     if(isActiveMW) {
@@ -52,7 +52,7 @@ const ModalWindowFoundCity = ({
         selectedCity.country,
         currentWeatherData.location.localtime.split(' ')[1],
         currentWeatherData.current.condition.text,
-        currentWeatherData.current.temp_c,
+        currentTemp,
         minTemp,
         maxTemp,
       ));
@@ -62,7 +62,7 @@ const ModalWindowFoundCity = ({
       setSelectedCity({});
       setCoords(null);
       setSearchTerm('');
-      setSuggestions([]);
+      // setSuggestions([]);
     }
   }
 

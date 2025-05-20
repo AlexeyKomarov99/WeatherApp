@@ -1,0 +1,1 @@
+export const selectFavoriteCities = (state) => state.weather.favoriteCities;

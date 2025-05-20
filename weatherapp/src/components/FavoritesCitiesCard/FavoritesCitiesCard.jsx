@@ -3,6 +3,17 @@ import React from 'react';
 import './FavoritesCitiesCard.scss';
 
 const FavoritesCitiesCard = ({city}) => {
+  
+  const weatherDescrFormatted = 
+    city.weatherDescr === 'Partly Cloudy' ? 'Переменная облачность' : 
+    city.weatherDescr === 'Sunny' ? 'Солнечно' :
+    city.weatherDescr === 'Light drizzle' ? 'Мелкий моросящий дождь' :
+    city.weatherDescr === 'Light rain' ? 'Легкий дождь' :
+    city.weatherDescr === 'Patchy rain nearby' ? 'Местами дождь' :
+    city.weatherDescr === 'Clear' ? 'Ясная погода' :
+    city.weatherDescr === '' ? 'Нет данных' :
+    city.weatherDescr;
+  
   return (
     <div className='FavoritesCitiesCard'>
         <div className="FavoritesCitiesCard__content">
@@ -10,12 +21,12 @@ const FavoritesCitiesCard = ({city}) => {
             <div className="FavoritesCities__content-left">
 
                 <div className="FavoritesCities__left-top">
-                  <div className="FavoritesCities__city-name">{city.city}</div>
+                  <div className="FavoritesCities__city-name">{city.cityName}</div>
                   <div className="FavoritesCities__time">{city.currentTime}</div>
                 </div>
                 
                 <div className="FavoritesCities__left-bottom">
-                  <div className="FavoritesCities__weather-descr">{city.weatherDescr}</div>
+                  <div className="FavoritesCities__weather-descr">{weatherDescrFormatted}</div>
                 </div>
 
               </div>
