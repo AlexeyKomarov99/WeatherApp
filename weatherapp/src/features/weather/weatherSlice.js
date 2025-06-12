@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     favoriteCities: [],
-    currentIndex: 0
+    currentIndex: 0,
+    citiesWeatherData: {},
 }
 
 const featuredFavoritesCities = () => {
@@ -61,6 +62,12 @@ export const weatherSlice = createSlice({
             )
             }
         },
+        setCityWeatherData: (state, action) => {
+            state.citiesWeatherData[action.payload.cityId] = action.payload.data;
+        },
+        updateAllCitiesWeather: (state, action) => {
+            state.citiesWeatherData = action.payload;
+        },
         setCurrentIndex: (state, action) => {
             state.currentIndex = action.payload;
         }
@@ -71,5 +78,7 @@ export const {
     addCityFavorites,
     setCurrentLocation,
     setCurrentIndex,
+    setCityWeatherData,
+    updateAllCitiesWeather,
 } = weatherSlice.actions;
 export default weatherSlice.reducer;

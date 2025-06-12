@@ -17,8 +17,16 @@ import Pressure from '../Pressure/Pressure';
 import ReportProblem from '../ReportProblem/ReportProblem';
 import ModalWindow from '../ModalWindow/ModalWindow';
 
-const WeatherCard = ({currentWeatherData, hourlyForecastData, dailyForecastData}) => {
+const WeatherCard = ({
+  currentWeatherData, 
+  hourlyForecastData, 
+  dailyForecastData,
+  isCurrentLocation,
+  isFavorite
+}) => {
 
+  
+  
   const [activeSection, setActiveSection] = useState('');
   const [isActiveMW, setIsActiveMW] = useState(false);
 

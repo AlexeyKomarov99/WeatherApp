@@ -11,9 +11,9 @@ import {
 import './App.scss';
 //===== components =====//
 import Layout from './components/Layout/Layout';
+import WeatherDataLoader from './components/WeatherDataLoader/WeatherDataLoader';
 //===== pages =====//
 import HomePage from './pages/HomePage/HomePage';
-import CityPage from './pages/CityPage/CityPage';
 import FavoritesCities from './pages/FavoritesCities/FavoritesCities';
 import WeatherMap from './pages/WeatherMap/WeatherMap';
 //===== Services =====//
@@ -68,13 +68,13 @@ const App = () => {
 
   return (
     <main className='App'>
+      <WeatherDataLoader />
       <div className='App__wrapper'>
         <div className='App__container'>
           <div className='App__content'>
             <Routes>
               <Route path='/' element={<Layout />} >
                 <Route index element={<HomePage coords={coords} currentWeatherData={currentWeatherData} hourlyForecastData={hourlyForecastData} dailyForecastData={dailyForecastData} />} />
-                <Route path='/city/:cityId' element={<CityPage />} />
                 <Route path='/weather-map' element={<WeatherMap />} />
                 <Route path='/favorites-cities' element={<FavoritesCities />} />
               </Route>

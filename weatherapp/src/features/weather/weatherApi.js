@@ -7,7 +7,8 @@ export const weatherApi = createApi({
   reducerPath: 'weatherApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
-    // Autocomplete cities search
+
+    // Автоматический поиск городов
     searchCities: builder.query({
       query: (searchText) => ({
         url: 'search.json',
@@ -23,7 +24,7 @@ export const weatherApi = createApi({
       query: (coords) => ({
         url: 'current.json',
         params: {
-          q: coords ? `${coords.lat},${coords.lon}` : 'London', // Fallback на Лондон
+          q: coords ? `${coords.lat},${coords.lon}` : 'London',
           key: API_KEY,
         }
       }),
@@ -51,7 +52,26 @@ export const weatherApi = createApi({
           days: 10
         }
       })
-    })
+    }),
+
+    // // Данные о погоде избранных городов
+    // getMultipleCitiesWeather: builder.query({
+    //   query: (cities) => ({
+    //     url: 'current.json',
+    //     params: {
+    //       q: cities.map(city => `${city.lat},${city.lon}`).join('|'),
+    //       key: API_KEY,
+    //     }
+    //   }),
+    //   transformResponse: (response, meta, arg) => {
+    //     // Используем arg (cities), который был передан в запрос
+    //     return response.reduce((acc, cityData, index) => {
+    //       acc[arg[index].cityId] = cityData;
+    //       return acc;
+    //     }, {});
+    //   }
+    // })
+
   }),
 });
 
@@ -64,4 +84,6 @@ export const {
   useLazyGetHourlyForecastQuery,
   useGetDailyForecastQuery,
   useLazyGetDailyForecastQuery,
+  // useGetMultipleCitiesWeatherQuery,
+  // useLazyGetMultipleCitiesWeatherQuery,
 } = weatherApi;
