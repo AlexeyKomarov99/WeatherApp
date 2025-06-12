@@ -8,6 +8,17 @@ export const weatherApi = createApi({
     baseQuery: fetchBaseQuery({baseUrl: 'http://api.weatherapi.com/v1'}),
     endpoints: (builder) => ({
         
+        // Autocomplete cities search
+        searchCities: builder.query({
+            query: (searchText) => ({
+                url: 'search.json',
+                params: {
+                    q: searchText,
+                    key: API_KEY,
+                }
+            }),
+        }),
+
         // Call current weather data for name city
         getCurrentWeather: builder.query({
             query: (city) => ({
@@ -53,4 +64,6 @@ export const {
     useLazyGetHourlyForecastQuery,
     useGetDailyForecstQuery,
     useLazyGetDailyForecstQuery,
+    useSearchCitiesQuery,
+    useLazySearchCitiesQuery,
 } = weatherApi;

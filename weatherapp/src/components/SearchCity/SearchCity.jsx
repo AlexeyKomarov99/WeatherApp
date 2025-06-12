@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react';
 //===== redux =====//
 import {
-    useGetCurrentWeatherQuery
+    useLazySearchCitiesQuery
 } from '../../features/weather/weatherApi';
 //===== assets =====//
 import './SearchCity.scss';
@@ -9,6 +9,7 @@ import { IoSearch as SearchIcon } from "react-icons/io5";
 
 const SearchCity = ({blackout, setBlackout}) => {
     const [searchTerm, setSearchTerm] = useState('');
+    const [suggestions, setSuggestions] = useState([]);
     const inputFocus = useRef(null);
 
     const handleFocus = () => {
