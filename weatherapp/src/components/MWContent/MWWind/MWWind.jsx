@@ -63,8 +63,8 @@ const MWWind = ({dailyWeatherData}) => {
   const maxWindSpeed = Math.round(Math.max(...windSpeedList));
   const maxGustWindSpeed = Math.round(Math.max(...gustWindSpeedList));  
 
-  console.log(windSpeedList);
-  console.log(gustWindSpeedList);
+  // console.log(windSpeedList);
+  // console.log(gustWindSpeedList);
 
   return (
     <div className='MWWind'>

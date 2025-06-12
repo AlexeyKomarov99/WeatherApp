@@ -2,10 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     favoriteCities: [],
-    currentLocation: null,
-    isLoading: false,
-    error: null
+    currentIndex: 0
 }
+
+const featuredFavoritesCities = () => {
+    const stored = localStorage.getItem('featured-cities-list');
+    return stored ? JSON.parse(stored) : [];
+}
+initialState.favoriteCities = featuredFavoritesCities();
 
 export const weatherSlice = createSlice({
     name: 'weather',
@@ -20,20 +24,45 @@ export const weatherSlice = createSlice({
                     state.favoriteCities.push(action.payload);
                 }
             },
-            prepare(cityId, cityName, temperature) {
+            prepare(
+                cityId, 
+                lat, 
+                lon, 
+                cityName, 
+                region, 
+                country, 
+                currentTime,
+                weatherDescr,
+                currentTemp,
+                maxTemp,
+                minTemp
+            ) {
                 return {
                     payload: {
                         cityId,
+                        lat,
+                        lon,
                         cityName,
-                        temperature
+                        region,
+                        country,
+                        currentTime,
+                        weatherDescr,
+                        currentTemp,
+                        maxTemp,
+                        minTemp
                     }
                 }
             }
         },
-        setCurrentLocation: {
+        deleteCityFavorites: {
             reducer(state, action) {
-                state.currentLocation = action.payload;
+                state.favoriteCities = state.favoriteCities.filter(
+                city => city.cityId !== action.payload
+            )
             }
+        },
+        setCurrentIndex: (state, action) => {
+            state.currentIndex = action.payload;
         }
     }
 });
@@ -41,5 +70,6 @@ export const weatherSlice = createSlice({
 export const {
     addCityFavorites,
     setCurrentLocation,
+    setCurrentIndex,
 } = weatherSlice.actions;
 export default weatherSlice.reducer;

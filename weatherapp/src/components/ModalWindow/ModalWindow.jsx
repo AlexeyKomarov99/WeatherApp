@@ -1,9 +1,4 @@
 import React, {useState, useEffect} from 'react';
-//===== redux =====//
-import {
-    useGetHourlyForecastQuery,
-    useGetDailyForecstQuery
-  } from '../../features/weather/weatherApi';
 //===== assets =====//
 import './ModalWindow.scss';
 //===== components =====//
@@ -22,7 +17,14 @@ import MWReportProblem from '../MWContent/MWReportProblem/MWReportProblem';
 
 Modal.setAppElement('#root');
 
-const ModalWindow = ({isActiveMW, activeSection, onClose}) => {
+const ModalWindow = ({
+    isActiveMW, 
+    activeSection, 
+    onClose, 
+    currentWeatherData, 
+    hourlyForecastData, 
+    dailyForecastData
+}) => {
 
     const [isVisible, setIsVisible] = useState(false);
 
@@ -36,18 +38,6 @@ const ModalWindow = ({isActiveMW, activeSection, onClose}) => {
         setIsVisible(false);
         setTimeout(onClose, 300);
     }
-
-    const {
-        data: hourlyForecastData,
-        isLoading: isHourlyForecastLoading,
-        error: hourlyForecastLoading
-    } = useGetHourlyForecastQuery('Moscow');
-
-    const {
-        data: dailyForecastData,
-        isLoading: isDailyForecastLoading,
-        error: dailyForecastLoading
-    } = useGetDailyForecstQuery('Moscow');
 
     const dailyWeatherData = dailyForecastData?.forecast?.forecastday;
     const hourlyWeatherData = hourlyForecastData?.forecast?.forecastday[0].astro;

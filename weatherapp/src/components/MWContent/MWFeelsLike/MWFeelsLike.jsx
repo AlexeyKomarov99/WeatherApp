@@ -29,7 +29,7 @@ const MWFeelsLike = ({dailyWeatherData}) => {
     }
   })
 
-  console.log(dailyFeelsLikeData)
+  // console.log(dailyFeelsLikeData)
 
   const selectedDayData = dailyFeelsLikeData[selectedDateIndex];
 

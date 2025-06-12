@@ -12,7 +12,7 @@ import { DayWeek } from '../../../utils/getDayWeek';
 const MWVisibility = ({dailyWeatherData}) => {
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const chartSwiperRef = useRef(null);
-  console.log(dailyWeatherData);
+  // console.log(dailyWeatherData);
   const dailyVisibilityData = dailyWeatherData?.map((day) => {
     return {
       id: day.date_epoch,
@@ -30,7 +30,7 @@ const MWVisibility = ({dailyWeatherData}) => {
       })
     }
   })
-  console.log(dailyVisibilityData)
+  // console.log(dailyVisibilityData)
   const selectedDayData = dailyVisibilityData[selectedDateIndex];
 
   const handleDateClick = (index) => {

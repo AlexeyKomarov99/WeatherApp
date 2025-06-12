@@ -1,6 +1,4 @@
 import React from 'react';
-//===== redux =====//
-import {useGetDailyForecstQuery} from '../../features/weather/weatherApi';
 //===== assets =====//
 import './DailyForecast.scss';
 import { IoCalendarOutline as CalendarIcon} from "react-icons/io5";
