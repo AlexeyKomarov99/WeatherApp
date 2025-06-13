@@ -1,0 +1,116 @@
+@import '../../../index.css';
+.MWNotification {
+    width: 100%;
+    height: 90dvh;
+    .MWNotification__container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+        .MWNotification__content-top {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 100px;
+            .MWNotification__icon-wrapper {
+                width: 96px;
+                height: 96px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .icon-bell {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    color: var(--color-indigo);
+                }
+            }
+
+            .MWNotification__title {
+                font-size: 40px;
+                font-weight: 600;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .MWNotification__description {
+                font-size: 18px;
+                text-align: center;
+                max-width: 350px;
+                color: rgba(255,255,255,0.8);
+            }
+        }
+
+        .MWNotification__content-bottom {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .MWNotification__icon-wrapper {
+                width: 36px;
+                height: 36px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .icon-handshake {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    color: var(--color-indigo);
+                }
+            }
+
+            .MWNotification__description-bottom {
+                text-align: center;
+                font-size: 14px;
+                max-width: 375px;
+                color: rgba(255,255,255,0.5);
+                cursor: pointer;
+            }
+
+            .MWNotification__description-link {
+                text-align: center;
+                font-size: 14px;
+                max-width: 350px;
+                color: var(--color-indigo);
+                cursor: pointer;
+            }
+
+            .MWNotification__btn-group {
+                width: 100%;
+                max-width: 350px;
+                margin-top: 30px;
+                .MWNotification__btn-continue {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 12px 20px;
+                    border-radius: var(--border-radius-small);
+                    background-color: var(--color-indigo);
+                    color: var(--color-white);
+                    cursor: pointer;
+                    margin-bottom: 4px;
+                }
+                .MWNotification__btn-not-now {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 12px 20px;
+                    border-radius: var(--border-radius-small);
+                    background-color: transparent;
+                    color: var(--color-indigo);
+                    cursor: pointer;
+                }
+            }
+        }
+
+    }
+}

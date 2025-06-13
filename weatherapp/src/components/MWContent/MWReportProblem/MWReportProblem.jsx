@@ -13,7 +13,9 @@ import {
   WIND__DESCR
 } from './data';
 
-const MWReportProblem = () => {
+const MWReportProblem = ({
+  handleClose
+}) => {
 
   const [weatherData, setWeatherData] = useState(CURRENT_WEATHER_DATA);
   const [tempData, setTempData] = useState(TEMPERATURE_DATA);
@@ -115,11 +117,17 @@ const MWReportProblem = () => {
       <div className="MWReportProblem__header">
         <div 
           className="MWReportProblem__cancel"
+          onClick={handleClose}
         >
           Отменить
         </div>
         <div className="MWReportProblem__report-problem">Сообщить о проблеме</div>
-        <div className="MWReportProblem__send">Отправить</div>
+        <div 
+          className="MWReportProblem__send"
+          onClick={handleClose}
+        >
+          Отправить
+        </div>
       </div>
 
       <div className="MWReportProblem__header-description">

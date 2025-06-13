@@ -14,6 +14,7 @@ import MWHumidity from '../MWContent/MWHumidity/MWHumidity';
 import MWVisibility from '../MWContent/MWVisibility/MWVisibility';
 import MWPressure from '../MWContent/MWPressure/MWPressure';
 import MWReportProblem from '../MWContent/MWReportProblem/MWReportProblem';
+import MWNotification from '../MWContent/MWNotification/MWNotification';
 
 Modal.setAppElement('#root');
 
@@ -61,8 +62,8 @@ const ModalWindow = ({
                 {activeSection === 'Humidity' && <MWHumidity dailyWeatherData={dailyWeatherData} />}
                 {activeSection === 'Visibility' && <MWVisibility dailyWeatherData={dailyWeatherData} />}
                 {activeSection === 'Pressure' && <MWPressure dailyWeatherData={dailyWeatherData} />}
-                {activeSection === 'Report Problem' && <MWReportProblem onClose={onClose} />}
-                
+                {activeSection === 'Report Problem' && <MWReportProblem handleClose={handleClose} />}
+                {activeSection === 'Notification' && <MWNotification handleClose={handleClose} />}
             </div>
         </Modal>
     )

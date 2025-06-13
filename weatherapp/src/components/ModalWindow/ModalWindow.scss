@@ -33,7 +33,7 @@
     
     padding: 20px 15px;
     border-top-left-radius: var(--border-radius-small);
-    border-top-left-radius: var(--border-radius-small);
+    border-top-right-radius: var(--border-radius-small);
 
     background-color: #141414;
     color: white;
@@ -53,11 +53,4 @@
         animation: slideOut 0.3s ease-out forwards;
     }
 
-
-}
-.OverlayModalWindow {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0,0,0,0);
-    z-index: 10000;
 }

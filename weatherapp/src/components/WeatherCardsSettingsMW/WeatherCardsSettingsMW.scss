@@ -1,0 +1,49 @@
+@import '../../index.css';
+
+.WeatherCardsSettingsMW {
+    width: 250px;
+    background-color: var(--color-dark-gray);
+    border-radius: var(--border-radius-medium);
+    margin-top: 10px;
+    
+    .WeatherCardsSettingsMW__container {
+        display: flex;
+        flex-direction: column;
+        
+        .WeatherCardsSettingsMW__content {
+            width: 100%;        
+            display: grid;
+            grid-template-columns: 15% 70% 15%;
+            padding: 10px 0 10px 0;
+            cursor: pointer;
+            
+            &:nth-child(n):not(:last-child) {
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+
+            }
+            
+            .WeatherCardsSettingsMW__left {
+
+            }
+            
+            .WeatherCardsSettingsMW__title {
+
+            }
+            
+            .WeatherCardsSettingsMW__icon-wrapper {
+                width: 20px;
+                height: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}
+
+.OverlayModalWindow {
+    position: fixed;
+    inset: 0;
+    z-index: 12000;
+    background-color: rgba(0, 0, 0, 0);
+}

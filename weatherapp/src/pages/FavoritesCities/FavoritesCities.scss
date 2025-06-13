@@ -3,6 +3,26 @@
     position: relative;
     padding-bottom: 50px;
 
+    .FavoritesCities__settings {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        align-items: start;
+        .FavoritesCities__icon-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            .icon {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+    }
+
     .FavoritesCities__title {
         font-size: 32px;
         font-weight: 600;

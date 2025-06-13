@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { useNavigate } from 'react-router-dom';
 //===== redux =====//
 import { useSelector, useDispatch } from 'react-redux';
@@ -6,9 +6,12 @@ import { selectFavoriteCities } from '../../features/weather/weatherSelectors';
 import { setCurrentIndex } from '../../features/weather/weatherSlice';
 //===== assets =====//
 import './FavoritesCities.scss';
+import { IoEllipsisHorizontalCircle as CircleWithPointsIcon } from "react-icons/io5";
 //===== components =====//
 import SearchCity from '../../components/SearchCity/SearchCity';
 import FavoritesCitiesCard from '../../components/FavoritesCitiesCard/FavoritesCitiesCard';
+import WeatherCardsSettingsMW from '../../components/WeatherCardsSettingsMW/WeatherCardsSettingsMW';
+import ModalWindow from '../../components/ModalWindow/ModalWindow';
 
 const FavoritesCities = ({
   currentWeatherData,
@@ -16,10 +19,17 @@ const FavoritesCities = ({
 }) => {
   const [blackout, setBlackout] = useState(false);
   const [isActiveMW, setIsActiveMW] = useState(false);
+  const [isActiveSetingsMW, setIsActiveSettingsMW] = useState(false);
   const favoritesCitiesList = useSelector(selectFavoriteCities);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [iconPosition, setIconPosition] = useState({ top: 0, left: 0 });
+  const iconRef = useRef(null);
+  // Для главного модального окна
+  const [activeSection, setActiveSection] = useState('');
+  const [isActiveMainMW, setIsActiveMainMW] = useState(false);
 
+    
   const hourlyWeatherData = hourlyForecastData?.forecast?.forecastday;
   const hourlyData = hourlyWeatherData 
     ? hourlyWeatherData[0].hour.map(hour => Math.round(hour.temp_c))
@@ -42,7 +52,6 @@ const FavoritesCities = ({
   };
 
   const goActivePage = (index) => {
-    console.log('Индекс карточки избр городов:', index);
     dispatch(setCurrentIndex(index));
     navigate('/');
   }
@@ -55,15 +64,43 @@ const FavoritesCities = ({
     }
   }, [blackout]);
 
+  const openSettingsMW = () => {
+    if(iconRef.current) {
+      const rect = iconRef.current.getBoundingClientRect();
+      setIconPosition({
+        top: rect.bottom + window.scrollY,
+        left: rect.left + window.scrollX
+      });
+    }
+    setIsActiveSettingsMW(prevState => !prevState);
+  }
+
+  const toggleActiveSection = (section) => {
+    setActiveSection(section);
+    setIsActiveMainMW(true);
+  }
+
   return (
     <>
       {blackout && <div className="page-blackout" />}
       <div className="FavoritesCities">
+        
+        <div className="FavoritesCities__settings">
+          <div 
+            className="FavoritesCities__icon-wrapper"
+            onClick={openSettingsMW}
+            ref={iconRef}
+          >
+            <CircleWithPointsIcon className='icon' />
+          </div>
+        </div>
+
         <div
           className={`FavoritesCities__title ${blackout ? 'hide-title' : ''}`}
         >
           Погода
         </div>
+
         <SearchCity
           blackout={blackout} 
           setBlackout={setBlackout} 
@@ -88,6 +125,19 @@ const FavoritesCities = ({
           ))}
         </div>
       </div>
+
+      <WeatherCardsSettingsMW
+        isActiveSetingsMW={isActiveSetingsMW}
+        openSettingsMW={openSettingsMW}
+        iconPosition={iconPosition}
+        toggleActiveSection={toggleActiveSection}
+      />
+
+      <ModalWindow 
+        isActiveMW={isActiveMainMW}
+        activeSection={activeSection}
+        onClose={() => setIsActiveMainMW(false)}
+      />
     </>
   );
 };
