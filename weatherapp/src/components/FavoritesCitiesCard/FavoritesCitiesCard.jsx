@@ -1,4 +1,7 @@
 import React from 'react';
+//===== redux =====//
+import { useSelector } from 'react-redux';
+import { selectTemperatureUnits } from '../../features/weather/weatherSelectors';
 //===== assets =====//
 import './FavoritesCitiesCard.scss';
 //===== utils =====//
@@ -8,10 +11,12 @@ const FavoritesCitiesCard = ({
   city,
   onClick,
 }) => {
+  const temperatureUnits = useSelector(selectTemperatureUnits);
+  
   // Получаем цвет фона на основе описания погоды
   const cardStyle = {
     background: city?.weatherDescr 
-      ? getBackgroundByWeather(city.weatherDescr, city.is_day, city.currentTemp)
+      ? getBackgroundByWeather(city.weatherDescr, city.is_day, city.currentTemp_c)
       : '#242323',
   };
 
@@ -59,8 +64,6 @@ const FavoritesCitiesCard = ({
     city.weatherDescr === '' ? 'Нет данных' :
     city.weatherDescr;
 
-  // console.log(city);
-
   return (
     <div 
       className='FavoritesCitiesCard' 
@@ -79,11 +82,11 @@ const FavoritesCitiesCard = ({
         </div>
         <div className="FavoritesCities__content-right">
           <div className="FavoritesCities__right-top">
-            <div className="FavoritesCities__temp-max">{city.currentTemp}°</div>
+            <div className="FavoritesCities__temp-max">{temperatureUnits === 'Celsius' ? city.currentTemp_c : city.currentTemp_f}°</div>
           </div>
           <div className="FavoritesCities__right-bottom">
-            <div className="FavoritesCities__temp temp-max">Макс.:{city.maxTemp}°,</div>
-            <div className="FavoritesCities__temp">мин.:{city.minTemp}°</div>
+            <div className="FavoritesCities__temp temp-max">Макс.:{temperatureUnits === 'Celsius' ? city.maxTemp_c : city.maxTemp_f}°,</div>
+            <div className="FavoritesCities__temp">мин.:{temperatureUnits === 'Celsius' ? city.minTemp_c : city.minTemp_f}°</div>
           </div>
         </div>
       </div>

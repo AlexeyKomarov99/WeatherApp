@@ -1,6 +1,11 @@
 import React from 'react';
+//===== redux =====//
+import { useSelector, useDispatch } from 'react-redux';
+import { setTemperatureUnits } from '../../features/weather/weatherSlice';
+import { selectTemperatureUnits } from '../../features/weather/weatherSelectors';
 //===== assets =====//
 import './WeatherCardsSettingsMW.scss';
+import { FaCheck as CheckIcon } from "react-icons/fa6";
 import { GoPencil as PencilIcon } from "react-icons/go";
 import { GoBell as BellIcon } from "react-icons/go";
 import { TbAlertHexagonFilled as AlertIcon } from "react-icons/tb";
@@ -21,6 +26,9 @@ const WeatherCardsSettingsMW = ({
     iconPosition,
     toggleActiveSection,
 }) => {
+    const dispatch = useDispatch();
+    const temperatureUnits = useSelector(selectTemperatureUnits) || 'Celsius';
+    console.log(temperatureUnits);
 
     const modalStyle = {
         position: 'absolute',
@@ -34,16 +42,15 @@ const WeatherCardsSettingsMW = ({
         openSettingsMW()
     }
 
-    
     const handleSelectAction = (action) => {
         if(action === 'Изменить список') {
-            console.log('change list')
+            console.log('change list');
         } else if (action === 'Уведомления') {
-            toggleActiveSection('Notification')
+            toggleActiveSection('Notification');
         } else if (action === 'Градусы Цельсия') {
-            console.log('celsiy')
+            dispatch(setTemperatureUnits('Celsius'));
         } else if (action === 'Градусы Фаренгейта') {
-            console.log('farengeyt')
+            dispatch(setTemperatureUnits('Fahrenheit'));
         } else if (action === 'Сообщить о проблеме') {
             toggleActiveSection('Report Problem');
         } return null;
@@ -59,13 +66,19 @@ const WeatherCardsSettingsMW = ({
             style={{ content: modalStyle }}
         >
             <div className="WeatherCardsSettingsMW__container">    
-                {contentData.map((item, index) => (
+                {contentData.map((item) => (
                     <div 
                         key={item.id} 
                         className="WeatherCardsSettingsMW__content"
                         onClick={() => handleSelectAction(item.action)}
                     >
-                        <div className="WeatherCardsSettingsMW__left"></div>
+                        <div className="WeatherCardsSettingsMW__left">
+                            {/* Показываем CheckIcon только для выбранной единицы измерения */}
+                            {(item.action === 'Градусы Цельсия' && temperatureUnits === 'Celsius') && 
+                                <CheckIcon className='check-icon' />}
+                            {(item.action === 'Градусы Фаренгейта' && temperatureUnits === 'Fahrenheit') && 
+                                <CheckIcon className='check-icon' />}
+                        </div>
                         <div className="WeatherCardsSettingsMW__title">{item.title}</div>
                         <div className="WeatherCardsSettingsMW__icon-wrapper">{item.icon}</div> 
                     </div>

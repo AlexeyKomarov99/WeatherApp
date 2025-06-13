@@ -31,23 +31,33 @@ const FavoritesCities = ({
 
     
   const hourlyWeatherData = hourlyForecastData?.forecast?.forecastday;
-  const hourlyData = hourlyWeatherData 
+  const hourlyData_c = hourlyWeatherData 
     ? hourlyWeatherData[0].hour.map(hour => Math.round(hour.temp_c))
+    : [];
+  const hourlyData_f = hourlyWeatherData 
+    ? hourlyWeatherData[0].hour.map(hour => Math.round(hour.temp_f))
     : [];
   
   const nameCity = 'Текущее место';
   const currentTime = currentWeatherData?.location?.localtime.split(' ')[1];
-  const minTemp = Math.min(...hourlyData);
-  const maxTemp = Math.max(...hourlyData);
-  const currentTemp = currentWeatherData?.current?.temp_c || '';
+  const currentTemp_c = currentWeatherData?.current?.temp_c || '';
+  const currentTemp_f = currentWeatherData?.current?.temp_f || '';
+  const minTemp_c = Math.min(...hourlyData_c);
+  const minTemp_f = Math.min(...hourlyData_f);
+  const maxTemp_c = Math.max(...hourlyData_c);
+  const maxTemp_f = Math.max(...hourlyData_f);
+  
   const weatherDescr = currentWeatherData ? currentWeatherData?.current?.condition?.text : '-';
 
   const weatherDataCurrentCity = {
     cityName: nameCity,
-    currentTemp: currentTemp,
     currentTime: currentTime,
-    minTemp: minTemp,
-    maxTemp: maxTemp,
+    currentTemp_c: currentTemp_c,
+    currentTemp_f: currentTemp_f,
+    minTemp_c: minTemp_c,
+    minTemp_f: minTemp_f,
+    maxTemp_c: maxTemp_c,
+    maxTemp_f: maxTemp_f,
     weatherDescr: weatherDescr
   };
 

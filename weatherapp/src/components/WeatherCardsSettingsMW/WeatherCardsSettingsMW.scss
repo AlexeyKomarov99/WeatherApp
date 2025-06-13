@@ -23,7 +23,12 @@
             }
             
             .WeatherCardsSettingsMW__left {
-
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .check-icon {
+                    color: var(--color-white);
+                }
             }
             
             .WeatherCardsSettingsMW__title {

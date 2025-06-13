@@ -23,12 +23,21 @@ const ModalWindowFoundCity = ({
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
 
-  const hourlyWeatherData = hourlyForecastData 
+  const hourlyWeatherData_c = hourlyForecastData 
     ? hourlyForecastData?.forecast?.forecastday[0]?.hour?.map(hour => hour.temp_c) 
+    : [];
+  const hourlyWeatherData_f = hourlyForecastData 
+    ? hourlyForecastData?.forecast?.forecastday[0]?.hour?.map(hour => hour.temp_f) 
     : [];  
-  let currentTemp = Math.round(currentWeatherData?.current?.temp_c);
-  let minTemp = Math.round(Math.min(...hourlyWeatherData));
-  let maxTemp = Math.round(Math.max(...hourlyWeatherData));
+  
+  let currentTemp_c = Math.round(currentWeatherData?.current?.temp_c);
+  let minTemp_c = Math.round(Math.min(...hourlyWeatherData_c));
+  let maxTemp_c = Math.round(Math.max(...hourlyWeatherData_c));
+
+  let currentTemp_f = Math.round(currentWeatherData?.current?.temp_f);
+  let minTemp_f = Math.round(Math.min(...hourlyWeatherData_f));
+  let maxTemp_f = Math.round(Math.max(...hourlyWeatherData_f));
+
   let is_day = currentWeatherData?.current?.is_day
 
   useEffect(() => {
@@ -53,9 +62,12 @@ const ModalWindowFoundCity = ({
         selectedCity.country,
         currentWeatherData.location.localtime.split(' ')[1],
         currentWeatherData.current.condition.text,
-        currentTemp,
-        minTemp,
-        maxTemp,
+        currentTemp_c,
+        currentTemp_f,
+        minTemp_c,
+        minTemp_f,
+        maxTemp_c,
+        maxTemp_f,
         is_day
       ));
 

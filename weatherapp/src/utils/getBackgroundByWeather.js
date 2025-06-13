@@ -1,12 +1,12 @@
-export function getBackgroundByWeather(weatherDescr, isDay = true, currentTemp = null) {
+export function getBackgroundByWeather(weatherDescr, isDay = true, currentTemp_c = null) {
     const description = weatherDescr.toLowerCase();
     
     // Определяем температурные категории
-    const isExtremeCold = currentTemp !== null && currentTemp <= -15;
-    const isCold = currentTemp !== null && currentTemp <= 5;
-    const isWarm = currentTemp !== null && currentTemp > 5 && currentTemp <= 20;
-    const isHot = currentTemp !== null && currentTemp > 20 && currentTemp <= 30;
-    const isExtremeHeat = currentTemp !== null && currentTemp > 30;
+    const isExtremeCold = currentTemp_c !== null && currentTemp_c <= -15;
+    const isCold = currentTemp_c !== null && currentTemp_c <= 5;
+    const isWarm = currentTemp_c !== null && currentTemp_c > 5 && currentTemp_c <= 20;
+    const isHot = currentTemp_c !== null && currentTemp_c > 20 && currentTemp_c <= 30;
+    const isExtremeHeat = currentTemp_c !== null && currentTemp_c > 30;
 
     // Ясно/Солнечно
     if (description.includes('clear') || description.includes('sunny')) {

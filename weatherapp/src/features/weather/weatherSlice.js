@@ -4,6 +4,7 @@ const initialState = {
     favoriteCities: [],
     currentIndex: 0,
     citiesWeatherData: {},
+    temperatureUnits: 'Celsius', // Celsius || Fahrenheit
 }
 
 const featuredFavoritesCities = () => {
@@ -34,9 +35,12 @@ export const weatherSlice = createSlice({
                 country, 
                 currentTime,
                 weatherDescr,
-                currentTemp,
-                maxTemp,
-                minTemp,
+                currentTemp_c,
+                currentTemp_f,
+                minTemp_c,
+                minTemp_f,
+                maxTemp_c,
+                maxTemp_f,
                 is_day,
             ) {
                 return {
@@ -49,9 +53,12 @@ export const weatherSlice = createSlice({
                         country,
                         currentTime,
                         weatherDescr,
-                        currentTemp,
-                        maxTemp,
-                        minTemp,
+                        currentTemp_c,
+                        currentTemp_f,
+                        minTemp_c,
+                        minTemp_f,
+                        maxTemp_c,
+                        maxTemp_f,
                         is_day
                     }
                 }
@@ -72,6 +79,9 @@ export const weatherSlice = createSlice({
         },
         setCurrentIndex: (state, action) => {
             state.currentIndex = action.payload;
+        },
+        setTemperatureUnits: (state, action) => {
+            state.temperatureUnits = action.payload;
         }
     }
 });
@@ -82,5 +92,6 @@ export const {
     setCurrentIndex,
     setCityWeatherData,
     updateAllCitiesWeather,
+    setTemperatureUnits,
 } = weatherSlice.actions;
 export default weatherSlice.reducer;
