@@ -6,7 +6,7 @@ const CityInfo = ({currentWeather, locationData, hourlyWeatherData}) => {
     const nameCity =  locationData ? locationData.name : "Город не найден";
     const weatherTemp = Math.round(currentWeather?.temp_c ?? 0);
     const weatherDescr = currentWeather ? currentWeather.condition?.text : "—";
-        const hourlyData = hourlyWeatherData 
+    const hourlyData = hourlyWeatherData 
         ? hourlyWeatherData[0].hour.map(hour => Math.round(hour.temp_c))
         : [];
     const minTemp = Math.min(...hourlyData);

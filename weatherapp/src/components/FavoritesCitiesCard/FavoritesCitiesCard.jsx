@@ -1,52 +1,94 @@
 import React from 'react';
 //===== assets =====//
 import './FavoritesCitiesCard.scss';
+//===== utils =====//
+import { getBackgroundByWeather } from '../../utils/getBackgroundByWeather';
 
-const FavoritesCitiesCard = ({city}) => {
-  
+const FavoritesCitiesCard = ({ 
+  city,
+  onClick,
+}) => {
+  // Получаем цвет фона на основе описания погоды
+  const cardStyle = {
+    background: city?.weatherDescr 
+      ? getBackgroundByWeather(city.weatherDescr, city.is_day, city.currentTemp)
+      : '#242323',
+  };
+
   const weatherDescrFormatted = 
-    city.weatherDescr === 'Partly Cloudy' ? 'Переменная облачность' : 
+    city.weatherDescr === 'Partly cloudy' ? 'Переменная облачность' : 
     city.weatherDescr === 'Sunny' ? 'Солнечно' :
-    city.weatherDescr === 'Light drizzle' ? 'Мелкий моросящий дождь' :
-    city.weatherDescr === 'Light rain' ? 'Легкий дождь' :
+    city.weatherDescr === 'Clear' ? 'Ясно' :
+    city.weatherDescr === 'Cloudy' ? 'Облачно' :
+    city.weatherDescr === 'Overcast' ? 'Пасмурно' :
+    city.weatherDescr === 'Mist' ? 'Дымка' :
+    city.weatherDescr === 'Fog' ? 'Туман' :
+    city.weatherDescr === 'Patchy rain possible' ? 'Возможен дождь' :
+    city.weatherDescr === 'Patchy snow possible' ? 'Возможен снег' :
+    city.weatherDescr === 'Patchy sleet possible' ? 'Возможен мокрый снег' :
+    city.weatherDescr === 'Patchy freezing drizzle possible' ? 'Возможна ледяная морось' :
+    city.weatherDescr === 'Thundery outbreaks possible' ? 'Возможны грозы' :
+    city.weatherDescr === 'Blowing snow' ? 'Метель' :
+    city.weatherDescr === 'Blizzard' ? 'Снежная буря' :
+    city.weatherDescr === 'Freezing fog' ? 'Ледяной туман' :
+    city.weatherDescr === 'Light rain' ? 'Небольшой дождь' :
+    city.weatherDescr === 'Moderate rain' ? 'Умеренный дождь' :
+    city.weatherDescr === 'Heavy rain' ? 'Сильный дождь' :
+    city.weatherDescr === 'Light freezing rain' ? 'Лёгкий ледяной дождь' :
+    city.weatherDescr === 'Moderate or heavy freezing rain' ? 'Сильный ледяной дождь' :
+    city.weatherDescr === 'Light sleet' ? 'Небольшой мокрый снег' :
+    city.weatherDescr === 'Moderate or heavy sleet' ? 'Сильный мокрый снег' :
+    city.weatherDescr === 'Light snow' ? 'Небольшой снег' :
+    city.weatherDescr === 'Moderate snow' ? 'Умеренный снегопад' :
+    city.weatherDescr === 'Heavy snow' ? 'Сильный снегопад' :
     city.weatherDescr === 'Patchy rain nearby' ? 'Местами дождь' :
-    city.weatherDescr === 'Clear' ? 'Ясная погода' :
+    city.weatherDescr === 'Light rain shower' ? 'Небольшой ливень' :
+    city.weatherDescr === 'Moderate or heavy rain shower' ? 'Сильный ливень' :
+    city.weatherDescr === 'Torrential rain shower' ? 'Проливной ливень' :
+    city.weatherDescr === 'Light sleet showers' ? 'Небольшой мокрый снег' :
+    city.weatherDescr === 'Moderate or heavy sleet showers' ? 'Сильный мокрый снег' :
+    city.weatherDescr === 'Light snow showers' ? 'Небольшой снегопад' :
+    city.weatherDescr === 'Moderate or heavy snow showers' ? 'Сильный снегопад' :
+    city.weatherDescr === 'Light showers of ice pellets' ? 'Небольшой град' :
+    city.weatherDescr === 'Moderate or heavy showers of ice pellets' ? 'Сильный град' :
+    city.weatherDescr === 'Patchy light rain with thunder' ? 'Дождь с грозой' :
+    city.weatherDescr === 'Moderate or heavy rain with thunder' ? 'Сильный дождь с грозой' :
+    city.weatherDescr === 'Patchy light snow with thunder' ? 'Снег с грозой' :
+    city.weatherDescr === 'Moderate or heavy snow with thunder' ? 'Сильный снег с грозой' :
+    city.weatherDescr === 'Light drizzle' ? 'Мелкий моросящий дождь' :
     city.weatherDescr === '' ? 'Нет данных' :
     city.weatherDescr;
-  
+
+  // console.log(city);
+
   return (
-    <div className='FavoritesCitiesCard'>
-        <div className="FavoritesCitiesCard__content">
-
-            <div className="FavoritesCities__content-left">
-
-                <div className="FavoritesCities__left-top">
-                  <div className="FavoritesCities__city-name">{city.cityName}</div>
-                  <div className="FavoritesCities__time">{city.currentTime}</div>
-                </div>
-                
-                <div className="FavoritesCities__left-bottom">
-                  <div className="FavoritesCities__weather-descr">{weatherDescrFormatted}</div>
-                </div>
-
-              </div>
-
-              <div className="FavoritesCities__content-right">
-
-                <div className="FavoritesCities__right-top">
-                  <div className="FavoritesCities__temp-max">{city.currentTemp}°</div>
-                </div>
-
-                <div className="FavoritesCities__right-bottom">
-                  <div className="FavoritesCities__temp temp-max">Макс.:{city.maxTemp}°,</div>
-                  <div className="FavoritesCities__temp">мин.:{city.minTemp}°</div>
-                </div>
-
-            </div>
-
+    <div 
+      className='FavoritesCitiesCard' 
+      style={cardStyle}
+      onClick={onClick}
+    >
+      <div className="FavoritesCitiesCard__content">
+        <div className="FavoritesCities__content-left">
+          <div className="FavoritesCities__left-top">
+            <div className="FavoritesCities__city-name">{city.cityName}</div>
+            <div className="FavoritesCities__time">{city.currentTime}</div>
+          </div>
+          <div className="FavoritesCities__left-bottom">
+            <div className="FavoritesCities__weather-descr">{weatherDescrFormatted}</div>
+          </div>
         </div>
+        <div className="FavoritesCities__content-right">
+          <div className="FavoritesCities__right-top">
+            <div className="FavoritesCities__temp-max">{city.currentTemp}°</div>
+          </div>
+          <div className="FavoritesCities__right-bottom">
+            <div className="FavoritesCities__temp temp-max">Макс.:{city.maxTemp}°,</div>
+            <div className="FavoritesCities__temp">мин.:{city.minTemp}°</div>
+          </div>
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default FavoritesCitiesCard;

@@ -36,7 +36,8 @@ export const weatherSlice = createSlice({
                 weatherDescr,
                 currentTemp,
                 maxTemp,
-                minTemp
+                minTemp,
+                is_day,
             ) {
                 return {
                     payload: {
@@ -50,7 +51,8 @@ export const weatherSlice = createSlice({
                         weatherDescr,
                         currentTemp,
                         maxTemp,
-                        minTemp
+                        minTemp,
+                        is_day
                     }
                 }
             }

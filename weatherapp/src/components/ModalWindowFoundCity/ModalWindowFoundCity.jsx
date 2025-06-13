@@ -29,6 +29,7 @@ const ModalWindowFoundCity = ({
   let currentTemp = Math.round(currentWeatherData?.current?.temp_c);
   let minTemp = Math.round(Math.min(...hourlyWeatherData));
   let maxTemp = Math.round(Math.max(...hourlyWeatherData));
+  let is_day = currentWeatherData?.current?.is_day
 
   useEffect(() => {
     if(isActiveMW) {
@@ -55,6 +56,7 @@ const ModalWindowFoundCity = ({
         currentTemp,
         minTemp,
         maxTemp,
+        is_day
       ));
 
       // Сброс состояний

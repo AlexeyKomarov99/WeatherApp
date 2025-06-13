@@ -26,27 +26,52 @@
 
     /* background gradient */
 
-    /* === sunny === */
-    --background-clear-day: linear-gradient(to bottom, #64d2ff, #5e5ce6);  
-    --background-clear-night: linear-gradient(to bottom, #1a2b5e, #0d1126);
+    /* === Ясно/Солнечно === */
+    --background-sunny-day: linear-gradient(to bottom, #56CCF2, #2F80ED);  /* Ярко-голубой с переходом в насыщенный синий */
+    --background-sunny-day-alt: linear-gradient(to bottom, #FF9A00, #FF2D00);  /* Альтернативный: теплый оранжево-красный */
+    --background-sunny-night: linear-gradient(to bottom, #0F2027, #203A43, #2C5364);  /* Глубокий ночной градиент */
+    --background-sunny-night-alt: linear-gradient(to bottom, #1A1A2E, #16213E, #0F3460);  /* Альтернативный ночной */
 
-    /* === cloudy === */
-    --background-cloudy-day: linear-gradient(to bottom, #a1b3c4, #5c6d7e);  
-    --background-cloudy-night: linear-gradient(to bottom, #3a3a3c, #1c1c1e); 
+    /* === Переменная облачность === */
+    --background-partly-cloudy-day: linear-gradient(to bottom, #87CEEB, #778899);
+    --background-partly-cloudy-night: linear-gradient(to bottom, #2F4F4F, #1C1C1C);
 
-    /* === rain === */
-    --background-rain-day: linear-gradient(to bottom, #4d91ff, #2d55d1);  
-    --background-rain-night: linear-gradient(to bottom, #1a2b5e, #000000); 
+    /* === Облачно/Пасмурно === */
+    --background-cloudy-day: linear-gradient(to bottom, #A9A9A9, #696969);
+    --background-cloudy-night: linear-gradient(to bottom, #3a3a3c, #1c1c1e);
 
-    /* === snow === */
-    --background-snow-day: linear-gradient(to bottom, #d4e4f5, #a0b9d0);  
-    --background-snow-night: linear-gradient(to bottom, #2c3e50, #1c1c1e); 
+    /* === Дождь === */
+    --background-light-rain: linear-gradient(to bottom, #6E7B8B, #4A708B);
+    --background-moderate-rain: linear-gradient(to bottom, #4d91ff, #2d55d1);
+    --background-heavy-rain: linear-gradient(to bottom, #1E3A8A, #00008B);
+    --background-rain-night: linear-gradient(to bottom, #1a2b5e, #000000);
 
-    /* === heat === */
-    --background-extreme-heat: linear-gradient(to bottom, #ff9f0a, #ff453a);  
+    /* === Снег === */
+    --background-light-snow: linear-gradient(to bottom, #E6E6FA, #B0C4DE);
+    --background-moderate-snow: linear-gradient(to bottom, #d4e4f5, #a0b9d0);
+    --background-heavy-snow: linear-gradient(to bottom, #B0E0E6, #4682B4);
+    --background-snow-night: linear-gradient(to bottom, #2c3e50, #1c1c1e);
 
-    /* === cold === */
-    --background-extreme-cold: linear-gradient(to bottom, #8eb8ff, #3a5fc8);  
+    /* === Туман/Дымка === */
+    --background-fog: linear-gradient(to bottom, #D3D3D3, #A9A9A9);
+    --background-freezing-fog: linear-gradient(to bottom, #B0C4DE, #778899);
+
+    /* === Гроза === */
+    --background-thunderstorm: linear-gradient(to bottom, #4B0082, #000000);
+    --background-thunderstorm-day: linear-gradient(to bottom, #483D8B, #2F4F4F);
+
+    /* === Экстремальные условия === */
+    --background-extreme-heat: linear-gradient(to bottom, #ff9f0a, #ff453a);
+    --background-extreme-cold: linear-gradient(to bottom, #8eb8ff, #3a5fc8);
+    --background-blizzard: linear-gradient(to bottom, #4169E1, #000080);
+
+    /* === Специальные явления === */
+    --background-hail: linear-gradient(to bottom, #F0F8FF, #B0C4DE);
+    --background-sleet: linear-gradient(to bottom, #AFEEEE, #6495ED);
+    --background-freezing-rain: linear-gradient(to bottom, #ADD8E6, #4682B4);
+
+    /* === Нет данных === */
+    --background-no-data: linear-gradient(to bottom, #D3D3D3, #A9A9A9);
 
     /* text */
     --text-primary: #ffffff;
@@ -68,7 +93,7 @@ body {
     font-size: 16px;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     color: var(--text-primary);
-    background: var(--background-clear-day);
+    background: var(--background-light-rain);
     letter-spacing: 0.01em;
 }
 
@@ -111,5 +136,5 @@ section {
 }
 
 .dark-theme {
-    background: var(--color-black);
+    background: #000 !important;
 }

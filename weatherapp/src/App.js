@@ -7,6 +7,10 @@ import {
   useGetHourlyForecastQuery,
   useGetDailyForecastQuery,
 } from './features/weather/weatherApi';
+import { useSelector } from 'react-redux';
+import {
+  selectCurrentIndex,
+} from './features/weather/weatherSelectors';
 //===== assets =====//
 import './App.scss';
 //===== components =====//
@@ -22,7 +26,9 @@ import { getCurrentLocation } from './services/geolocation';
 const App = () => {
   const [coords, setCoords] = useState(null);
   const location = useLocation();
-
+  const indexActivePage = useSelector(selectCurrentIndex) || 0;
+  
+  // Изменение фона страницы при переходе по ссылке "Избранные города"
   useEffect(() => {
     if(location.pathname === '/favorites-cities') {
       document.body.classList.add('dark-theme', 'Navbar-hidden');
@@ -48,22 +54,22 @@ const App = () => {
   // Получение данных о погоде
   const {
     data: currentWeatherData, 
-    isLoading: isCurrentLoading, 
-    error: currentError
+    // isLoading: isCurrentLoading,
+    // error: currentError
   } = useGetCurrentWeatherQuery(coords, { skip: !coords });
 
   // Почасовой прогноз погоды за сутки
   const {
     data: hourlyForecastData, 
-    isLoading: isForecastLoading, 
-    error: forecastError
+    // isLoading: isForecastLoading, 
+    // error: forecastError
   } = useGetHourlyForecastQuery(coords, { skip: !coords });
   
   // Ежедневный прогноз погоды на 10 суток
   const {
     data: dailyForecastData,
-    isLoading: isDailyForecastLoading,
-    error: dailyForecastError
+    // isLoading: isDailyForecastLoading,
+    // error: dailyForecastError
   } = useGetDailyForecastQuery(coords, { skip: !coords });
 
   return (
@@ -73,10 +79,27 @@ const App = () => {
         <div className='App__container'>
           <div className='App__content'>
             <Routes>
-              <Route path='/' element={<Layout />} >
-                <Route index element={<HomePage coords={coords} currentWeatherData={currentWeatherData} hourlyForecastData={hourlyForecastData} dailyForecastData={dailyForecastData} />} />
-                <Route path='/weather-map' element={<WeatherMap />} />
-                <Route path='/favorites-cities' element={<FavoritesCities />} />
+              <Route path='/' element={<Layout indexActivePage={indexActivePage} />} >
+                <Route 
+                  index 
+                  element={<HomePage 
+                    indexActivePage={indexActivePage}
+                    coords={coords} 
+                    currentWeatherData={currentWeatherData} 
+                    hourlyForecastData={hourlyForecastData} 
+                    dailyForecastData={dailyForecastData} />} 
+                />
+                <Route 
+                  path='/weather-map' 
+                  element={<WeatherMap />} 
+                />
+                <Route 
+                  path='/favorites-cities' 
+                  element={<FavoritesCities
+                    currentWeatherData={currentWeatherData}
+                    hourlyForecastData={hourlyForecastData}
+                />} 
+                />
               </Route>
             </Routes>
           </div>

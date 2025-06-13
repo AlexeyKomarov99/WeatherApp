@@ -1,13 +1,45 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
+//===== redux =====//
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setCurrentIndex
+} from '../../features/weather/weatherSlice';
+import {
+  selectCitiesWeatherData
+} from '../../features/weather/weatherSelectors';
 //===== react-router =====//
 import { Link } from 'react-router-dom';
 //===== assets =====//
 import './Navbar.scss';
 import { FaRegMap as MapIcon } from "react-icons/fa";
 import { FaLocationArrow as ArrowIcon } from "react-icons/fa6";
+import { FaCircle as CircleIcon } from "react-icons/fa6";
 import { IoListOutline as ListCities } from "react-icons/io5";
+//===== components =====/
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
-const Navbar = () => {
+const Navbar = ({indexActivePage}) => {
+  const dispatch = useDispatch();
+  const swiperRef = useRef(null);
+  const citiesWeatherData = useSelector(selectCitiesWeatherData) || [];
+
+  const handleSlideChange = (swiper) => {
+    dispatch(setCurrentIndex(swiper.activeIndex));
+  };
+
+  const handleSlideClick = (index) => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideTo(index);
+      dispatch(setCurrentIndex(index));
+    }
+  };
+
+  useEffect(() => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideTo(indexActivePage);
+    }
+  }, [indexActivePage]);
 
   return (
     <div className='Navbar'>
@@ -22,11 +54,37 @@ const Navbar = () => {
               </div>
             </Link>
 
-            <Link to={``} className='Navbar__link'>
-              <div className="Navbar__cities-group icon-wrapper">
-                <ArrowIcon className='Navbar__icon icon' />
-              </div>
-            </Link>
+            <div className="Navbar__swiper-wrapper">
+              <Swiper
+                ref={swiperRef}
+                initialSlide={indexActivePage}
+                onSlideChange={handleSlideChange}
+                slidesPerView={5}
+                spaceBetween={10}
+                className='Navbar__swiper'
+              >
+                <SwiperSlide 
+                  className='Navbar__swiper-slide'
+                  onClick={() => handleSlideClick(0)}
+                >
+                  <div className="Navbar__icon-wrapper">
+                    <ArrowIcon className={`Navbar__icon icon-arrow ${indexActivePage === 0 ? 'active-page' : ''}`} />
+                  </div>
+                </SwiperSlide>
+                {citiesWeatherData.map((city, index) => (
+                  <SwiperSlide 
+                    className='Navbar__swiper-slide' 
+                    key={city.cityId}
+                    onClick={() => handleSlideClick(index + 1)}
+                  >
+                    <div className="Navbar__icon-wrapper icon-wrapper-circle">
+                      <CircleIcon className={`Navbar__icon icon-circle ${indexActivePage === index + 1 ? 'active-page' : ''}`} />
+                    </div>
+                  </SwiperSlide>
+                ))}
+                
+              </Swiper>
+            </div>
             
             <Link to={`/favorites-cities`} className='Navbar__link'>
               <div className="Navbar__icon-wrapper icon-wrapper">

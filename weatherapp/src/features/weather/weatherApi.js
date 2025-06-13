@@ -54,24 +54,6 @@ export const weatherApi = createApi({
       })
     }),
 
-    // // Данные о погоде избранных городов
-    // getMultipleCitiesWeather: builder.query({
-    //   query: (cities) => ({
-    //     url: 'current.json',
-    //     params: {
-    //       q: cities.map(city => `${city.lat},${city.lon}`).join('|'),
-    //       key: API_KEY,
-    //     }
-    //   }),
-    //   transformResponse: (response, meta, arg) => {
-    //     // Используем arg (cities), который был передан в запрос
-    //     return response.reduce((acc, cityData, index) => {
-    //       acc[arg[index].cityId] = cityData;
-    //       return acc;
-    //     }, {});
-    //   }
-    // })
-
   }),
 });
 
@@ -84,6 +66,4 @@ export const {
   useLazyGetHourlyForecastQuery,
   useGetDailyForecastQuery,
   useLazyGetDailyForecastQuery,
-  // useGetMultipleCitiesWeatherQuery,
-  // useLazyGetMultipleCitiesWeatherQuery,
 } = weatherApi;

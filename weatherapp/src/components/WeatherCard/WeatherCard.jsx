@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 //===== assets =====//
 import './WeatherCard.scss';
 //===== components =====//
@@ -18,15 +18,13 @@ import ReportProblem from '../ReportProblem/ReportProblem';
 import ModalWindow from '../ModalWindow/ModalWindow';
 
 const WeatherCard = ({
-  currentWeatherData, 
+  currentWeatherData,
   hourlyForecastData, 
   dailyForecastData,
   isCurrentLocation,
-  isFavorite
+  isFavorite,
 }) => {
 
-  
-  
   const [activeSection, setActiveSection] = useState('');
   const [isActiveMW, setIsActiveMW] = useState(false);
 
@@ -114,3 +112,22 @@ const WeatherCard = ({
 }
 
 export default WeatherCard;
+
+// useEffect(() => {
+  //   let weatherDescr = '';
+    
+  //   if(indexActivePage === 0 && isCurrentLocation) {
+  //     console.log('Это Home Page и его индекс', indexActivePage);
+  //     console.log(currentWeatherData?.current?.condition?.text);
+  //     weatherDescr = currentWeatherData?.current?.condition?.text || '';
+
+  //   } else if (indexActivePage > 0 && isFavorite) {
+  //     console.log('Это компонент с избр городом и его индекс', indexActivePage);  
+  //     console.log(citiesWeatherData[indexActivePage]?.cityData?.currentWeatherData?.current?.condition?.text)
+  //     weatherDescr = citiesWeatherData[indexActivePage]?.cityData?.currentWeatherData?.current?.condition?.text;
+  //   }
+
+  //   let newBackground = getBackgroundByWeather(weatherDescr);
+  //   console.log(newBackground);
+
+  // }, [citiesWeatherData, currentWeatherData, indexActivePage, isCurrentLocation, isFavorite]);
