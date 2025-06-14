@@ -31,7 +31,6 @@ const WeatherCardsSettingsMW = ({
 }) => {
     const dispatch = useDispatch();
     const temperatureUnits = useSelector(selectTemperatureUnits) || 'Celsius';
-    console.log(temperatureUnits);
 
     const modalStyle = {
         position: 'absolute',

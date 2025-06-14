@@ -6,7 +6,7 @@ import {
 } from '../../features/weather/weatherSelectors';
 import {
   deleteCityFavorites
-} from '../../features/weather/weatherSlice';
+} from '../../features'
 //===== assets =====//
 import './FavoritesCitiesCard.scss';
 import { RxHamburgerMenu as BurgerIcon } from "react-icons/rx";
@@ -39,7 +39,7 @@ const FavoritesCitiesCard = ({
   }
 
   return (
-    <div className={`FavoritesCitiesCard__wrapper-card ${isEditMode ? 'edit-mode' : ''}`}>
+    <div className="FavoritesCitiesCard__wrapper-card">
 
       {isEditMode && (
         <div 
