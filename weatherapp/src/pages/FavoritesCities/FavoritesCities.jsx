@@ -78,6 +78,8 @@ const FavoritesCities = ({
     }
   }, [blackout]);
 
+  console.log()
+
   const openSettingsMW = () => {
     if(iconRef.current) {
       const rect = iconRef.current.getBoundingClientRect();
