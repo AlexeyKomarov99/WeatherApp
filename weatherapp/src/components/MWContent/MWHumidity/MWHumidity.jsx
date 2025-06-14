@@ -13,7 +13,10 @@ import { LineChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Re
 import { Month } from '../../../utils/getMonth';
 import { DayWeek } from '../../../utils/getDayWeek';
 
-const MWHumidity = ({dailyWeatherData}) => {
+const MWHumidity = ({
+  dailyWeatherData,
+  handleClose,
+}) => {
   const temperatureUnits = useSelector(selectTemperatureUnits);
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const chartSwiperRef = useRef(null);

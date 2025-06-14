@@ -111,6 +111,7 @@ const FavoritesCities = ({
 
   const handleUndoChange = () => {
     setIsEditMode(prevState => !prevState);
+    console.log(`Режим изменения ${isEditMode ? 'включен' : 'выключен'}`)
   }
 
   return (

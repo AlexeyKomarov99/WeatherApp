@@ -28,7 +28,6 @@ const DailyForecast = ({
     
     const handleClickDay = (index) => {
         setSelectedDateIndex(index);
-        // console.log('Индекс кликнутого дня = ', index);
     }
 
     return (
