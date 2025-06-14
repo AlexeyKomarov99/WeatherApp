@@ -2,6 +2,7 @@ import React, {useState, useRef} from 'react';
 //===== assets =====//
 import './MWUVIndex.scss';
 import { IoSunny as SunIcon } from "react-icons/io5";
+import { RxCross1 as CrossIcon } from "react-icons/rx";
 //===== utils =====//
 import { Month } from '../../../utils/getMonth';
 import { DayWeek } from '../../../utils/getDayWeek';
@@ -9,7 +10,10 @@ import { DayWeek } from '../../../utils/getDayWeek';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-const MWUVIndex = ({dailyWeatherData}) => {
+const MWUVIndex = ({
+  dailyWeatherData,
+  handleClose,
+}) => {
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const chartSwiperRef = useRef(null);
   const dailyUVIndexData = dailyWeatherData?.map((day) => {
@@ -56,6 +60,12 @@ const MWUVIndex = ({dailyWeatherData}) => {
       <div className="MWUVIndex__header">
         <div className="MWUVIndex__icon-wrapper icon-wrapper"><SunIcon className='icon'/></div>
         <div className="MWUVIndex__title">УФ-индекс</div>
+        <div 
+          className="MWUVIndex__cross-icon-wrapper"
+          onClick={handleClose}
+        >
+          <CrossIcon className='cross-icon' />
+        </div>
       </div>
 
       {/* Swiper dates */}

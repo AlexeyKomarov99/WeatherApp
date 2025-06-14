@@ -1,4 +1,7 @@
 import React from 'react';
+//===== redux =====//
+import { useSelector } from 'react-redux';
+import { selectTemperatureUnits } from '../../features/weather/weatherSelectors';
 //===== assets =====//
 import './Humidity.scss';
 import { FaCloudRain as CloudRainIcon } from "react-icons/fa";
@@ -6,7 +9,9 @@ import { FaCloudRain as CloudRainIcon } from "react-icons/fa";
 const Humidity = ({currentWeatherData, onClick}) => {
 
   const humidityPercent = currentWeatherData?.current?.humidity;
-  const dewPoint = currentWeatherData?.current?.dewpoint_c;
+  const temperatureUnits = useSelector(selectTemperatureUnits);
+  const dewPoint_c = currentWeatherData?.current?.dewpoint_c;
+  const dewPoint_f = currentWeatherData?.current?.dewpoint_f;
 
   return (
     <section 
@@ -27,7 +32,7 @@ const Humidity = ({currentWeatherData, onClick}) => {
           </div>
 
           <div className="Humidity__content-bottom">
-            <div className="Humidity__dew-point">Точка росы <br /> сейчас: {dewPoint}°</div>
+            <div className="Humidity__dew-point">Точка росы <br /> сейчас: {temperatureUnits === 'Celsius' ? dewPoint_c : dewPoint_f}°</div>
           </div>
           
         </div>

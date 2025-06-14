@@ -1,64 +1,147 @@
 @import '../../index.css';
-.FavoritesCitiesCard {
-    width: 100%;
-    padding: 12px;
-    border-radius: var(--border-radius-medium);
-    cursor: pointer;
-    &:not(:last-child) {
-        margin-bottom: 10px;
-    }
-    .FavoritesCitiesCard__content {
-        width: 100%;
-        height: 85px;
+
+.FavoritesCitiesCard__wrapper-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: var(--transition);
+    margin-bottom: 10px;
+
+    .circle-delete-icon-wrapper {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 10000%;
+        background-color: var(--color-white);
 
-        .FavoritesCities__content-left {
-            height: 100%;
+        width: 0; // Начальное состояние - скрыто
+        transition: var(--transition);
+        opacity: 0;
+        transform: translateX(-10px);
+        overflow: hidden;
+        cursor: pointer;
+
+        .circle-delete-icon {
+            width: 28px;
+            height: 28px;
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: start;
-            .FavoritesCities__left-top {
-                .FavoritesCities__city-name {
-                    font-size: 20px;
-                    margin-bottom: 2px;
-                }
-                .FavoritesCities__time {
-                    font-size: 14px;
-                }
-            }
-            .FavoritesCities__left-bottom {
-                .FavoritesCities__weather-descr {
-                    font-size: 14px;
-                }
-            }
+            justify-content: center;
+            align-items: center;
+            color: red;
+            transition: all 0.3s ease;
         }
-        .FavoritesCities__content-right {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: end;
-            .FavoritesCities__right-top {
-                font-size: 34px;
-                .FavoritesCities__temp-max {
+    }
 
+    .FavoritesCitiesCard {
+        width: 100%;
+        padding: 12px;
+        border-radius: var(--border-radius-medium);
+        cursor: pointer;
+        transition: var(--transition);
+        flex-shrink: 1;
+
+        .FavoritesCitiesCard__content {
+            width: 100%;
+            height: 85px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+
+            .FavoritesCities__content-left {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: start;
+                .FavoritesCities__left-top {
+                    .FavoritesCities__city-name {
+                        font-size: 20px;
+                        margin-bottom: 2px;
+                    }
+                    .FavoritesCities__time {
+                        font-size: 14px;
+                    }
+                }
+                .FavoritesCities__left-bottom {
+                    .FavoritesCities__weather-descr {
+                        font-size: 14px;
+                    }
                 }
             }
-            .FavoritesCities__right-bottom {
+            .FavoritesCities__content-right {
+                height: 100%;
                 display: flex;
-                flex-direction: row;
-                justify-content: end;
+                flex-direction: column;
+                justify-content: space-between;
                 align-items: end;
-                .FavoritesCities__temp {
-                    font-size: 14px;
+                .FavoritesCities__right-top {
+                    font-size: 34px;
+                    .FavoritesCities__temp-max {
+
+                    }
                 }
-                .temp-max {
-                    margin-right: 4px;
+                .FavoritesCities__right-bottom {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: end;
+                    align-items: end;
+                    .FavoritesCities__temp {
+                        font-size: 14px;
+                    }
+                    .temp-max {
+                        margin-right: 4px;
+                    }
                 }
             }
         }
     }
+
+    .burger-icon-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 28px;
+        height: 28px;
+
+        transition: var(--transition);
+        opacity: 0;
+        transform: translateX(10px);
+        overflow: hidden;
+
+        width: 0;
+        .burger-icon {
+            width: 28px;
+            height: 28px;
+            object-fit: cover;
+            color: rgba(255,255,255,0.3);
+            transition: var(--transition);
+        }
+    }
+
+    // Стили для режима редактирования
+    &.edit-mode {
+        gap: 10px; // Появляется отступ между элементами
+        
+        .circle-delete-icon-wrapper {
+            width: 28px;
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .FavoritesCitiesCard {
+            width: calc(100% - 68px); // 28px + 28px + 10px + 10px
+        }
+        
+        .burger-icon-wrapper {
+            width: 28px;
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
 }

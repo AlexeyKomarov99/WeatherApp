@@ -3,7 +3,6 @@ import React, {useState, useEffect} from 'react';
 import './ModalWindow.scss';
 //===== components =====//
 import Modal from 'react-modal';
-import MWHourlyForecast from '../MWContent/MWHourlyForecast/MWHourlyForecast';
 import MWDailyForecast from '../MWContent/MWDailyForecast/MWDailyForecast';
 import MWUVIndex from '../MWContent/MWUVIndex/MWUVIndex';
 import MWSunset from '../MWContent/MWSunset/MWSunset';
@@ -24,7 +23,9 @@ const ModalWindow = ({
     onClose, 
     currentWeatherData, 
     hourlyForecastData, 
-    dailyForecastData
+    dailyForecastData,
+    selectedDateIndex, // Для компонента MWDailyForecast
+    setSelectedDateIndex // Для компонента MWDailyForecast
 }) => {
 
     const [isVisible, setIsVisible] = useState(false);
@@ -52,16 +53,16 @@ const ModalWindow = ({
             closeTimeoutMS={300}
         >
             <div className="ModalWindow__content">
-                {activeSection === 'Hourly Forecast' && <MWHourlyForecast />}
-                {activeSection === 'Daily Forecast' && <MWDailyForecast />}
-                {activeSection === 'UV Index' && <MWUVIndex dailyWeatherData={dailyWeatherData} />}
-                {activeSection === 'Sunset' && <MWSunset hourlyWeatherData={hourlyWeatherData} />}
-                {activeSection === 'Wind' && <MWWind dailyWeatherData={dailyWeatherData} />}
-                {activeSection === 'Precipitation' && <MWPrecipitation dailyWeatherData={dailyWeatherData} />}
-                {activeSection === 'Feels Like' && <MWFeelsLike dailyWeatherData={dailyWeatherData} />}
-                {activeSection === 'Humidity' && <MWHumidity dailyWeatherData={dailyWeatherData} />}
-                {activeSection === 'Visibility' && <MWVisibility dailyWeatherData={dailyWeatherData} />}
-                {activeSection === 'Pressure' && <MWPressure dailyWeatherData={dailyWeatherData} />}
+                {activeSection === 'Hourly Forecast' && <MWDailyForecast dailyWeatherData={dailyWeatherData} />}
+                {activeSection === 'Daily Forecast' && <MWDailyForecast dailyWeatherData={dailyWeatherData} selectedDateIndex={selectedDateIndex} setSelectedDateIndex={setSelectedDateIndex} handleClose={handleClose}/>}
+                {activeSection === 'UV Index' && <MWUVIndex dailyWeatherData={dailyWeatherData} handleClose={handleClose} />}
+                {activeSection === 'Sunset' && <MWSunset hourlyWeatherData={hourlyWeatherData} handleClose={handleClose} />}
+                {activeSection === 'Wind' && <MWWind dailyWeatherData={dailyWeatherData} handleClose={handleClose} />}
+                {activeSection === 'Precipitation' && <MWPrecipitation dailyWeatherData={dailyWeatherData} handleClose={handleClose} />}
+                {activeSection === 'Feels Like' && <MWFeelsLike dailyWeatherData={dailyWeatherData} handleClose={handleClose} />}
+                {activeSection === 'Humidity' && <MWHumidity dailyWeatherData={dailyWeatherData} handleClose={handleClose} />}
+                {activeSection === 'Visibility' && <MWVisibility dailyWeatherData={dailyWeatherData} handleClose={handleClose} />}
+                {activeSection === 'Pressure' && <MWPressure dailyWeatherData={dailyWeatherData} handleClose={handleClose} />}
                 {activeSection === 'Report Problem' && <MWReportProblem handleClose={handleClose} />}
                 {activeSection === 'Notification' && <MWNotification handleClose={handleClose} />}
             </div>

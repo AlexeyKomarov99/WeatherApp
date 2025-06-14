@@ -35,6 +35,7 @@
 
         .DailyForecastCard__gradient-container {
             position: relative;
+            overflow: hidden;
             height: 4px;
             .DailyForecastCard__gradient-line {
                 position: absolute;

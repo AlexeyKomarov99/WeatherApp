@@ -2,6 +2,7 @@ import React, {useState, useRef} from 'react';
 //===== asses =====//
 import './MWPressure.scss';
 import { IoMdSpeedometer as PressureIcon } from "react-icons/io";
+import { RxCross1 as CrossIcon } from "react-icons/rx";
 //===== components =====//
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { LineChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
@@ -9,7 +10,10 @@ import { LineChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Re
 import { Month } from '../../../utils/getMonth';
 import { DayWeek } from '../../../utils/getDayWeek';
 
-const MWPressure = ({dailyWeatherData}) => {
+const MWPressure = ({
+  dailyWeatherData,
+  handleClose,
+}) => {
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const chartSwiperRef = useRef(null);
   const dailyPressureData = dailyWeatherData?.map((day) => {
@@ -62,6 +66,12 @@ const MWPressure = ({dailyWeatherData}) => {
       <div className="MWPressure__header">
         <div className="MWPressure__icon-wrapper icon-wrapper"><PressureIcon className='icon'/></div>
         <div className="MWPressure__title">Давление</div>
+        <div 
+          className="MWPressure__cross-icon-wrapper"
+          onClick={handleClose}
+        >
+          <CrossIcon className='cross-icon' />
+        </div>
       </div>
 
       {/* Swiper dates */}

@@ -2,6 +2,7 @@ import React, {useState, useRef} from 'react';
 //===== asses =====//
 import './MWVisibility.scss';
 import { IoEye as EyeIcon } from "react-icons/io5";
+import { RxCross1 as CrossIcon } from "react-icons/rx";
 //===== components =====//
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { LineChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
@@ -9,7 +10,10 @@ import { LineChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Re
 import { Month } from '../../../utils/getMonth';
 import { DayWeek } from '../../../utils/getDayWeek';
 
-const MWVisibility = ({dailyWeatherData}) => {
+const MWVisibility = ({
+  dailyWeatherData,
+  handleClose,
+}) => {
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const chartSwiperRef = useRef(null);
   // console.log(dailyWeatherData);
@@ -63,6 +67,12 @@ const MWVisibility = ({dailyWeatherData}) => {
       <div className="MWVisibility__header">
         <div className="MWVisibility__icon-wrapper icon-wrapper"><EyeIcon className='icon'/></div>
         <div className="MWVisibility__title">Видимость</div>
+        <div 
+          className="MWVisibility__cross-icon-wrapper"
+          onClick={handleClose}
+        >
+          <CrossIcon className='cross-icon' />
+        </div>
       </div>
 
       {/* Swiper dates */}

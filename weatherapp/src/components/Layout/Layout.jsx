@@ -6,23 +6,25 @@ import './Layout.scss';
 //===== components =====//
 import Navbar from '../Navbar/Navbar';
 
-const Layout = ({indexActivePage}) => {
+const Layout = ({
+  currentBackground
+}) => {
 
   return (
     <div className='Layout'>
         <Outlet className='Outlet' />
         <ConditionalNavbar 
           className='Navbar'
-          indexActivePage={indexActivePage}
+          currentBackground={currentBackground}
         />
     </div>
   )
 }
 
-const ConditionalNavbar = ({indexActivePage}) => {
+const ConditionalNavbar = ({currentBackground}) => {
   const location = useLocation();
   const hiddenPaths = ['/weather-map', '/favorites-cities'];
-  return !hiddenPaths.includes(location.pathname) ? <Navbar indexActivePage={indexActivePage} /> : null;
+  return !hiddenPaths.includes(location.pathname) ? <Navbar currentBackground={currentBackground} /> : null;
 }
 
 export default Layout;

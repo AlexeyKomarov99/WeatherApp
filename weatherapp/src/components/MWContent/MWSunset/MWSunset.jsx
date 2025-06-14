@@ -2,10 +2,14 @@ import React, {useState, useRef} from 'react';
 //===== asses =====//
 import './MWSunset.scss';
 import { BsFillSunsetFill as SunsetIcon } from "react-icons/bs";
+import { RxCross1 as CrossIcon } from "react-icons/rx";
 //===== components =====//
 import { LineChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-const MWSunset = ({hourlyWeatherData}) => {
+const MWSunset = ({
+  hourlyWeatherData,
+  handleClose,
+}) => {
   const sunrise = hourlyWeatherData?.sunrise;
   const sunset = hourlyWeatherData?.sunset;
   const moonrise = hourlyWeatherData.moonrise;
@@ -31,6 +35,12 @@ const MWSunset = ({hourlyWeatherData}) => {
       <div className="MWSunset__header">
         <div className="MWSunset__icon-wrapper icon-wrapper"><SunsetIcon className='icon'/></div>
         <div className="MWSunset__title">Заход солнца</div>
+        <div 
+          className="MWSunset__cross-icon-wrapper"
+          onClick={handleClose}
+        >
+          <CrossIcon className='cross-icon' />
+        </div>
       </div>
 
       {/* Chart */}

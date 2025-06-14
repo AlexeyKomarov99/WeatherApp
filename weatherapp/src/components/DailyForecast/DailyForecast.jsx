@@ -5,7 +5,11 @@ import { IoCalendarOutline as CalendarIcon} from "react-icons/io5";
 //===== components =====//
 import DailyForecastCard from '../DailyForecastCard/DailyForecastCard';
 
-const DailyForecast = ({dailyWeatherData, onClick}) => {
+const DailyForecast = ({
+    dailyWeatherData, 
+    onClick,
+    setSelectedDateIndex
+}) => {
 
     const dailyWeatherForecast = dailyWeatherData ? dailyWeatherData.map(day => {
         return {
@@ -13,12 +17,20 @@ const DailyForecast = ({dailyWeatherData, onClick}) => {
             date: day.date,
             weatherIcon: day.day.condition.icon,
             weatherDescr: day.day.condition.text,
-            tempMax: day.day.maxtemp_c,
-            tempMin: day.day.mintemp_c,
-            hours: day.hour.map(hour => Math.round(hour.temp_c))
+            tempMax_c: day.day.maxtemp_c,
+            tempMax_f: day.day.maxtemp_f,
+            tempMin_c: day.day.mintemp_c,
+            tempMin_f: day.day.mintemp_f,
+            hours_c: day.hour.map(hour => Math.round(hour.temp_c)),
+            hours_f: day.hour.map(hour => Math.round(hour.temp_f))
         } 
     }) : [];
     
+    const handleClickDay = (index) => {
+        setSelectedDateIndex(index);
+        // console.log('Индекс кликнутого дня = ', index);
+    }
+
     return (
         <section 
             className='DailyForecast'
@@ -30,10 +42,11 @@ const DailyForecast = ({dailyWeatherData, onClick}) => {
             </div>
             
             <div className="DailyForecast__content">
-            {dailyWeatherForecast?.map(day => (
+            {dailyWeatherForecast?.map((day, index) => (
                 <DailyForecastCard
                     key={day.id}
                     dailyForecast={day}
+                    handleClickDay={() => handleClickDay(index)}
                 />
             ))}
             </div>

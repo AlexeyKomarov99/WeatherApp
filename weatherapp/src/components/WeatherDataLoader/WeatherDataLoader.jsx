@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 //===== redux =====//
 import { useSelector, useDispatch } from 'react-redux';
-// import { useLazyGetMultipleCitiesWeatherQuery } from '../../features/weather/weatherApi';
 import { updateAllCitiesWeather } from '../../features/weather/weatherSlice';
 import { selectFavoriteCities } from '../../features/weather/weatherSelectors';
 

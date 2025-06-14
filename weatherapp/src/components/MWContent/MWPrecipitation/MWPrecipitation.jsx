@@ -2,6 +2,7 @@ import React, {useState, useRef} from 'react';
 //===== assets =====//
 import './MWPrecipitation.scss';
 import { GiWaterDrop as WaterDropIcon } from "react-icons/gi";
+import { RxCross1 as CrossIcon } from "react-icons/rx";
 //===== components =====//
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
@@ -16,7 +17,10 @@ const precipitationDescr = [
   {id: 4, title: 'Снег', color: '#ffffff'},
 ]
 
-const MWPrecipitation = ({dailyWeatherData}) => {
+const MWPrecipitation = ({
+  dailyWeatherData,
+  handleClose,
+}) => {
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const chartSwiperRef = useRef(null);
   const dailyPrecipitationData = dailyWeatherData?.map((day) => {
@@ -68,6 +72,12 @@ const MWPrecipitation = ({dailyWeatherData}) => {
       <div className="MWPrecipitation__header">
         <div className="MWPrecipitation__icon-wrapper icon-wrapper"><WaterDropIcon className='icon'/></div>
         <div className="MWPrecipitation__title">Влажность</div>
+        <div 
+          className="MWPrecipitation__cross-icon-wrapper"
+          onClick={handleClose}
+        >
+          <CrossIcon className='cross-icon' />
+        </div>
       </div>
 
       {/* Swiper dates */}

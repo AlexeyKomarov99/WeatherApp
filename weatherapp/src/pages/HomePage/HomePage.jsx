@@ -1,29 +1,33 @@
 import {useState, useEffect, useRef, useMemo, useCallback} from 'react';
+//===== redux =====//
 import { useSelector, useDispatch } from 'react-redux';
-import { selectCitiesWeatherData } from '../../features/weather/weatherSelectors';
-import { setCurrentIndex } from '../../features/weather/weatherSlice';
+import { 
+  selectCitiesWeatherData,
+  selectIndexActivePage,
+} from '../../features/weather/weatherSelectors';
+import { setIndexActivePage } from '../../features/weather/weatherSlice';
+//===== assets =====//
 import './HomePage.scss';
+import 'swiper/css';
+//===== components =====//
 import WeatherCard from '../../components/WeatherCard/WeatherCard';
 import Swiper from 'swiper';
-import 'swiper/css';
+//===== utils =====//
 import { getBackgroundByWeather } from '../../utils/getBackgroundByWeather';
 
 const HomePage = ({
   currentWeatherData, 
   hourlyForecastData, 
   dailyForecastData,
-  indexActivePage
+  setCurrentBackground,
 }) => {
   const dispatch = useDispatch();
+  const indexActivePage = useSelector(selectIndexActivePage);
   const swiperRef = useRef(null);
   const swiperContainerRef = useRef(null);
   const rawCitiesWeatherData = useSelector(selectCitiesWeatherData);
-  const [currentBackground, setCurrentBackground] = useState(null);
-
-  // Мемоизируем данные городов
   const citiesWeatherData = useMemo(() => rawCitiesWeatherData || [], [rawCitiesWeatherData]);
 
-  // Функция для обновления фона
   const updateBackground = useCallback((index) => {
     let weatherDescr = '';
     let isDay = true;
@@ -42,67 +46,74 @@ const HomePage = ({
     const newBackground = getBackgroundByWeather(weatherDescr, isDay);
     setCurrentBackground(newBackground);
     document.body.style.background = newBackground;
-  }, [currentWeatherData, citiesWeatherData]);
+  }, [currentWeatherData, citiesWeatherData, setCurrentBackground]);
+
+  const handleSlideChange = useCallback((swiper) => {
+    const newIndex = swiper.activeIndex;
+    dispatch(setIndexActivePage(newIndex));
+    updateBackground(newIndex);
+  }, [dispatch, updateBackground]);
 
   // Инициализация Swiper
   useEffect(() => {
-    if (!swiperRef.current && swiperContainerRef.current) {
-      swiperRef.current = new Swiper(swiperContainerRef.current, {
-        initialSlide: indexActivePage,
-        speed: 300,
-        resistanceRatio: 0.7,
-        spaceBetween: 20,
-        on: {
-          slideChange: (swiper) => {
-            const newIndex = swiper.activeIndex;
-            dispatch(setCurrentIndex(newIndex));
-            updateBackground(newIndex);
+    const initSwiper = () => {
+      if (!swiperRef.current && swiperContainerRef.current) {
+        swiperRef.current = new Swiper(swiperContainerRef.current, {
+          initialSlide: indexActivePage,
+          speed: 500, // Увеличено для плавности
+          resistanceRatio: 0.7,
+          spaceBetween: 20,
+          followFinger: true,
+          touchAngle: 45,
+          shortSwipes: true,
+          longSwipesRatio: 0.1,
+          grabCursor: true,
+          preloadImages: true,
+          updateOnWindowResize: true,
+          on: {
+            slideChange: handleSlideChange,
+            touchStart: () => {
+              // Можно добавить обработку начала касания
+            },
+            touchEnd: () => {
+              // Можно добавить обработку окончания касания
+            },
           },
-        },
-      });
-      
-      // Первоначальное обновление фона
-      updateBackground(indexActivePage);
-    }
+        });
+        updateBackground(indexActivePage);
+      }
+    };
+
+    initSwiper();
 
     return () => {
       if (swiperRef.current) {
-        swiperRef.current.destroy();
+        swiperRef.current.destroy(true, true);
         swiperRef.current = null;
       }
     };
-  }, [dispatch, indexActivePage, updateBackground]);
+  }, [dispatch, indexActivePage, updateBackground, handleSlideChange]);
 
   // Обновляем Swiper при изменении данных
   useEffect(() => {
     if (swiperRef.current) {
-      // Полная переинициализация при изменении количества городов
-      if (swiperRef.current.destroy) {
-        swiperRef.current.destroy();
+      if (swiperRef.current.slides.length !== citiesWeatherData.length + 1) {
+        swiperRef.current.destroy(true, true);
+        swiperRef.current = null;
+        // Swiper переинициализируется в основном эффекте
+      } else {
+        swiperRef.current.update();
+        if (swiperRef.current.activeIndex !== indexActivePage) {
+          swiperRef.current.slideTo(indexActivePage, 500);
+        }
       }
-      
-      swiperRef.current = new Swiper(swiperContainerRef.current, {
-        initialSlide: Math.min(indexActivePage, citiesWeatherData.length),
-        speed: 300,
-        resistanceRatio: 0.7,
-        spaceBetween: 20,
-        on: {
-          slideChange: (swiper) => {
-            const newIndex = swiper.activeIndex;
-            dispatch(setCurrentIndex(newIndex));
-            updateBackground(newIndex);
-          },
-        },
-      });
-      
-      updateBackground(indexActivePage);
     }
-  }, [citiesWeatherData.length, dispatch, indexActivePage, updateBackground]);
+  }, [citiesWeatherData.length, indexActivePage]);
 
   // Обработка изменения активного индекса извне
   useEffect(() => {
     if (swiperRef.current && swiperRef.current.activeIndex !== indexActivePage) {
-      swiperRef.current.slideTo(indexActivePage);
+      swiperRef.current.slideTo(indexActivePage, 500);
     }
   }, [indexActivePage]);
 

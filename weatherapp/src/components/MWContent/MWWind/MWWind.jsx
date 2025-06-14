@@ -2,6 +2,7 @@ import React, {useState, useRef} from 'react';
 //===== asses =====//
 import './MWWind.scss';
 import { FaWind as WindIcon } from "react-icons/fa6";
+import { RxCross1 as CrossIcon } from "react-icons/rx";
 //===== components =====//
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { LineChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
@@ -9,9 +10,11 @@ import { LineChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Re
 import { Month } from '../../../utils/getMonth';
 import { DayWeek } from '../../../utils/getDayWeek';
 
-const MWWind = ({dailyWeatherData}) => {
+const MWWind = ({
+  dailyWeatherData,
+  handleClose,
+}) => {
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
-  // console.log(dailyWeatherData)
   const chartSwiperRef = useRef(null);
   const dailyWindData = dailyWeatherData?.map((day) => {
     return {
@@ -63,9 +66,6 @@ const MWWind = ({dailyWeatherData}) => {
   const maxWindSpeed = Math.round(Math.max(...windSpeedList));
   const maxGustWindSpeed = Math.round(Math.max(...gustWindSpeedList));  
 
-  // console.log(windSpeedList);
-  // console.log(gustWindSpeedList);
-
   return (
     <div className='MWWind'>
       
@@ -73,6 +73,12 @@ const MWWind = ({dailyWeatherData}) => {
       <div className="MWWind__header">
         <div className="MWWind__icon-wrapper icon-wrapper"><WindIcon className='icon'/></div>
         <div className="MWWind__title">Ветер</div>
+        <div 
+          className="MWWind__cross-icon-wrapper"
+          onClick={handleClose}
+        >
+          <CrossIcon className='cross-icon' />
+        </div>
       </div>
 
       {/* Swiper dates */}

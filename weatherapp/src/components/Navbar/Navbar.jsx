@@ -2,10 +2,11 @@ import React, {useEffect, useRef} from 'react';
 //===== redux =====//
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  setCurrentIndex
+  setIndexActivePage
 } from '../../features/weather/weatherSlice';
 import {
-  selectCitiesWeatherData
+  selectIndexActivePage,
+  selectCitiesWeatherData,
 } from '../../features/weather/weatherSelectors';
 //===== react-router =====//
 import { Link } from 'react-router-dom';
@@ -19,19 +20,22 @@ import { IoListOutline as ListCities } from "react-icons/io5";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
-const Navbar = ({indexActivePage}) => {
+const Navbar = ({
+  currentBackground,
+}) => {
   const dispatch = useDispatch();
   const swiperRef = useRef(null);
   const citiesWeatherData = useSelector(selectCitiesWeatherData) || [];
+  const indexActivePage = useSelector(selectIndexActivePage);
 
   const handleSlideChange = (swiper) => {
-    dispatch(setCurrentIndex(swiper.activeIndex));
+    dispatch(setIndexActivePage(swiper.activeIndex));
   };
 
   const handleSlideClick = (index) => {
     if (swiperRef.current && swiperRef.current.swiper) {
       swiperRef.current.swiper.slideTo(index);
-      dispatch(setCurrentIndex(index));
+      dispatch(setIndexActivePage(index));
     }
   };
 
@@ -42,7 +46,12 @@ const Navbar = ({indexActivePage}) => {
   }, [indexActivePage]);
 
   return (
-    <div className='Navbar'>
+    <div 
+      className='Navbar'
+      style={{
+        background: `${currentBackground}`
+      }}
+    >
       <div className="Navbar__wrapper">
         <div className="Navbar__container">
 

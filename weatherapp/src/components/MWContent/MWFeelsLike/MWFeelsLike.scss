@@ -7,6 +7,7 @@
         justify-content: center;
         align-items: center;
         margin-bottom: 10px;
+        position: relative;
         .MWFeelsLike__icon-wrapper {
             margin-right: 4px;
             .icon {
@@ -15,6 +16,24 @@
         }
         .MWFeelsLike__title {
             font-size: 16px;
+        }
+
+        .MWFeelsLike__cross-icon-wrapper {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: var(--border-radius-small);
+            background-color: var(--color-dark-gray);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            .cross-icon {
+                color: var(--color-white);
+                object-fit: cover;
+            }
         }
     }
 

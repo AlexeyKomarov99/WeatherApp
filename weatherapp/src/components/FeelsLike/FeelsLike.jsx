@@ -1,18 +1,37 @@
 import React from 'react';
+//===== redux =====//
+import { useSelector } from 'react-redux';
+import { selectTemperatureUnits } from '../../features/weather/weatherSelectors';
 //===== assets =====//
 import './FeelsLike.scss';
 import { PiThermometerHotDuotone as FeelsLikeIcon } from "react-icons/pi";
 
 const FeelsLike = ({currentWeatherData, onClick}) => {
-
-  const feelsLike = currentWeatherData ? Math.round(currentWeatherData?.current?.feelslike_c) : 0;
-  const temperature = currentWeatherData ? Math.round(currentWeatherData?.current?.temp_c) : 0;
+  const temperatureUnits = useSelector(selectTemperatureUnits);
+  const feelsLike_c = currentWeatherData ? Math.round(currentWeatherData?.current?.feelslike_c) : 0;
+  const feelsLike_f = currentWeatherData ? Math.round(currentWeatherData?.current?.feelslike_f) : 0;
+  const temperature_c = currentWeatherData ? Math.round(currentWeatherData?.current?.temp_c) : 0;
+  const temperature_f = currentWeatherData ? Math.round(currentWeatherData?.current?.temp_f) : 0;
   
-  const descrFeelsLike = (temperature > feelsLike) 
-    ? 'По ощущениям прохладнее из-за ветра'
-    : (temperature === feelsLike) 
-      ? 'По ощущениям примерно также'
-      : 'По ощущениям теплее из-за влажности';
+  const descrFeelsLike = () => {
+    if (temperatureUnits === 'Celsius') {
+      if (temperature_c > feelsLike_c) {
+        return 'По ощущениям прохладнее из-за ветра';
+      } else if (temperature_c === feelsLike_c) {
+        return 'По ощущениям примерно также';
+      } else {
+        return 'По ощущениям теплее из-за влажности';
+      }
+    } else {
+      if (temperature_f > feelsLike_f) {
+        return 'По ощущениям прохладнее из-за ветра';
+      } else if (temperature_f === feelsLike_f) {
+        return 'По ощущениям примерно также';
+      } else {
+        return 'По ощущениям теплее из-за влажности';
+      }
+    }
+  };
 
   return (
     <section
@@ -28,11 +47,11 @@ const FeelsLike = ({currentWeatherData, onClick}) => {
 
         <div className="FeelsLike__content">
           <div className="FeelsLike__content-top">
-            <div className="FeelsLike__indicator">{feelsLike}°</div>
+            <div className="FeelsLike__indicator">{temperatureUnits === 'Celsius' ? feelsLike_c : feelsLike_f}°</div>
           </div>
 
           <div className="FeelsLike__content-bottom">
-            {descrFeelsLike}
+            {descrFeelsLike()}
           </div>
         </div>
 

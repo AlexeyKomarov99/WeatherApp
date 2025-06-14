@@ -1,0 +1,115 @@
+@import '../../../index.css';
+.MWDailyForecast {
+    
+    .MWDailyForecast__header {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        position: relative;
+        .MWDailyForecast__icon-wrapper {
+            margin-right: 4px;
+            .icon {
+
+            }
+        }
+        .MWDailyForecast__title {
+            font-size: 16px;
+        }
+
+        .MWDailyForecast__cross-icon-wrapper {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: var(--border-radius-small);
+            background-color: var(--color-dark-gray);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            .cross-icon {
+                color: var(--color-white);
+                object-fit: cover;
+            }
+        }
+
+    }
+
+    .Swiper__days {
+        width: 100%;
+        margin-bottom: 4px;
+        .Swiper__day-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .Swiper__day-week {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 2px;
+            }
+            .Swiper__day-number {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 3px;
+            }
+            .active {
+                background-color: var(--color-light-indigo);
+                color: var(--color-black);
+                border-radius: 10000%;
+            }
+            
+        }
+    }
+
+    .MWDailyForecast__full-data {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        padding-bottom: 4px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .MWDailyForecast__chart {
+        width: 100%;
+        margin-bottom: 10px;
+        .MWDailyForecast__swiper-chart {
+            .MWDailyForecast__swiper-slide-chart {
+                .MWDailyForecast__responsive-container {
+                    width: 100%;
+                    border: 1px solid rgba(255,255,255,0.1);
+                    border-radius: var(--border-radius-small);
+                    padding: 5px 0 5px 0;
+                }
+            }
+        }
+    }
+
+    .MWDailyForecast__descr {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        width: 100%;
+        .MWDailyForecast__descr-title {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .MWDailyForecast__descr-text {
+            color: var(--color-white);
+            background-color: var(--color-dark-gray);
+            padding: 10px;
+            border-radius: var(--border-radius-small);
+            width: 100%;
+        }
+    }
+
+}

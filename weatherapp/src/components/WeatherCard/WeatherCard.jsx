@@ -28,6 +28,8 @@ const WeatherCard = ({
   const [activeSection, setActiveSection] = useState('');
   const [isActiveMW, setIsActiveMW] = useState(false);
 
+  const [selectedDateIndex, setSelectedDateIndex] = useState(0);
+
   const toggleActiveSection = (current) => {
     setActiveSection(current);
     setIsActiveMW(true);
@@ -45,13 +47,15 @@ const WeatherCard = ({
         currentWeather={currentWeather}
         hourlyWeatherData={hourlyWeatherData}
       />
-      <HourlyForecast 
+      <HourlyForecast
+        locationData={locationData}
         dailyWeatherData={dailyWeatherData}
-        onClick={() => toggleActiveSection('Hourly Forecast')}
+        onClick={() => toggleActiveSection('Daily Forecast')}
       />
       <DailyForecast 
         dailyWeatherData={dailyWeatherData}
-        onClick={() => toggleActiveSection('Daily Forecast')} 
+        onClick={() => toggleActiveSection('Daily Forecast')}
+        setSelectedDateIndex={setSelectedDateIndex}
       />
       <PrecipitationMap 
         currentWeatherData={currentWeatherData}
@@ -105,6 +109,8 @@ const WeatherCard = ({
         currentWeatherData={currentWeatherData}
         hourlyForecastData={hourlyForecastData}
         dailyForecastData={dailyForecastData}
+        selectedDateIndex={selectedDateIndex} // Для компонента MWDailyForecast
+        setSelectedDateIndex={setSelectedDateIndex} // Для компонента MWDailyForecast
       />
 
     </div>

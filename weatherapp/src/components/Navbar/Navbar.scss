@@ -1,9 +1,9 @@
 @import '../../App.scss';
 .Navbar {
     width: 100%;
-    background: var(--background-clear-day);
+    background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(255,255,255,0.7);
+    border-top: 1px solid rgba(255,255,255,0.1);
     .Navbar__wrapper {
         width: 100%;
         padding: 0 16px;

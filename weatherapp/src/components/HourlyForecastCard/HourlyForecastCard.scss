@@ -1,11 +1,16 @@
+@import '../../index.css';
 .HourlyForecastCard {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     
-    // border: 1px solid black;
     .HourlyForecastCard__time {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--color-white);
+        text-align: center;
+        width: 100%;
     }
     .HourlyForecastCard__icon {
         margin-bottom: 5px;

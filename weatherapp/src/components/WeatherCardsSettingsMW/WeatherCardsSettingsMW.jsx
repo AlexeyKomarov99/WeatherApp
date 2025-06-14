@@ -22,9 +22,12 @@ const contentData = [
 
 const WeatherCardsSettingsMW = ({
     isActiveSetingsMW,
+    setIsActiveSettingsMW,
     openSettingsMW,
     iconPosition,
     toggleActiveSection,
+    onToggleEditMode,
+    isEditMode,
 }) => {
     const dispatch = useDispatch();
     const temperatureUnits = useSelector(selectTemperatureUnits) || 'Celsius';
@@ -39,18 +42,21 @@ const WeatherCardsSettingsMW = ({
     };
 
     const handleClose = () => {
-        openSettingsMW()
+        openSettingsMW();
     }
 
     const handleSelectAction = (action) => {
         if(action === 'Изменить список') {
-            console.log('change list');
+            onToggleEditMode();
+            setIsActiveSettingsMW(false);
         } else if (action === 'Уведомления') {
             toggleActiveSection('Notification');
         } else if (action === 'Градусы Цельсия') {
             dispatch(setTemperatureUnits('Celsius'));
+            setIsActiveSettingsMW();
         } else if (action === 'Градусы Фаренгейта') {
             dispatch(setTemperatureUnits('Fahrenheit'));
+            setIsActiveSettingsMW();
         } else if (action === 'Сообщить о проблеме') {
             toggleActiveSection('Report Problem');
         } return null;
@@ -62,7 +68,6 @@ const WeatherCardsSettingsMW = ({
             overlayClassName={'OverlayModalWindow'}
             isOpen={isActiveSetingsMW}
             onRequestClose={handleClose}
-            closeTimeoutMS={300}
             style={{ content: modalStyle }}
         >
             <div className="WeatherCardsSettingsMW__container">    

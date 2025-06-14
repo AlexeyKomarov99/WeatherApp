@@ -7,10 +7,6 @@ import {
   useGetHourlyForecastQuery,
   useGetDailyForecastQuery,
 } from './features/weather/weatherApi';
-import { useSelector } from 'react-redux';
-import {
-  selectCurrentIndex,
-} from './features/weather/weatherSelectors';
 //===== assets =====//
 import './App.scss';
 //===== components =====//
@@ -26,8 +22,8 @@ import { getCurrentLocation } from './services/geolocation';
 const App = () => {
   const [coords, setCoords] = useState(null);
   const location = useLocation();
-  const indexActivePage = useSelector(selectCurrentIndex) || 0;
-  
+  const [currentBackground, setCurrentBackground] = useState(null);
+
   // Изменение фона страницы при переходе по ссылке "Избранные города"
   useEffect(() => {
     if(location.pathname === '/favorites-cities') {
@@ -79,26 +75,33 @@ const App = () => {
         <div className='App__container'>
           <div className='App__content'>
             <Routes>
-              <Route path='/' element={<Layout indexActivePage={indexActivePage} />} >
+              <Route 
+                path='/' 
+                element={<Layout 
+                  currentBackground={currentBackground}
+                />} 
+              >
                 <Route 
                   index 
                   element={<HomePage 
-                    indexActivePage={indexActivePage}
                     coords={coords} 
                     currentWeatherData={currentWeatherData} 
                     hourlyForecastData={hourlyForecastData} 
-                    dailyForecastData={dailyForecastData} />} 
+                    dailyForecastData={dailyForecastData}
+                    setCurrentBackground={setCurrentBackground}
+                  />} 
                 />
                 <Route 
                   path='/weather-map' 
-                  element={<WeatherMap />} 
+                  element={<WeatherMap 
+                  />} 
                 />
                 <Route 
                   path='/favorites-cities' 
                   element={<FavoritesCities
                     currentWeatherData={currentWeatherData}
                     hourlyForecastData={hourlyForecastData}
-                />} 
+                  />} 
                 />
               </Route>
             </Routes>
