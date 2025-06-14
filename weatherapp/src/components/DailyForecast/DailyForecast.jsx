@@ -13,9 +13,12 @@ const DailyForecast = ({dailyWeatherData, onClick}) => {
             date: day.date,
             weatherIcon: day.day.condition.icon,
             weatherDescr: day.day.condition.text,
-            tempMax: day.day.maxtemp_c,
-            tempMin: day.day.mintemp_c,
-            hours: day.hour.map(hour => Math.round(hour.temp_c))
+            tempMax_c: day.day.maxtemp_c,
+            tempMax_f: day.day.maxtemp_f,
+            tempMin_c: day.day.mintemp_c,
+            tempMin_f: day.day.mintemp_f,
+            hours_c: day.hour.map(hour => Math.round(hour.temp_c)),
+            hours_f: day.hour.map(hour => Math.round(hour.temp_f))
         } 
     }) : [];
     

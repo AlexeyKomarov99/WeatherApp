@@ -1,4 +1,7 @@
 import React, {useState, useRef} from 'react';
+//===== redux =====//
+import { useSelector } from 'react-redux';
+import { selectTemperatureUnits } from '../../../features/weather/weatherSelectors';
 //===== assets =====//
 import './MWFeelsLike.scss';
 import { PiThermometerHotDuotone as FeelsLikeIcon } from "react-icons/pi";
@@ -12,7 +15,7 @@ import { DayWeek } from '../../../utils/getDayWeek';
 const MWFeelsLike = ({dailyWeatherData}) => {
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const chartSwiperRef = useRef(null);
-  // console.log(dailyWeatherData);
+  const temperatureUnits = useSelector(selectTemperatureUnits);
   const dailyFeelsLikeData = dailyWeatherData?.map((day) => {
     return {
       id: day.date_epoch,
@@ -29,13 +32,14 @@ const MWFeelsLike = ({dailyWeatherData}) => {
     }
   })
 
-  // console.log(dailyFeelsLikeData)
-
   const selectedDayData = dailyFeelsLikeData[selectedDateIndex];
 
-  const feelsLikeByDay = dailyFeelsLikeData[selectedDateIndex].hours.map((hour) => hour.feelslike_c);
-  const minFeelsLike = Math.round(Math.min(...feelsLikeByDay));
-  const maxFeelsLike = Math.round(Math.max(...feelsLikeByDay));
+  const feelsLikeByDay_c = dailyFeelsLikeData[selectedDateIndex].hours.map((hour) => hour.feelslike_c);
+  const feelsLikeByDay_f = dailyFeelsLikeData[selectedDateIndex].hours.map((hour) => hour.feelslike_f);
+  const minFeelsLike_c = Math.round(Math.min(...feelsLikeByDay_c));
+  const minFeelsLike_f = Math.round(Math.min(...feelsLikeByDay_f));
+  const maxFeelsLike_c = Math.round(Math.max(...feelsLikeByDay_c));
+  const maxFeelsLike_f = Math.round(Math.max(...feelsLikeByDay_f));
 
   const fullData = `
     ${DayWeek(selectedDayData.dayWeek).charAt(0).toUpperCase() + 
@@ -109,7 +113,7 @@ const MWFeelsLike = ({dailyWeatherData}) => {
                     interval={0}
                   />
                   <YAxis 
-                    dataKey="feelslike_c" 
+                    dataKey={`${temperatureUnits === 'Celsius' ? 'feelslike_c' : 'feelslike_f'}`} 
                     orientation="right"
                     // domain={[0, 100]}
                     // ticks={[0, 20, 40, 60, 80, 100]}
@@ -117,7 +121,7 @@ const MWFeelsLike = ({dailyWeatherData}) => {
                   />
                   <Line 
                     type="monotone"
-                    dataKey="feelslike_c"
+                    dataKey={`${temperatureUnits === 'Celsius' ? 'feelslike_c' : 'feelslike_f'}`} 
                     stroke="#8884d8"
                     strokeWidth={2}
                     dot={false}
@@ -134,7 +138,7 @@ const MWFeelsLike = ({dailyWeatherData}) => {
       <div className="MWFeelsLike__daily-summary">
         <div className="MWFeelsLike__daily-summary-title">Ежедневная сводка</div>
         <div className="MWFeelsLike__daily-summary-descr">
-          Сегодня: температура ощущалась в диапазоне от {minFeelsLike}° до {maxFeelsLike}°.
+          Сегодня: температура ощущалась в диапазоне от {temperatureUnits === 'Celsius' ? minFeelsLike_c : minFeelsLike_f}° до {temperatureUnits === 'Celsius' ? maxFeelsLike_c : maxFeelsLike_f}°.
         </div>
       </div>
 

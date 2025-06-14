@@ -1,11 +1,15 @@
 import React from 'react';
 //===== assets =====//
 import './HourlyForecastCard.scss';
+//===== redux =====//
+import { useSelector } from 'react-redux';
+import { selectTemperatureUnits } from '../../features/weather/weatherSelectors';
 
 const HourlyForecastCard = ({hour}) => {
   const timeFormatted = hour.time.split(':')[0];
   const isTemperature = typeof hour.temp_c === 'number';
-  
+  const temperatureUnits = useSelector(selectTemperatureUnits);
+
   return (
     <div className='HourlyForecastCard'>
         <span className="HourlyForecastCard__time">{timeFormatted}</span>
@@ -17,7 +21,7 @@ const HourlyForecastCard = ({hour}) => {
           />
         </div>
         <span className="HourlyForecastCard__temperature">
-          {isTemperature ? `${hour.temp_c}°` : hour.temp_c}
+          {isTemperature && temperatureUnits === 'Celsius' ? `${hour.temp_c}°` : `${hour.temp_f}°`}
         </span>
     </div>
   )

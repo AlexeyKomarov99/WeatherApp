@@ -1,13 +1,15 @@
 import React, {useState, useEffect, useRef} from 'react';
+//===== assets =====//
 import './HourlyForecast.scss';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+//===== components =====//
+import { Swiper, SwiperSlide } from 'swiper/react';
 import HourlyForecastCard from '../HourlyForecastCard/HourlyForecastCard';
 
 const HourlyForecast = ({dailyWeatherData, onClick}) => {
     const [currentIndexHour, setCurrentIndexHour] = useState(0);
     const swiperRef = useRef(null);
-    
+
     const formatTime = (timeStr) => {
         const [time, period] = timeStr.split(' ');
         let [hours, minutes] = time.split(':');
@@ -30,6 +32,7 @@ const HourlyForecast = ({dailyWeatherData, onClick}) => {
                 time_epoch: hour.time_epoch,
                 time: hour.time.split(' ')[1],
                 temp_c: Math.round(hour.temp_c),
+                temp_f: Math.round(hour.temp_f),
                 weatherIcon: hour.condition.icon,
                 weatherDescr: hour.condition.text,
                 weatherIconCode: hour.condition.code,
@@ -41,6 +44,7 @@ const HourlyForecast = ({dailyWeatherData, onClick}) => {
             time_epoch: day.date_epoch * 1000,
             time: formatTime(dayCopy.sunrise),
             temp_c: 'Восход солнца',
+            temp_f: 'Восход солнца',
             isSunEvent: true,
             weatherIcon: '//cdn.weatherapi.com/weather/64x64/day/176.png' // Иконка восхода
         });
@@ -49,6 +53,7 @@ const HourlyForecast = ({dailyWeatherData, onClick}) => {
             time_epoch: day.date_epoch * 1000 + 1,
             time: formatTime(dayCopy.sunset),
             temp_c: 'Закат солнца',
+            temp_f: 'Закат солнца',
             isSunEvent: true,
             weatherIcon: '//cdn.weatherapi.com/weather/64x64/night/176.png' // Иконка заката
         });

@@ -1,4 +1,7 @@
 import React, {useState, useRef} from 'react';
+//===== redux =====//
+import { useSelector } from 'react-redux';
+import { selectTemperatureUnits } from '../../../features/weather/weatherSelectors';
 //===== asses =====//
 import './MWHumidity.scss';
 import { FaCloudRain as CloudRainIcon } from "react-icons/fa";
@@ -10,6 +13,7 @@ import { Month } from '../../../utils/getMonth';
 import { DayWeek } from '../../../utils/getDayWeek';
 
 const MWHumidity = ({dailyWeatherData}) => {
+  const temperatureUnits = useSelector(selectTemperatureUnits);
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const chartSwiperRef = useRef(null);
   const dailyHumidityData = dailyWeatherData?.map((day) => {
@@ -50,11 +54,19 @@ const MWHumidity = ({dailyWeatherData}) => {
     ${selectedDayData.date.split('-')[0]}
   `;
 
-  const dewPointList = dailyHumidityData[selectedDateIndex].hours.map((hour) => (
+  const dewPointList_c = dailyHumidityData[selectedDateIndex].hours.map((hour) => (
     hour.dewpoint_c
   ));
-  const minDewPoint = Math.round(Math.min(...dewPointList));
-  const maxDewPoint = Math.round(Math.max(...dewPointList));
+  const dewPointList_f = dailyHumidityData[selectedDateIndex].hours.map((hour) => (
+    hour.dewpoint_f
+  ));
+
+  const minDewPoint_c = Math.round(Math.min(...dewPointList_c));
+  const minDewPoint_f = Math.round(Math.min(...dewPointList_f));
+
+  const maxDewPoint_c = Math.round(Math.max(...dewPointList_c));
+  const maxDewPoint_f = Math.round(Math.max(...dewPointList_f));
+
   const avgDayHumidity = dailyHumidityData[selectedDateIndex].avgDayHumidity;
 
   return (
@@ -149,7 +161,7 @@ const MWHumidity = ({dailyWeatherData}) => {
         <div className="MWHumidity__daily-summary-descr">
           Сегодня средняя влажность составит {avgDayHumidity}%.
           <br/>
-          Точка росы: от {minDewPoint} до {maxDewPoint}
+          Точка росы: от {temperatureUnits === 'Celsius' ? `${minDewPoint_c}°` : `${minDewPoint_f}°`} до {temperatureUnits === 'Celsius' ? `${maxDewPoint_c}°` : `${maxDewPoint_f}°`}
         </div>
       </div>
 
