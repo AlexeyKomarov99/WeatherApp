@@ -1,8 +1,14 @@
 import React from 'react';
 //===== redux =====//
 import { useSelector, useDispatch } from 'react-redux';
-import { setTemperatureUnits } from '../../features/weather/weatherSlice';
-import { selectTemperatureUnits } from '../../features/weather/weatherSelectors';
+import { 
+    setTemperatureUnits,
+    setActiveSectionName,
+    setIsActiveMW,
+} from '../../features/weather/weatherSlice';
+import { 
+    selectTemperatureUnits,
+} from '../../features/weather/weatherSelectors';
 //===== assets =====//
 import './WeatherCardsSettingsMW.scss';
 import { FaCheck as CheckIcon } from "react-icons/fa6";
@@ -22,12 +28,9 @@ const contentData = [
 
 const WeatherCardsSettingsMW = ({
     isActiveSetingsMW,
-    setIsActiveSettingsMW,
     openSettingsMW,
     iconPosition,
-    toggleActiveSection,
     onToggleEditMode,
-    isEditMode,
 }) => {
     const dispatch = useDispatch();
     const temperatureUnits = useSelector(selectTemperatureUnits) || '-';
@@ -47,17 +50,22 @@ const WeatherCardsSettingsMW = ({
     const handleSelectAction = (action) => {
         if(action === 'Изменить список') {
             onToggleEditMode();
-            setIsActiveSettingsMW(false);
+            handleClose();
         } else if (action === 'Уведомления') {
-            toggleActiveSection('Notification');
+            dispatch(setActiveSectionName('Notification'));
+            dispatch(setIsActiveMW(true));
+            handleClose();
         } else if (action === 'Градусы Цельсия') {
             dispatch(setTemperatureUnits('Celsius'));
-            setIsActiveSettingsMW();
+            handleClose();
+
         } else if (action === 'Градусы Фаренгейта') {
             dispatch(setTemperatureUnits('Fahrenheit'));
-            setIsActiveSettingsMW();
+            handleClose();
         } else if (action === 'Сообщить о проблеме') {
-            toggleActiveSection('Report Problem');
+            dispatch(setActiveSectionName('Report Problem'));
+            dispatch(setIsActiveMW(true));
+            handleClose();
         } return null;
     }
 

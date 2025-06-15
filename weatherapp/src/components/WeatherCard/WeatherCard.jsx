@@ -125,7 +125,6 @@ const WeatherCard = ({
       <ModalWindow 
         isActiveMW={isActiveMW}
         activeSectionName={activeSectionName}
-        // onClose={() => setIsActiveMW(false)}
         handleCloseMW={handleCloseMW}
         currentWeatherData={currentWeatherData}
         hourlyForecastData={hourlyForecastData}

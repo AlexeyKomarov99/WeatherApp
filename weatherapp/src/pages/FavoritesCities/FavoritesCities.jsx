@@ -4,11 +4,15 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 //===== redux =====//
 import { useSelector, useDispatch } from 'react-redux';
 import { 
-  selectFavoriteCities,
+  selectActiveSectionName, 
+  selectFavoriteCities, 
+  selectIsActiveMW 
 } from '../../features/weather/weatherSelectors';
-import { 
-  setIndexActivePage, 
+import {
+  setIndexActivePage,
   reorderFavoriteCities,
+  setIsActiveMW,
+  setActiveSectionName,
 } from '../../features/weather/weatherSlice';
 //===== assets =====//
 import './FavoritesCities.scss';
@@ -25,11 +29,11 @@ const FavoritesCities = ({
 }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [blackout, setBlackout] = useState(false);
-  const [isActiveMW, setIsActiveMW] = useState(false);
+  const [isActiveSearchMW, setIsActiveSearchMW] = useState(false);
   const [isActiveSetingsMW, setIsActiveSettingsMW] = useState(false);
-  // Для главного модального окна
-  const [activeSection, setActiveSection] = useState('');
-  const [isActiveMainMW, setIsActiveMainMW] = useState(false);
+
+  const activeSectionName = useSelector(selectActiveSectionName);
+  const isActiveMW = useSelector(selectIsActiveMW);
 
   const [iconPosition, setIconPosition] = useState({ top: 0, left: 0 });
   const iconRef = useRef(null);
@@ -95,11 +99,6 @@ const FavoritesCities = ({
     setIsActiveSettingsMW(prevState => !prevState);
   };
 
-  const toggleActiveSection = (section) => {
-    setActiveSection(section);
-    setIsActiveMainMW(true);
-  };
-
   // Обработчик завершения перетаскивания (Drag and Drop)
   const onDragEnd = (result) => {
     if (!result.destination) return; // Если элемент не перемещен
@@ -115,26 +114,12 @@ const FavoritesCities = ({
 
   const handleUndoChange = () => {
     setIsEditMode(prevState => !prevState);
-    console.log(`Режим изменения ${isEditMode ? 'включен' : 'выключен'}`)
   }
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (titleRef.current) {
-  //       // Получаем позицию заголовка относительно viewport
-  //       const titleRect = titleRef.current.getBoundingClientRect();
-  //       console.log(titleRect);
-  //     }
-  //   }
-
-  //   // Добавляем слушатель скролла
-  //   window.addEventListener('scroll', handleScroll);
-
-  //   // Убираем слушатель при размонтировании
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, []);
+  const handleCloseMW = () => {
+    dispatch(setIsActiveMW(false));
+    dispatch(setActiveSectionName(''));
+  }
 
   return (
     <>
@@ -175,8 +160,8 @@ const FavoritesCities = ({
         <SearchCity
           blackout={blackout} 
           setBlackout={setBlackout} 
-          isActiveMW={isActiveMW}
-          setIsActiveMW={setIsActiveMW}
+          isActiveSearchMW={isActiveSearchMW}
+          setIsActiveSearchMW={setIsActiveSearchMW}
         />
 
         <DragDropContext onDragEnd={onDragEnd}>
@@ -225,18 +210,16 @@ const FavoritesCities = ({
 
       <WeatherCardsSettingsMW
         isActiveSetingsMW={isActiveSetingsMW}
-        setIsActiveSettingsMW={setIsActiveSettingsMW}
         openSettingsMW={openSettingsMW}
         iconPosition={iconPosition}
-        toggleActiveSection={toggleActiveSection}
         onToggleEditMode={() => setIsEditMode(!isEditMode)}
         isEditMode={isEditMode}
       />
 
       <ModalWindow 
-        isActiveMW={isActiveMainMW}
-        activeSection={activeSection}
-        onClose={() => setIsActiveMainMW(false)}
+        isActiveMW={isActiveMW}
+        activeSectionName={activeSectionName}
+        handleCloseMW={handleCloseMW}
       />
     </>
   );

@@ -14,7 +14,7 @@ const ModalWindowFoundCity = ({
   setCoords,
   setSearchTerm,
   setSuggestions,
-  isActiveMW, 
+  isActiveSearchMW, 
   onClose, 
   currentWeatherData,
   hourlyForecastData,
@@ -41,10 +41,10 @@ const ModalWindowFoundCity = ({
   let is_day = currentWeatherData?.current?.is_day
 
   useEffect(() => {
-    if(isActiveMW) {
+    if(isActiveSearchMW) {
       setIsVisible(true);
     }
-  }, [isActiveMW]);
+  }, [isActiveSearchMW]);
 
   const handleClose = () => {
     setIsVisible(false);
@@ -84,7 +84,7 @@ const ModalWindowFoundCity = ({
     <Modal
       className={`ModalWindowFoundCity ${isVisible ? 'openWindow' : ''}`}
       overlayClassName={`OverlayModalWindowFoundCity`}
-      isOpen={isActiveMW}
+      isOpen={isActiveSearchMW}
       onRequestClose={handleClose}
       closeTimeoutMS={300}
     >

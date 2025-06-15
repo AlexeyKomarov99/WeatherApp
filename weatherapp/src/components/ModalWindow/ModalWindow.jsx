@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 //===== assets =====//
 import './ModalWindow.scss';
 //===== components =====//
@@ -22,33 +22,17 @@ const ModalWindow = ({
     isActiveMW, 
     activeSectionName, 
     handleCloseMW, 
-    currentWeatherData, 
     hourlyForecastData, 
     dailyForecastData,
-    selectedDateIndex, // Для компонента MWDailyForecast
-    setSelectedDateIndex // Для компонента MWDailyForecast
+    selectedDateIndex, 
+    setSelectedDateIndex
 }) => {
-
-    // const [isVisible, setIsVisible] = useState(false);
-
-    // useEffect(() => {
-    //     if(isActiveMW) {
-    //         setIsVisible(true)
-    //     }
-    // }, [isActiveMW]);
-
-    // const handleClose = () => {
-    //     // setIsVisible(false);
-    //     // setTimeout(onClose, 300);
-    //     onClose();
-    // }
 
     const dailyWeatherData = dailyForecastData?.forecast?.forecastday;
     const hourlyWeatherData = hourlyForecastData?.forecast?.forecastday[0].astro;
 
     return (
         <Modal 
-            // className={`ModalWindow ${isVisible ? 'openWindow' : ''}`}
             isOpen={isActiveMW}
             onRequestClose={handleCloseMW}
             className="ModalWindow"
