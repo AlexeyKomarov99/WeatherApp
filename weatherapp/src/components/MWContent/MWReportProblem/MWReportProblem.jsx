@@ -14,7 +14,7 @@ import {
 } from './data';
 
 const MWReportProblem = ({
-  handleClose
+  handleCloseMW
 }) => {
 
   const [weatherData, setWeatherData] = useState(CURRENT_WEATHER_DATA);
@@ -117,14 +117,14 @@ const MWReportProblem = ({
       <div className="MWReportProblem__header">
         <div 
           className="MWReportProblem__cancel"
-          onClick={handleClose}
+          onClick={handleCloseMW}
         >
           Отменить
         </div>
         <div className="MWReportProblem__report-problem">Сообщить о проблеме</div>
         <div 
           className="MWReportProblem__send"
-          onClick={handleClose}
+          onClick={handleCloseMW}
         >
           Отправить
         </div>

@@ -17,7 +17,7 @@ const MWDailyForecast = ({
   dailyWeatherData,
   selectedDateIndex,
   setSelectedDateIndex,
-  handleClose
+  handleCloseMW
 }) => {
   const chartSwiperRef = useRef(null);
   const temperatureUnits = useSelector(selectTemperatureUnits);
@@ -72,7 +72,7 @@ const MWDailyForecast = ({
         <div className="MWDailyForecast__title">УФ-индекс</div>
         <div 
           className="MWDailyForecast__cross-icon-wrapper"
-          onClick={handleClose}
+          onClick={handleCloseMW}
         >
           <CrossIcon className='cross-icon' />
         </div>

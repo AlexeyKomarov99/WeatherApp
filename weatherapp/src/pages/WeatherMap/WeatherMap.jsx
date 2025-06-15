@@ -1,10 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+//===== redux =====//
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  selectIsActiveMW,
+  selectActiveSectionName,
+} from '../../features/weather/weatherSelectors';
+import {
+  setIsActiveMW,
+  setActiveSectionName
+} from '../../features/weather/weatherSlice';
+//===== react-router =====//
 import { useNavigate } from 'react-router-dom';
+//===== components
+import ModalWindow from '../../components/ModalWindow/ModalWindow';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { createPortal } from 'react-dom';
 import L from 'leaflet';
+//===== assets =====//
 import 'leaflet/dist/leaflet.css';
 import './WeatherMap.scss';
+import { FaLocationArrow as ArrowIcon } from "react-icons/fa6";
+import { IoIosList as ListIcon } from "react-icons/io";
+import { PiCards as CardsIcon } from "react-icons/pi";
+import { FaUmbrella as UmbrellaIcon } from "react-icons/fa";
+import { TbTemperature as TempNormIcon } from "react-icons/tb";
+import { IoCheckmarkOutline as CheckIcon } from "react-icons/io5";
 
 // Иконка для маркера
 const currentLocationIcon = new L.Icon({
@@ -17,94 +37,277 @@ const currentLocationIcon = new L.Icon({
   shadowSize: [41, 41]
 });
 
-// Кнопка возврата на главную
+// Кнопка возврата на главную страницу
 const ButtonHomePage = ({ handleHomePage }) => {
   const map = useMap();
   const container = map.getContainer();
   
   return createPortal(
-    <button 
+    <div 
       onClick={handleHomePage}
-      className="map-control-button"
       style={{
         position: 'fixed',
-        top: '10px',
-        left: '10px',
-        zIndex: 20001,
+        top: '3%',
+        left: '3%',
+        zIndex: 1000,
+        height: '48px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: '8px',
+        padding: '4px 12px',
+        fontSize: '18px',
+        backgroundColor: '#ededed',
+        color: '#000',
+        boxShadow: '1px 2px 5px rgba(0,0,0,0.3)',
+        cursor: 'pointer',
       }}
     >
       Готово
-    </button>,
+    </div>,
     container
   );
 };
 
 // Кнопка возврата к геопозиции (обновленная версия)
-const ButtonCurrentLocation = ({ position }) => {
+const ButtonFavoriteCities = ({ currentPosition, handleTest }) => {
   const map = useMap();
   const container = map.getContainer();
 
   const handleClick = () => {
-    map.flyTo(position, 13, {
+    map.flyTo(currentPosition, 13, {
       duration: 1,
       easeLinearity: 0.25
     });
   };
 
   return createPortal(
-    <button
-      onClick={handleClick}
-      className="map-control-button"
+    <div
       style={{
         position: 'fixed',
-        top: '60px',
-        left: '10px',
-        zIndex: 20001,
+        top: '3%',
+        right: '3%',
+        zIndex: 1000,
+        display: 'flex',
+        flexDirection: 'column',
+        borderRadius: '8px',
+        backgroundColor: '#ededed',
+        boxShadow: '1px 2px 5px rgba(0,0,0,0.3)',
       }}
     >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path d="M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10 10 10 0 0 1-10-10 10 10 0 0 1 10-10z"/>
-        <circle cx="12" cy="12" r="3"/>
-      </svg>
-    </button>,
+      {/* Arrow */}
+      <div
+        onClick={handleClick}
+        style={{
+          width: '48px',
+          height: '48px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          cursor: 'pointer',
+          borderBottom: '1px solid darkgray',
+        }}
+      >
+        <ArrowIcon
+          style={{
+            width: '32px',
+            height: '32px',
+            color: '000',
+          }}
+        />
+      </div>
+
+      {/* List cities */}
+      <div
+        onClick={handleTest}
+        style={{
+          width: '48px',
+          height: '48px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          cursor: 'pointer',
+        }}
+      >
+        <ListIcon 
+          style={{
+            width: '32px',
+            height: '32px',
+            color: '000',
+          }}
+        />
+      </div>
+
+    </div>,
     container
+    
   );
 };
 
-//===== ButtonFavoriteCities =====//
-const ButtonFavoriteCities = () => {
+const ButtonWeatherSection = React.forwardRef(({ openWeatherSectionMW }, ref) => {
+  const map = useMap();
+  const container = map.getContainer();
 
-}
+  return createPortal(
+    <div
+      ref={ref}
+      onClick={() => openWeatherSectionMW()}
+      style={{
+          position: 'fixed',
+          top: '17%',
+          right: '3%',
+          zIndex: 1000,
+          width: '48px',
+          height: '48px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: '8px',
+          backgroundColor: '#ededed',
+          boxShadow: '1px 2px 5px rgba(0,0,0,0.3)',
+          cursor: 'pointer',
+      }}
+    >
+      <CardsIcon 
+        style={{
+          width: '32px',
+          height: '32px',
+          color: '000',
+        }}
+      />
+    </div>,
+    container
+    
+  );
+});
+
+const weatherSectionData = [
+  {id: 1, title: 'Осадки', sectionIcon: <UmbrellaIcon style={{color: '000', marginRight: '16px', width: '24px', height: '24px'}} />, checkIcon: <CheckIcon />},
+  {id: 2, title: 'Температура', sectionIcon: <TempNormIcon style={{color: '000', marginRight: '16px', width: '24px', height: '24px'}}/>, checkIcon: <CheckIcon />},
+]
+
+const WeatherSectionMW = React.forwardRef(({ isWeatherSectionMW }, ref) => {
+  const map = useMap();
+  const container = map.getContainer();
+  
+  return createPortal(
+    <div
+      ref={ref}
+      style={{
+        display: isWeatherSectionMW ? 'block' : 'none',
+        position: 'fixed',
+        top: '25%', // Изменено положение, чтобы было рядом с кнопкой
+        right: '35px', // Отступ от правого края
+        width: '200px',
+        borderRadius: '8px',
+        zIndex: 1000,
+        backgroundColor: '#ededed',
+        boxShadow: '1px 2px 5px rgba(0,0,0,0.3)',
+      }}
+    >
+      {weatherSectionData.map((item) => (
+          <div 
+            key={item.id}
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              borderBottom: '1px solid darkgray',
+              cursor: 'pointer'
+            }}
+          >
+            <div 
+              style={{
+                color: '#000',
+                fontSize: '18px',
+                padding: '6px 0px',
+                marginLeft: '16px',
+              }}
+            >
+              {item.title}
+            </div>
+            <div>
+              {item.sectionIcon}
+            </div>
+          </div>
+        ))}
+    </div>,
+    container
+  );
+});
 
 const WeatherMap = ({ coords }) => {
-  const [position, setPosition] = useState(null);
+  const [isWeatherSectionMW, setIsWeatherSectionMW] = useState(false);
+  const [currentPosition, setCurrentPosition] = useState(null);
+  const isActiveMW = useSelector(selectIsActiveMW);
+  const activeSectionName = useSelector(selectActiveSectionName);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const weatherSectionRef = useRef(null);
+  const buttonWeatherSectionRef = useRef(null);
+
+  const openWeatherSectionMW = () => {
+    setIsWeatherSectionMW(prevState => !prevState);
+  }
+
+  const handleHomePage = () => navigate('/');
+
+  const handleTest = () => {
+    dispatch(setIsActiveMW(true));
+    dispatch(setActiveSectionName('FavoriteCities'));
+  }
+
+  const handleCloseMW = () => {
+    dispatch(setIsActiveMW(false));
+    dispatch(setActiveSectionName(''));
+  }
 
   useEffect(() => {
     if (coords) {
-      setPosition([coords.lat, coords.lon]);
+      setCurrentPosition([coords.lat, coords.lon]);
     }
   }, [coords]);
 
-  const handleHomePage = () => navigate('/');
-  
+  // Закрытие модального окна при клике вне его области
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Проверяем, что клик был не по модальному окну и не по кнопке
+      if (weatherSectionRef.current && 
+          !weatherSectionRef.current.contains(event.target) &&
+          buttonWeatherSectionRef.current &&
+          !buttonWeatherSectionRef.current.contains(event.target)) {
+        setIsWeatherSectionMW(false);
+      }
+    };
+
+    if (isWeatherSectionMW) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isWeatherSectionMW]);
 
   // Загрузка координат текущего местоположения
-  if (!position) return <div>Loading map...</div>;
+  if (!currentPosition) return <div>Loading map...</div>;
 
   return (
     <div className="WeatherMap">
       <MapContainer
         zoomControl={false}
-        center={position}
+        center={currentPosition}
         zoom={13}
-        style={{ 
+        style={{
+          position: 'fixed',
+          top: '0',
+          left: '0',
           height: '100vh',
           width: '100vw',
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          zIndex: 20000,
+          zIndex: '10'
         }}
       >
         <TileLayer
@@ -112,13 +315,30 @@ const WeatherMap = ({ coords }) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         />
         
-        <Marker position={position} icon={currentLocationIcon}>
+        <Marker position={currentPosition} icon={currentLocationIcon}>
           <Popup>Ваше текущее местоположение</Popup>
         </Marker>
 
         <ButtonHomePage handleHomePage={handleHomePage} />
-        <ButtonCurrentLocation position={position} />
+        <ButtonFavoriteCities currentPosition={currentPosition} handleTest={handleTest} />
+        
+        <ButtonWeatherSection 
+          openWeatherSectionMW={openWeatherSectionMW} 
+          ref={buttonWeatherSectionRef}
+        />
+        <WeatherSectionMW 
+          isWeatherSectionMW={isWeatherSectionMW} 
+          ref={weatherSectionRef}  
+        />
+
       </MapContainer>
+
+      <ModalWindow 
+        isActiveMW={isActiveMW}
+        activeSectionName={activeSectionName}
+        handleCloseMW={handleCloseMW}
+      />
+
     </div>
   );
 };

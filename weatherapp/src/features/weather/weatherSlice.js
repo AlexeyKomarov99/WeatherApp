@@ -5,6 +5,8 @@ const initialState = {
     indexActivePage: 0,
     citiesWeatherData: {},
     temperatureUnits: 'Celsius', // Celsius || Fahrenheit
+    isActiveMW: false, // Main MW
+    activeSectionName: '', // Название раздела с внутренним контеном
 }
 
 const featuredFavoritesCities = () => {
@@ -88,6 +90,12 @@ export const weatherSlice = createSlice({
             const [movedCity] = state.favoriteCities.splice(fromIndex, 1); // Удаляем город из старой позиции
             state.favoriteCities.splice(toIndex, 0, movedCity); // Вставляем в новую позицию
         },
+        setIsActiveMW: (state, action) => {
+            state.isActiveMW = action.payload;
+        },
+        setActiveSectionName: (state, action) => {
+          state.activeSectionName = action.payload;  
+        }
     }
 });
 
@@ -100,5 +108,7 @@ export const {
     updateAllCitiesWeather,
     setTemperatureUnits,
     reorderFavoriteCities,
+    setIsActiveMW,
+    setActiveSectionName,
 } = weatherSlice.actions;
 export default weatherSlice.reducer;

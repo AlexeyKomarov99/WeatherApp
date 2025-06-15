@@ -5,7 +5,7 @@ import { FaBell as BellIcon } from "react-icons/fa";
 import { FaHandshakeSimple as HandshakeIcon } from "react-icons/fa6";
 
 const MWNotification = ({
-    handleClose
+    handleCloseMW
 }) => {
   return (
     <div className='MWNotification'>
@@ -34,7 +34,7 @@ const MWNotification = ({
                 </div>
                 <div 
                     className="MWNotification__description-link"
-                    onClick={handleClose}
+                    onClick={handleCloseMW}
                 >
                     Как осуществляется управление данными...
                 </div>
@@ -42,13 +42,13 @@ const MWNotification = ({
                 <div className="MWNotification__btn-group">
                     <div 
                         className="MWNotification__btn-continue"
-                        onClick={handleClose}
+                        onClick={handleCloseMW}
                     >
                         Продолжить
                     </div>
                     <div 
                         className="MWNotification__btn-not-now"
-                        onClick={handleClose}
+                        onClick={handleCloseMW}
                     >
                         Не сейчас
                     </div>

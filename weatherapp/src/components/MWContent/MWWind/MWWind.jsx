@@ -12,7 +12,7 @@ import { DayWeek } from '../../../utils/getDayWeek';
 
 const MWWind = ({
   dailyWeatherData,
-  handleClose,
+  handleCloseMW,
 }) => {
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const chartSwiperRef = useRef(null);
@@ -75,7 +75,7 @@ const MWWind = ({
         <div className="MWWind__title">Ветер</div>
         <div 
           className="MWWind__cross-icon-wrapper"
-          onClick={handleClose}
+          onClick={handleCloseMW}
         >
           <CrossIcon className='cross-icon' />
         </div>

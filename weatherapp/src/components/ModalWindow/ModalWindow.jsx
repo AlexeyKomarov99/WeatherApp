@@ -20,8 +20,8 @@ Modal.setAppElement('#root');
 
 const ModalWindow = ({
     isActiveMW, 
-    activeSection, 
-    onClose, 
+    activeSectionName, 
+    handleCloseMW, 
     currentWeatherData, 
     hourlyForecastData, 
     dailyForecastData,
@@ -29,44 +29,49 @@ const ModalWindow = ({
     setSelectedDateIndex // Для компонента MWDailyForecast
 }) => {
 
-    const [isVisible, setIsVisible] = useState(false);
+    // const [isVisible, setIsVisible] = useState(false);
 
-    useEffect(() => {
-        if(isActiveMW) {
-            setIsVisible(true)
-        }
-    }, [isActiveMW]);
+    // useEffect(() => {
+    //     if(isActiveMW) {
+    //         setIsVisible(true)
+    //     }
+    // }, [isActiveMW]);
 
-    const handleClose = () => {
-        setIsVisible(false);
-        setTimeout(onClose, 300);
-    }
+    // const handleClose = () => {
+    //     // setIsVisible(false);
+    //     // setTimeout(onClose, 300);
+    //     onClose();
+    // }
 
     const dailyWeatherData = dailyForecastData?.forecast?.forecastday;
     const hourlyWeatherData = hourlyForecastData?.forecast?.forecastday[0].astro;
 
     return (
         <Modal 
-            className={`ModalWindow ${isVisible ? 'openWindow' : ''}`}
-            overlayClassName={'OverlayModalWindow'}
-            isOpen={isVisible}
-            onRequestClose={handleClose}
+            // className={`ModalWindow ${isVisible ? 'openWindow' : ''}`}
+            isOpen={isActiveMW}
+            onRequestClose={handleCloseMW}
+            className="ModalWindow"
+            overlayClassName="OverlayModalWindow"
             closeTimeoutMS={300}
+            ariaHideApp={false}
+            shouldCloseOnOverlayClick={true}
+            shouldCloseOnEsc={true}
         >
             <div className="ModalWindow__content">
-                {activeSection === 'Hourly Forecast' && <MWDailyForecast dailyWeatherData={dailyWeatherData} />}
-                {activeSection === 'Daily Forecast' && <MWDailyForecast dailyWeatherData={dailyWeatherData} selectedDateIndex={selectedDateIndex} setSelectedDateIndex={setSelectedDateIndex} handleClose={handleClose}/>}
-                {activeSection === 'UV Index' && <MWUVIndex dailyWeatherData={dailyWeatherData} handleClose={handleClose} />}
-                {activeSection === 'Sunset' && <MWSunset hourlyWeatherData={hourlyWeatherData} handleClose={handleClose} />}
-                {activeSection === 'Wind' && <MWWind dailyWeatherData={dailyWeatherData} handleClose={handleClose} />}
-                {activeSection === 'Precipitation' && <MWPrecipitation dailyWeatherData={dailyWeatherData} handleClose={handleClose} />}
-                {activeSection === 'Feels Like' && <MWFeelsLike dailyWeatherData={dailyWeatherData} handleClose={handleClose} />}
-                {activeSection === 'Humidity' && <MWHumidity dailyWeatherData={dailyWeatherData} handleClose={handleClose} />}
-                {activeSection === 'Visibility' && <MWVisibility dailyWeatherData={dailyWeatherData} handleClose={handleClose} />}
-                {activeSection === 'Pressure' && <MWPressure dailyWeatherData={dailyWeatherData} handleClose={handleClose} />}
-                {activeSection === 'Report Problem' && <MWReportProblem handleClose={handleClose} />}
-                {activeSection === 'Notification' && <MWNotification handleClose={handleClose} />}
-                {activeSection === 'FavoriteCities' && <MWFavoriteCities handleClose={handleClose} />}
+                {activeSectionName === 'Hourly Forecast' && <MWDailyForecast dailyWeatherData={dailyWeatherData} />}
+                {activeSectionName === 'Daily Forecast' && <MWDailyForecast dailyWeatherData={dailyWeatherData} selectedDateIndex={selectedDateIndex} setSelectedDateIndex={setSelectedDateIndex} handleCloseMW={handleCloseMW}/>}
+                {activeSectionName === 'UV Index' && <MWUVIndex dailyWeatherData={dailyWeatherData} handleCloseMW={handleCloseMW} />}
+                {activeSectionName === 'Sunset' && <MWSunset hourlyWeatherData={hourlyWeatherData} handleCloseMW={handleCloseMW} />}
+                {activeSectionName === 'Wind' && <MWWind dailyWeatherData={dailyWeatherData} handleCloseMW={handleCloseMW} />}
+                {activeSectionName === 'Precipitation' && <MWPrecipitation dailyWeatherData={dailyWeatherData} handleCloseMW={handleCloseMW} />}
+                {activeSectionName === 'Feels Like' && <MWFeelsLike dailyWeatherData={dailyWeatherData} handleCloseMW={handleCloseMW} />}
+                {activeSectionName === 'Humidity' && <MWHumidity dailyWeatherData={dailyWeatherData} handleCloseMW={handleCloseMW} />}
+                {activeSectionName === 'Visibility' && <MWVisibility dailyWeatherData={dailyWeatherData} handleCloseMW={handleCloseMW} />}
+                {activeSectionName === 'Pressure' && <MWPressure dailyWeatherData={dailyWeatherData} handleCloseMW={handleCloseMW} />}
+                {activeSectionName === 'Report Problem' && <MWReportProblem handleCloseMW={handleCloseMW} />}
+                {activeSectionName === 'Notification' && <MWNotification handleCloseMW={handleCloseMW} />}
+                {activeSectionName === 'FavoriteCities' && <MWFavoriteCities handleCloseMW={handleCloseMW} />}
             </div>
         </Modal>
     )

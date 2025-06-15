@@ -12,7 +12,7 @@ import { DayWeek } from '../../../utils/getDayWeek';
 
 const MWVisibility = ({
   dailyWeatherData,
-  handleClose,
+  handleCloseMW,
 }) => {
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const chartSwiperRef = useRef(null);
@@ -69,7 +69,7 @@ const MWVisibility = ({
         <div className="MWVisibility__title">Видимость</div>
         <div 
           className="MWVisibility__cross-icon-wrapper"
-          onClick={handleClose}
+          onClick={handleCloseMW}
         >
           <CrossIcon className='cross-icon' />
         </div>

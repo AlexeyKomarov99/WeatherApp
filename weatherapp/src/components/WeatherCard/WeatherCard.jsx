@@ -1,4 +1,14 @@
 import React, {useState, useEffect} from 'react';
+//===== redux =====//
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  selectIsActiveMW,
+  selectActiveSectionName
+} from '../../features/weather/weatherSelectors';
+import {
+  setIsActiveMW,
+  setActiveSectionName,
+} from '../../features/weather/weatherSlice';
 //===== assets =====//
 import './WeatherCard.scss';
 //===== components =====//
@@ -25,20 +35,30 @@ const WeatherCard = ({
   isFavorite,
 }) => {
 
-  const [activeSection, setActiveSection] = useState('');
-  const [isActiveMW, setIsActiveMW] = useState(false);
-
+  // const [activeSection, setActiveSection] = useState('');
+  // const [isActiveMW, setIsActiveMW] = useState(false);
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
 
-  const toggleActiveSection = (current) => {
-    setActiveSection(current);
-    setIsActiveMW(true);
+  const isActiveMW = useSelector(selectIsActiveMW);
+  const activeSectionName = useSelector(selectActiveSectionName);
+  const dispatch = useDispatch();
+
+  const toggleActiveSection = (section) => {
+    dispatch(setActiveSectionName(section));
+    dispatch(setIsActiveMW(true));
+    // setActiveSection(current);
+    // setIsActiveMW(true);
   }
 
   const locationData = currentWeatherData?.location;
   const currentWeather = currentWeatherData?.current;
   const hourlyWeatherData = hourlyForecastData?.forecast?.forecastday;
   const dailyWeatherData = dailyForecastData?.forecast?.forecastday;
+
+  const handleCloseMW = () => {
+    dispatch(setIsActiveMW(false));
+    dispatch(setActiveSectionName(''));
+  }
 
   return (
     <div className='WeatherCard'>
@@ -104,8 +124,9 @@ const WeatherCard = ({
       {/* Modal Window */}
       <ModalWindow 
         isActiveMW={isActiveMW}
-        activeSection={activeSection}
-        onClose={() => setIsActiveMW(false)}
+        activeSectionName={activeSectionName}
+        // onClose={() => setIsActiveMW(false)}
+        handleCloseMW={handleCloseMW}
         currentWeatherData={currentWeatherData}
         hourlyForecastData={hourlyForecastData}
         dailyForecastData={dailyForecastData}

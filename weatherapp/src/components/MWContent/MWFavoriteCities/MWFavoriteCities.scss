@@ -1,0 +1,98 @@
+@import '../../../index.css';
+.MWFavoriteCities {
+
+    padding-bottom: 50px;
+
+    .MWFavoriteCities__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        .MWFavoriteCities__content-left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .MWFavoriteCities__icon-wrapper {
+                width: 36px;
+                height: 36px;
+                margin-right: 12px;
+            }
+            .icon-wrapper {
+                .icon {
+
+                }
+            }
+
+            .MWFavoriteCities__header-group {
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+                gap: 2px;
+                .MWFavoriteCities__title {
+                    
+                }
+                .MWFavoriteCities__title-descr {
+                    color: lightgray;
+                }
+            }
+        }
+        
+        .MWFavoriteCities__cross-icon-wrapper {
+            width: 28px;
+            height: 28px;
+            border-radius: var(--border-radius-small);
+            background-color: var(--color-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            .cross-icon {
+                color: var(--color-black);
+                object-fit: cover;
+            }
+        }
+        
+    }
+
+    .MWFavoriteCities__city-list {
+        border-radius: var(--border-radius-small);
+        background-color: var(--color-dark-gray);
+        transition: var(--transition);
+        overflow: hidden;
+
+        .MWFavoriteCities__city-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+
+            &:nth-child(n):not(:last-child) {
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                padding-bottom: 3px;
+            }
+
+            &:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+
+            .MWFavoriteCities__city-name {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 18px;
+                margin-left: 10px;
+                height: 48px;
+            }
+
+            .MWFavoriteCities__city-icon-wrapper {
+                .MWFavoriteCities__city-icon {
+                    width: 48px;
+                    height: 48px;
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}

@@ -8,7 +8,7 @@ import { LineChart, Area, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Re
 
 const MWSunset = ({
   hourlyWeatherData,
-  handleClose,
+  handleCloseMW,
 }) => {
   const sunrise = hourlyWeatherData?.sunrise;
   const sunset = hourlyWeatherData?.sunset;
@@ -37,7 +37,7 @@ const MWSunset = ({
         <div className="MWSunset__title">Заход солнца</div>
         <div 
           className="MWSunset__cross-icon-wrapper"
-          onClick={handleClose}
+          onClick={handleCloseMW}
         >
           <CrossIcon className='cross-icon' />
         </div>

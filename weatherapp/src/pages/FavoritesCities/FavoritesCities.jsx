@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 //===== redux =====//
 import { useSelector, useDispatch } from 'react-redux';
-import { selectFavoriteCities } from '../../features/weather/weatherSelectors';
+import { 
+  selectFavoriteCities,
+} from '../../features/weather/weatherSelectors';
 import { 
   setIndexActivePage, 
   reorderFavoriteCities,

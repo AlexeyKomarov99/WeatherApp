@@ -15,7 +15,7 @@ import { DayWeek } from '../../../utils/getDayWeek';
 
 const MWHumidity = ({
   dailyWeatherData,
-  handleClose,
+  handleCloseMW,
 }) => {
   const temperatureUnits = useSelector(selectTemperatureUnits);
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
@@ -82,7 +82,7 @@ const MWHumidity = ({
         <div className="MWHumidity__title">Влажность</div>
         <div 
           className="MWHumidity__cross-icon-wrapper"
-          onClick={handleClose}
+          onClick={handleCloseMW}
         >
           <CrossIcon className='cross-icon' />
         </div>

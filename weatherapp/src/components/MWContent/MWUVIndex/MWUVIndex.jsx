@@ -12,7 +12,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 const MWUVIndex = ({
   dailyWeatherData,
-  handleClose,
+  handleCloseMW,
 }) => {
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const chartSwiperRef = useRef(null);
@@ -62,7 +62,7 @@ const MWUVIndex = ({
         <div className="MWUVIndex__title">УФ-индекс</div>
         <div 
           className="MWUVIndex__cross-icon-wrapper"
-          onClick={handleClose}
+          onClick={handleCloseMW}
         >
           <CrossIcon className='cross-icon' />
         </div>

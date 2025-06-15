@@ -19,7 +19,7 @@ const precipitationDescr = [
 
 const MWPrecipitation = ({
   dailyWeatherData,
-  handleClose,
+  handleCloseMWMW,
 }) => {
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const chartSwiperRef = useRef(null);
@@ -74,7 +74,7 @@ const MWPrecipitation = ({
         <div className="MWPrecipitation__title">Влажность</div>
         <div 
           className="MWPrecipitation__cross-icon-wrapper"
-          onClick={handleClose}
+          onClick={handleCloseMWMW}
         >
           <CrossIcon className='cross-icon' />
         </div>

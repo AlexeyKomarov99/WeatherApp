@@ -12,7 +12,7 @@ import { DayWeek } from '../../../utils/getDayWeek';
 
 const MWPressure = ({
   dailyWeatherData,
-  handleClose,
+  handleCloseMW,
 }) => {
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const chartSwiperRef = useRef(null);
@@ -68,7 +68,7 @@ const MWPressure = ({
         <div className="MWPressure__title">Давление</div>
         <div 
           className="MWPressure__cross-icon-wrapper"
-          onClick={handleClose}
+          onClick={handleCloseMW}
         >
           <CrossIcon className='cross-icon' />
         </div>
