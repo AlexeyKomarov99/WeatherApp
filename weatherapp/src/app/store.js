@@ -16,7 +16,12 @@ export const store = configureStore({
         weather: weatherReducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware()
+        getDefaultMiddleware({
+            serializableCheck: {
+                // Увеличиваем порог предупреждения до 100ms
+                warnAfter: 100,
+            }
+        })
             .concat(weatherApi.middleware)
             .concat(localStorageMiddleware),
     preloadedState

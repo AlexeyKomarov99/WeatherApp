@@ -101,74 +101,75 @@ const SearchCity = ({blackout, setBlackout, isActiveMW, setIsActiveMW}) => {
     useEffect(() => {
         if(citiesData) {
             setSuggestions(citiesData);
-            console.log(citiesData);
         }
     }, [citiesData]);
 
     return (
-        <div 
-            className={`SearchCity ${blackout ? 'content-up' : ''}`}
-        >
-            <div className="SearchCity__content">
-                <div className="SearchCity__input-wrapper">
-                    <div className="SearchCity__icon-wrapper icon-wrapper">
-                        <SearchIcon className='icon' />
+        <div className="SearchCity__wrapper">
+            <div 
+                className={`SearchCity ${blackout ? 'content-up' : ''}`}
+            >
+                <div className="SearchCity__content">
+                    <div className="SearchCity__input-wrapper">
+                        <div className="SearchCity__icon-wrapper icon-wrapper">
+                            <SearchIcon className='icon' />
+                        </div>
+                        <input
+                            ref={inputFocus}
+                            className={`SearchCity__input`}
+                            type="text"
+                            name='searchCity'
+                            value={searchTerm}
+                            onChange={handleInputChange}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            placeholder='Поиск города или аэропорта'
+                            autoComplete="off"
+                        />
                     </div>
-                    <input
-                        ref={inputFocus}
-                        className={`SearchCity__input`}
-                        type="text"
-                        name='searchCity'
-                        value={searchTerm}
-                        onChange={handleInputChange}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        placeholder='Поиск города или аэропорта'
-                        autoComplete="off"
-                    />
+                    <button 
+                        className={`SearchCity__cancel ${blackout ? 'input-active' : 'input-inactive'}`}
+                        onClick={handleCancel}
+                    >
+                        Отмена
+                    </button>
                 </div>
-                <button 
-                    className={`SearchCity__cancel ${blackout ? 'input-active' : 'input-inactive'}`}
-                    onClick={handleCancel}
-                >
-                    Отмена
-                </button>
+
+                {showSuggestions && (
+                    <div className="SearchCity__suggestions">
+                        {isFetching ? (
+                            <div className="SearchCity__suggestions-item">Загрузка</div>
+                        ) : suggestions.length > 0 ? (
+                            suggestions.map((city) => (
+                                <div 
+                                    key={city.id}
+                                    className="SearchCity__suggestions-item"
+                                    onClick={() => handleSelectCity(city)}
+                                >
+                                    <div className="SearchCity__city-name">{`${city.name}, ${city.region} - ${city.country}`}</div>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="SearchCity__suggestion-item">Ничего не найдено</div>
+                        )}
+                    </div>
+                )}
+                
+                <ModalWindowFoundCity
+                    selectedCity={selectedCity}
+                    setSelectedCity={setSelectedCity}
+                    setCoords={setCoords}
+                    setSearchTerm={setSearchTerm}
+                    setSuggestions={setSuggestions}
+                    isActiveMW={isActiveMW}
+                    setIsActiveMW={setIsActiveMW}
+                    onClose={() => setIsActiveMW(false)}
+                    currentWeatherData={currentWeatherData}
+                    hourlyForecastData={hourlyForecastData}
+                    dailyForecastData={dailyForecastData}
+                />
+
             </div>
-
-            {showSuggestions && (
-                <div className="SearchCity__suggestions">
-                    {isFetching ? (
-                        <div className="SearchCity__suggestions-item">Загрузка</div>
-                    ) : suggestions.length > 0 ? (
-                        suggestions.map((city) => (
-                            <div 
-                                key={city.id}
-                                className="SearchCity__suggestions-item"
-                                onClick={() => handleSelectCity(city)}
-                            >
-                                <div className="SearchCity__city-name">{`${city.name}, ${city.region} - ${city.country}`}</div>
-                            </div>
-                        ))
-                    ) : (
-                        <div className="SearchCity__suggestion-item">Ничего не найдено</div>
-                    )}
-                </div>
-            )}
-            
-            <ModalWindowFoundCity
-                selectedCity={selectedCity}
-                setSelectedCity={setSelectedCity}
-                setCoords={setCoords}
-                setSearchTerm={setSearchTerm}
-                setSuggestions={setSuggestions}
-                isActiveMW={isActiveMW}
-                setIsActiveMW={setIsActiveMW}
-                onClose={() => setIsActiveMW(false)}
-                currentWeatherData={currentWeatherData}
-                hourlyForecastData={hourlyForecastData}
-                dailyForecastData={dailyForecastData}
-            />
-
         </div>
     )
 }

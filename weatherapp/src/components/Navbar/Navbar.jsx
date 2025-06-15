@@ -68,8 +68,11 @@ const Navbar = ({
                 ref={swiperRef}
                 initialSlide={indexActivePage}
                 onSlideChange={handleSlideChange}
-                slidesPerView={5}
                 spaceBetween={10}
+                slidesPerView={5} // Автоматическое определение количества видимых слайдов
+                centeredSlides={true}
+                centerInsufficientSlides={true}
+                slideToClickedSlide={true}
                 className='Navbar__swiper'
               >
                 <SwiperSlide 
@@ -79,6 +82,7 @@ const Navbar = ({
                   <div className="Navbar__icon-wrapper">
                     <ArrowIcon className={`Navbar__icon icon-arrow ${indexActivePage === 0 ? 'active-page' : ''}`} />
                   </div>
+                  
                 </SwiperSlide>
                 {citiesWeatherData.map((city, index) => (
                   <SwiperSlide 

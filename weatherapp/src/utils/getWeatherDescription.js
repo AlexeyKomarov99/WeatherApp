@@ -1,5 +1,6 @@
 export function getWeatherDescription(description) {
-    return description === 'Partly Cloudy' || 'Partly cloudy' ? 'Переменная облачность' : 
+    const desc = description.toLowerCase();
+    return desc === 'partly cloudy' ? 'Переменная облачность' : 
         description === 'Sunny' ? 'Солнечно' :
         description === 'Clear' ? 'Ясно' :
         description === 'Cloudy' ? 'Облачно' :

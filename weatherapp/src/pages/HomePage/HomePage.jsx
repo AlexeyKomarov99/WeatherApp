@@ -122,6 +122,8 @@ const HomePage = ({
       <div className="swiper-container" ref={swiperContainerRef}>
         <div className="swiper-wrapper">
           <div className="swiper-slide">
+            
+            {/* Прогноз погоды по текущей геопозиции */}
             <WeatherCard
               currentWeatherData={currentWeatherData}
               hourlyForecastData={hourlyForecastData}
@@ -130,6 +132,7 @@ const HomePage = ({
             />
           </div>
 
+          {/* Прогноз погоды избранных городов */}
           {citiesWeatherData.map((city) => (
             <div className="swiper-slide" key={city.cityId}>
               <WeatherCard

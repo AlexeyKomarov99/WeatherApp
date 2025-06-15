@@ -47,21 +47,21 @@ const App = () => {
     loadCoords();
   }, []);
 
-  // Получение данных о погоде
+  // Получение данных о погоде по текущей геопозиции
   const {
     data: currentWeatherData, 
     // isLoading: isCurrentLoading,
     // error: currentError
   } = useGetCurrentWeatherQuery(coords, { skip: !coords });
 
-  // Почасовой прогноз погоды за сутки
+  // Почасовой прогноз погоды за сутки по текущей геопозиции
   const {
     data: hourlyForecastData, 
     // isLoading: isForecastLoading, 
     // error: forecastError
   } = useGetHourlyForecastQuery(coords, { skip: !coords });
   
-  // Ежедневный прогноз погоды на 10 суток
+  // Ежедневный прогноз погоды на 10 суток по текущей геопозиции
   const {
     data: dailyForecastData,
     // isLoading: isDailyForecastLoading,
@@ -94,6 +94,7 @@ const App = () => {
                 <Route 
                   path='/weather-map' 
                   element={<WeatherMap 
+                    coords={coords}
                   />} 
                 />
                 <Route 

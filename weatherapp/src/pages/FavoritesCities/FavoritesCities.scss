@@ -8,6 +8,11 @@
         display: flex;
         justify-content: end;
         align-items: start;
+        
+        // position: sticky;
+        // top: 0;
+        // z-index: 12000;
+
         .FavoritesCities__icon-wrapper {
             display: flex;
             justify-content: center;
@@ -30,6 +35,10 @@
         opacity: 1;
         visibility: visible;
         transition: all 0.3s ease-out;
+
+        // position: sticky;
+        // top: 0;
+        // z-index: 12000;
     }
 
     .hide-title {

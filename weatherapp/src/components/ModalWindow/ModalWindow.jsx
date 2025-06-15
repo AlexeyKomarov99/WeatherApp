@@ -14,6 +14,7 @@ import MWVisibility from '../MWContent/MWVisibility/MWVisibility';
 import MWPressure from '../MWContent/MWPressure/MWPressure';
 import MWReportProblem from '../MWContent/MWReportProblem/MWReportProblem';
 import MWNotification from '../MWContent/MWNotification/MWNotification';
+import MWFavoriteCities from '../MWContent/MWFavoriteCities/MWFavoriteCities';
 
 Modal.setAppElement('#root');
 
@@ -65,6 +66,7 @@ const ModalWindow = ({
                 {activeSection === 'Pressure' && <MWPressure dailyWeatherData={dailyWeatherData} handleClose={handleClose} />}
                 {activeSection === 'Report Problem' && <MWReportProblem handleClose={handleClose} />}
                 {activeSection === 'Notification' && <MWNotification handleClose={handleClose} />}
+                {activeSection === 'FavoriteCities' && <MWFavoriteCities handleClose={handleClose} />}
             </div>
         </Modal>
     )

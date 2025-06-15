@@ -4,15 +4,10 @@ import './Precipitation.scss';
 import { GiWaterDrop as WaterDropIcon } from "react-icons/gi";
 
 const Precipitation = ({hourlyWeatherData, onClick}) => {
-
-  const precip_mm = hourlyWeatherData?.current?.precip_mm;
-  let precipPerDay = 0;
-  const precipPerHour = 
-    hourlyWeatherData?.forecast?.forecastday[0]?.hour.forEach(hour => {
-      precipPerDay += hour.precip_mm
-  })
-  const precipPerDayFormatted = Math.round(precipPerDay);
   
+  const precipHourlyData = hourlyWeatherData ? hourlyWeatherData[0]?.hour?.map(currentHour => currentHour.precip_mm) : [];
+  const precipByDay = Math.round(precipHourlyData.reduce((acc, precip) => acc + precip, 0));
+
   return (
     <section 
       className='Precipitation section-card'
@@ -27,13 +22,13 @@ const Precipitation = ({hourlyWeatherData, onClick}) => {
 
         <div className="Precipitation__content">
           <div className="Precipitation__content-top">
-            <div className="Precipitation__indicator">{precipPerDayFormatted} мм</div>
+            <div className="Precipitation__indicator">{precipByDay} мм</div>
             <div className="Precipitation__descr">За последние 24 часа</div>
           </div>
 
           <div className="Precipitation__content-bottom">
             <div className="Precipitation__descr-current">
-              {precip_mm} мм ожидается в течение суток.
+              {precipByDay} мм ожидается в течение суток.
             </div>
           </div>
         </div>

@@ -1,92 +1,97 @@
 @import '../../index.css';
-.SearchCity {
-    position: relative;
-    z-index: 10001;
-    width: 100%;
-    margin-bottom: 10px;
-    transition: var(--transition);
-    
-    .SearchCity__content {
+.SearchCity__wrapper {
+    // position: sticky;
+    // top: 5%;
+    // z-index: 12000;
+    .SearchCity {
+        position: relative;
+        z-index: 10001;
         width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: start;
-        align-items: center;
-        .SearchCity__input-wrapper {
+        margin-bottom: 10px;
+        transition: var(--transition);
+        
+        .SearchCity__content {
             width: 100%;
             display: flex;
             flex-direction: row;
             justify-content: start;
             align-items: center;
-            background: var(--color-dark-gray);
-            padding: 7px 5px;
-            border-radius: var(--border-radius-small);
-            transition: var(--transition);
-            .SearchCity__icon-wrapper {
-                margin-right: 5px;
-            }
-            .SearchCity__input {
+            .SearchCity__input-wrapper {
                 width: 100%;
-                font-size: 15px;
+                display: flex;
+                flex-direction: row;
+                justify-content: start;
+                align-items: center;
+                background: var(--color-dark-gray);
+                padding: 7px 5px;
+                border-radius: var(--border-radius-small);
+                transition: var(--transition);
+                .SearchCity__icon-wrapper {
+                    margin-right: 5px;
+                }
+                .SearchCity__input {
+                    width: 100%;
+                    font-size: 15px;
+                    color: var(--color-white);
+                    background-color: transparent;
+                }
+                
+                &.input-wrapper-active {
+                    width: calc(100% - 90px);
+                }
+            }
+            .SearchCity__cancel {
+                transition: all 0.3s ease;
+                cursor: pointer;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 color: var(--color-white);
                 background-color: transparent;
-            }
-            
-            &.input-wrapper-active {
-                width: calc(100% - 90px);
-            }
-        }
-        .SearchCity__cancel {
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--color-white);
-            background-color: transparent;
-            margin-left: 10px;
-            font-size: 15px;
-
-            opacity: 0;
-            visibility: hidden;
-            
-            &.input-inactive {
+                margin-left: 10px;
+                font-size: 15px;
+    
                 opacity: 0;
-                width: 0;
-                margin-left: 0;
-                pointer-events: none;
+                visibility: hidden;
+                
+                &.input-inactive {
+                    opacity: 0;
+                    width: 0;
+                    margin-left: 0;
+                    pointer-events: none;
+                }
+                
+                &.input-active {
+                    opacity: 1;
+                    visibility: visible;
+                    width: 90px;
+                }
             }
-            
-            &.input-active {
-                opacity: 1;
-                visibility: visible;
-                width: 90px;
+        }
+    
+        .SearchCity__suggestions {
+            position: absolute;
+            top: 120%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: var(--border-radius-small);
+            transition: var(--transition);
+            .SearchCity__suggestions-item {
+                padding: 7px 5px;
+                background-color: black;
+                
+                cursor: pointer;
+                .SearchCity__city-name {
+                    font-size: 14px;
+                }
+                &:hover {
+                    background-color: var(--color-dark-gray);
+                }
             }
         }
     }
-
-    .SearchCity__suggestions {
-        position: absolute;
-        top: 120%;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: var(--border-radius-small);
-        transition: var(--transition);
-        .SearchCity__suggestions-item {
-            padding: 7px 5px;
-            background-color: black;
-            
-            cursor: pointer;
-            .SearchCity__city-name {
-                font-size: 14px;
-            }
-            &:hover {
-                background-color: var(--color-dark-gray);
-            }
-        }
+    .content-up {
+        transform: translateY(-38px);
     }
-}
-.content-up {
-    transform: translateY(-38px);
 }

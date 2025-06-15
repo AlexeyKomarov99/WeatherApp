@@ -25,14 +25,17 @@ const FavoritesCities = ({
   const [blackout, setBlackout] = useState(false);
   const [isActiveMW, setIsActiveMW] = useState(false);
   const [isActiveSetingsMW, setIsActiveSettingsMW] = useState(false);
-  const favoritesCitiesList = useSelector(selectFavoriteCities);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [iconPosition, setIconPosition] = useState({ top: 0, left: 0 });
-  const iconRef = useRef(null);
   // Для главного модального окна
   const [activeSection, setActiveSection] = useState('');
   const [isActiveMainMW, setIsActiveMainMW] = useState(false);
+
+  const [iconPosition, setIconPosition] = useState({ top: 0, left: 0 });
+  const iconRef = useRef(null);
+  const titleRef = useRef(null);
+  const favoritesCitiesList = useSelector(selectFavoriteCities);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   const hourlyWeatherData = hourlyForecastData?.forecast?.forecastday;
   const hourlyData_c = hourlyWeatherData 
@@ -78,7 +81,6 @@ const FavoritesCities = ({
     }
   }, [blackout]);
 
-  console.log()
 
   const openSettingsMW = () => {
     if(iconRef.current) {
@@ -114,6 +116,24 @@ const FavoritesCities = ({
     console.log(`Режим изменения ${isEditMode ? 'включен' : 'выключен'}`)
   }
 
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (titleRef.current) {
+  //       // Получаем позицию заголовка относительно viewport
+  //       const titleRect = titleRef.current.getBoundingClientRect();
+  //       console.log(titleRect);
+  //     }
+  //   }
+
+  //   // Добавляем слушатель скролла
+  //   window.addEventListener('scroll', handleScroll);
+
+  //   // Убираем слушатель при размонтировании
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
+
   return (
     <>
       {blackout && <div className="page-blackout" />}
@@ -125,6 +145,7 @@ const FavoritesCities = ({
             <div 
               onClick={handleUndoChange}
               style={{
+                height: '24px',
                 cursor: 'pointer'
               }}
             >
@@ -142,7 +163,10 @@ const FavoritesCities = ({
 
         </div>
 
-        <div className={`FavoritesCities__title ${blackout ? 'hide-title' : ''}`}>
+        <div 
+          className={`FavoritesCities__title ${blackout ? 'hide-title' : ''}`}
+          ref={titleRef}
+        >
           Погода
         </div>
 

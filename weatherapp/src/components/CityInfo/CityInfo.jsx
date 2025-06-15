@@ -8,12 +8,12 @@ import './CityInfo.scss';
 import { getWeatherDescription } from '../../utils/getWeatherDescription';
 
 const CityInfo = ({currentWeather, locationData, hourlyWeatherData}) => {
-    const temperatureUnits = useSelector(selectTemperatureUnits) || 'Celsius';
+    const temperatureUnits = useSelector(selectTemperatureUnits) || '-';
     
     const nameCity =  locationData ? locationData.name : "Город не найден";
     const weatherTemp_c = Math.round(currentWeather?.temp_c ?? 0);
     const weatherTemp_f = Math.round(currentWeather?.temp_f ?? 0);
-    const weatherDescr = currentWeather ? currentWeather.condition?.text : "—";
+    const weatherDescr = currentWeather ? getWeatherDescription(currentWeather.condition?.text) : "—";
     const hourlyData_c = hourlyWeatherData 
         ? hourlyWeatherData[0].hour.map(hour => Math.round(hour.temp_c))
         : [];

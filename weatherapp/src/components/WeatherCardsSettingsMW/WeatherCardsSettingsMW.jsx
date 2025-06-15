@@ -30,7 +30,7 @@ const WeatherCardsSettingsMW = ({
     isEditMode,
 }) => {
     const dispatch = useDispatch();
-    const temperatureUnits = useSelector(selectTemperatureUnits) || 'Celsius';
+    const temperatureUnits = useSelector(selectTemperatureUnits) || '-';
 
     const modalStyle = {
         position: 'absolute',
@@ -48,7 +48,6 @@ const WeatherCardsSettingsMW = ({
         if(action === 'Изменить список') {
             onToggleEditMode();
             setIsActiveSettingsMW(false);
-            console.log(`Режим изменения ${isEditMode ? 'включен' : 'выключен'}`)
         } else if (action === 'Уведомления') {
             toggleActiveSection('Notification');
         } else if (action === 'Градусы Цельсия') {
