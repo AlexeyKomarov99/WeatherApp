@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 //===== redux =====//
 import { useSelector, useDispatch } from 'react-redux';
 import {
   selectIsActiveMW,
   selectActiveSectionName,
+  selectFavoriteCities,
 } from '../../features/weather/weatherSelectors';
 import {
   setIsActiveMW,
@@ -144,6 +145,28 @@ const ButtonFavoriteCities = ({ currentPosition, handleTest }) => {
   );
 };
 
+// Окно с текущей информацией о погоде
+const WindowWeatherData = () => {
+  const map = useMap();
+  const container = map.getContainer();
+
+  return createPortal(
+    <div
+      style={{
+
+      }}
+    >
+      <div>
+
+      </div>
+      <div>
+        
+      </div>
+    </div>,
+    container
+  )
+}
+
 const ButtonWeatherSection = React.forwardRef(({ openWeatherSectionMW }, ref) => {
   const map = useMap();
   const container = map.getContainer();
@@ -242,10 +265,27 @@ const WeatherMap = ({ coords }) => {
   const [currentPosition, setCurrentPosition] = useState(null);
   const isActiveMW = useSelector(selectIsActiveMW);
   const activeSectionName = useSelector(selectActiveSectionName);
+  const favoriteCities = useSelector(selectFavoriteCities);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const weatherSectionRef = useRef(null);
   const buttonWeatherSectionRef = useRef(null);
+
+  const myFavoriteCities = useMemo(() => {
+    return favoriteCities.map(city => {
+      return {
+        cityId: city.cityId,
+        cityName: city.cityName,
+        coords: [city.lat, city.lon],
+        currentTemp_c: city.currentTemp_c,
+        currentTemp_f: city.currentTemp_f,
+        maxTemp_c: city.maxTemp_c,
+        maxTemp_f: city.maxTemp_f,
+        minTemp_c: city.minTemp_c,
+        minTemp_f: city.minTemp_f,
+      }
+    })
+  }, [favoriteCities]);
 
   const openWeatherSectionMW = () => {
     setIsWeatherSectionMW(prevState => !prevState);
@@ -318,6 +358,13 @@ const WeatherMap = ({ coords }) => {
         <Marker position={currentPosition} icon={currentLocationIcon}>
           <Popup>Ваше текущее местоположение</Popup>
         </Marker>
+
+        {/* Список избранных городов */}
+        {myFavoriteCities.map((city) => (
+          <Marker key={city.cityId} position={city.coords} icon={currentLocationIcon}>
+            <Popup>{city.cityName}</Popup>
+          </Marker>
+        ))}
 
         <ButtonHomePage handleHomePage={handleHomePage} />
         <ButtonFavoriteCities currentPosition={currentPosition} handleTest={handleTest} />

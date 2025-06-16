@@ -14,7 +14,6 @@ import { RxCross1 as CrossIcon } from "react-icons/rx";
 const MWFavoriteCities = ({
   handleCloseMW
 }) => {
-  const favoriteCities = useSelector(selectFavoriteCities);
   const citiesWeatherData = useSelector(selectCitiesWeatherData);
 
   const currentHour = new Date().getHours();
